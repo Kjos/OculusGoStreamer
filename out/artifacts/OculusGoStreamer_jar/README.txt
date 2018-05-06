@@ -20,6 +20,38 @@ A desktop streaming application for the OculusGo and GearVR (although untested).
 - Visit the address in your Oculus browser.
 - Click the keyboard icon to open the keyboard.
 
+##config.json
+{
+// Port to host server on
+ "WEB_PORT": 7578,
+// Capture x, in this case second display
+ "SCREEN_LEFT": 1920,
+// Capture y
+ "SCREEN_TOP": 0,
+// Capture width
+ "SCREEN_WIDTH": 1920,
+// Capture height
+ "SCREEN_HEIGHT": 1080,
+// Framerate to maintain
+ "FPS": 20,
+// Jpeg quality range
+ "MIN_QUALITY": 0.3,
+ "MAX_QUALITY": 1.0,
+// Jpeg quality adjustment per step, up or down
+ "QUALITY_ALPHA": 0.05,
+// Skip is 1: no skip. Skip is 2: every other frame.
+ "MAX_FRAME_SKIP": 3,
+// Allow for 3 frames of latency, then lower quality
+ "MAX_FRAMES_LATENCY": 3,
+// The following 3 parameters can be set to gif/png/jpeg
+// When jpeg quality range maxed out, switch to png
+ "HIGH_FORMAT": "png",
+// Use jpeg for low quality. If set to gif or png, jpeg quality will only work as a "timer/buffer", has no affect on png/gif quality
+ "LOW_FORMAT": "jpeg",
+// Format for interframes
+ "INTERFRAME_FORMAT": "jpeg",
+}
+
 ##Notes
 - At 10% battery the connection or browser will be limited and streaming will stutter.
 - When you have the headset off, the browser will keep running in the background, so close the app when you're done.
