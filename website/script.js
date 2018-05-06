@@ -28,31 +28,56 @@ function sendCommand(command, value) {
 	}
 }
 
+function getCursor(e) {
+	var pos = [e.pageX, e.pageY];
+	pos[0] -= (window.innerWidth - canvas.width) / 2;
+	pos[1] -= (window.innerHeight - canvas.height) / 2;
+	pos[0] *= 10000;
+	pos[1] *= 10000;
+	pos[0] /= canvas.width;
+	pos[1] /= canvas.height;
+
+	if (pos[0] < 0 || pos[1] < 0 || pos[0] > 10000 || pos[1] > 10000) {
+		return false;
+	} else {
+		return pos;
+	}
+}
+
 var lastmovetime = Date.now();
 function inputSetup() {
-	$("#canvas").mousemove(function( event ) {
+	$("#canvas").mousemove(function( e ) {
 		var t = Date.now();
 		if (t - lastmovetime < 30) return;
 
-		var pos = [event.pageX, event.pageY];
-		pos[0] -= (window.innerWidth - canvas.width) / 2;
-		pos[1] -= (window.innerHeight - canvas.height) / 2;
-		pos[0] *= 10000;
-		pos[1] *= 10000;
-		pos[0] /= canvas.width;
-		pos[1] /= canvas.height;
-
-		if (pos[0] < 0 || pos[1] < 0 || pos[0] > 10000 || pos[1] > 10000) return;
+		var pos = getCursor(e);
+		if (!pos) return;
 
 		lastmovetime = t;
 		sendCommand("mouseMove", pos);
 	});
-	$("#canvas").on({ 'touchstart' : function( event ) {
-			sendCommand("mousePress", 1);
+	$("#canvas").on({ 'touchmove' : function( e ) {
+			var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
+			var pos = getCursor(touch);
+			if (!pos) return;
+
+			sendCommand("mouseMove", pos);
 		}
 	});
-	$("#canvas").on({ 'touchend' : function( event ) {
-			sendCommand("mouseRelease", 1);
+	$("#canvas").on({ 'touchstart' : function( e ) {
+			var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
+			var pos = getCursor(touch);
+			if (!pos) return;
+
+			sendCommand("mousePress", pos);
+		}
+	});
+	$("#canvas").on({ 'touchend' : function( e ) {
+			var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
+			var pos = getCursor(touch);
+			if (!pos) return;
+
+			sendCommand("mouseRelease", pos);
 		}
 	});
 	checkKeyInput();

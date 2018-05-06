@@ -48,19 +48,29 @@ public class Input {
             JSONArray pos = obj.getJSONArray("mouseMove");
             mouseMove(pos.getInt(0), pos.getInt(1));
         }
+
         if (obj.has("mousePress")) {
+            JSONArray pos = obj.getJSONArray("mousePress");
+            mouseMove(pos.getInt(0), pos.getInt(1));
+
             mousePress();
             tPress = System.currentTimeMillis();
         }
+
         if (obj.has("mouseRelease")) {
+            JSONArray pos = obj.getJSONArray("mouseRelease");
+            mouseMove(pos.getInt(0), pos.getInt(1));
+
             long d = 30L - (System.currentTimeMillis() - tPress);
             if (d > 0) try {
                 Thread.sleep(d);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+
             mouseRelease();
         }
+
         if (obj.has("keys")) {
             String keys = obj.getString("keys");
 
