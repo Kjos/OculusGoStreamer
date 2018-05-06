@@ -12,7 +12,7 @@ A desktop streaming application for the OculusGo and GearVR (although untested).
 - Supports Go virtual keyboard. Input is copied to clipboard on PC and then copy-pasted, so it can handle all characters.
 - Supports Go pointer for mouse.
 
-##Instructions:
+## Instructions:
 - Install VLC. It's required.
 - Run from commandline: java -jar OculusGoStreamer.jar
 - Or any other way you run Java programs.
@@ -20,7 +20,8 @@ A desktop streaming application for the OculusGo and GearVR (although untested).
 - Visit the address in your Oculus browser.
 - Click the keyboard icon to open the keyboard.
 
-##config.json
+## config.json
+```
     {
     // Port to host server on
      "WEB_PORT": 7578,
@@ -51,12 +52,13 @@ A desktop streaming application for the OculusGo and GearVR (although untested).
     // Format for interframes
      "INTERFRAME_FORMAT": "jpeg",
     }
+```
 
-##Notes
+## Notes
 - At 10% battery the connection or browser will be limited and streaming will stutter.
 - When you have the headset off, the browser will keep running in the background, so close the app when you're done.
 
-##Todo
+## Todo
 - Improve latency. TCP makes it so packets can get stacked. Needs to send and receive frame timestamps to be able to read the actual latency and account for it. (Done)
 - Browser side pull up menu so more options can be accessible.
 - Such as fullscreen support.
