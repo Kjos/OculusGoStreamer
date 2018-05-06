@@ -11,7 +11,7 @@ A desktop streaming application for the OculusGo and GearVR (although untested).
 - Supports Go pointer for mouse.
 
 ##Todo
-- Improve latency. TCP makes it so packets can get stacked. Needs to send and receive frame timestamps to be able to read the actual latency and account for it.
+- Improve latency. TCP makes it so packets can get stacked. Needs to send and receive frame timestamps to be able to read the actual latency and account for it. (Done)
 - Browser side pull up menu so more options can be accessible.
 - Such as fullscreen support.
 - Or switching displays.
