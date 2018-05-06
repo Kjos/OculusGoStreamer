@@ -50,7 +50,7 @@ public class ImageWrapper {
     }
 
     private static final byte[] EMPTY = new byte[]{0};
-    public byte[] getCompressedBytes(int type, float quality, String format) {
+    public byte[] getCompressedBytes(int type, int framestamp, float quality, String format) {
         imgParam.setCompressionQuality(quality);
         output.reset();
         output.write(type);
@@ -63,6 +63,13 @@ public class ImageWrapper {
                 break;
             default: return EMPTY;
         }
+        output.write(framestamp & 0xff);
+        framestamp >>= 8;
+        output.write(framestamp & 0xff);
+        framestamp >>= 8;
+        output.write(framestamp & 0xff);
+        framestamp >>= 8;
+        output.write(framestamp & 0xff);
         try {
             if (format.equals("jpeg")) {
                 IIOImage outputImage = new IIOImage(image, null, null);

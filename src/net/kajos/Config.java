@@ -11,7 +11,8 @@ public class Config {
 
     public static final int MAX_BANDWIDTH_BYTES_FRAME = 15*1024*1024/8/Config.FPS;
 
-    public static float FRAME_SWING = 1000 / FPS; // 1000 / FPS is 1 frame ms
+    public static final int MAX_FRAMES_LATENCY = 5;
+
     public static float FRAMETIME_ALPHA = 0.1f;
     public static float QUALITY_ALPHA = 1f;
     public static float QUALITY_ADJUST = .05f;

@@ -64,20 +64,21 @@ public class RenderCallback extends RenderCallbackAdapter {
 
                 int viewerBytes;
                 if (isKeyFrame || missingKeyFrame) {
-                    viewerBytes = interlaceKeyFrame(viewer, frameData, missingKeyFrame);
+                    viewerBytes = interlaceKeyFrame(viewer, frameId, frameData, missingKeyFrame);
                 } else {
-                    viewerBytes = interlaceFrame(viewer, frameData);
+                    viewerBytes = interlaceFrame(viewer, frameId, frameData);
                 }
 
                 int bandwidth = (int)viewer.bandwidth.get(viewerBytes);
 
                 Quality quality = viewer.quality;
-                if (Math.abs(viewer.frameTime - frameTime.get()) > Config.FRAME_SWING ||
-                        bandwidth > Config.MAX_BANDWIDTH_BYTES_FRAME) {
+                if (bandwidth > Config.MAX_BANDWIDTH_BYTES_FRAME) {
                     quality.lower();
                 } else {
                     quality.raise();
                 }
+
+                viewer.setLastFrameStamp(frameId);
             }
 
             @Override
@@ -103,7 +104,7 @@ public class RenderCallback extends RenderCallbackAdapter {
         });
     }
 
-    private int interlaceKeyFrame(Viewer viewer, int[] frameData, boolean missingKeyFrame) {
+    private int interlaceKeyFrame(Viewer viewer, int frameStamp, int[] frameData, boolean missingKeyFrame) {
         Quality quality = viewer.quality;
 
         viewer.keyFrameToggle = !viewer.keyFrameToggle;
@@ -154,7 +155,7 @@ public class RenderCallback extends RenderCallbackAdapter {
         viewer.lastInterFrameSize = 0;
         viewer.skipInterlace2 = false;
 
-        byte[] data = img.getCompressedBytes(code, quality.jpegQuality.get(),
+        byte[] data = img.getCompressedBytes(code, frameStamp, quality.jpegQuality.get(),
                 quality.frameFormat);
 
         System.out.println("Keyframe " + code + ": " + quality.frameFormat + ", size: " + data.length);
@@ -168,7 +169,7 @@ public class RenderCallback extends RenderCallbackAdapter {
         return data.length;
     }
 
-    private int interlaceFrame(Viewer viewer, int[] frameData) {
+    private int interlaceFrame(Viewer viewer, int frameStamp, int[] frameData) {
         Quality quality = viewer.quality;
 
         int viewerBytes = 0;
@@ -242,7 +243,7 @@ public class RenderCallback extends RenderCallbackAdapter {
                 }
             } else {
 
-                byte[] data = img.getCompressedBytes(ip + 3, quality.jpegQuality.get(),
+                byte[] data = img.getCompressedBytes(ip + 3, frameStamp, quality.jpegQuality.get(),
                         quality.interImageFormat);
 
                 System.out.println("Interframe: " + quality.interImageFormat + ", size: " + data.length +
@@ -304,7 +305,7 @@ public class RenderCallback extends RenderCallbackAdapter {
                         pixels[p2] = (cr << 16) | (cg << 8) | cb;
                     }
                 }
-                byte[] data = img.getCompressedBytes(ip + 3, quality.jpegQuality.get(),
+                byte[] data = img.getCompressedBytes(ip + 3, frameStamp, quality.jpegQuality.get(),
                         quality.interImageFormat);
                 viewerBytes = data.length;
                 manager.sendImage(data);

@@ -9,8 +9,6 @@ import java.util.concurrent.Semaphore;
 public class Viewer {
     public Quality quality = new Quality();
 
-    public long loginTime;
-    public long lastUpdate;
     public int rgb[][][] = null;
 
     public int frameTime = 1000 / Config.FPS;
@@ -28,22 +26,18 @@ public class Viewer {
     public int clientHeight = 1000;
     public LowPassFilter bandwidth = new LowPassFilter(Config.LOWPASS_BANDWIDTH);
 
-    private long prevTimestamp = -1;
+    private long lastFrameStamp = 0;
+    private int receivedFrameStamp = 0;
 
-    public void frameUpdate() {
-        long timestamp = System.currentTimeMillis();
-        if (prevTimestamp != -1) {
-            frameTime = (int)(timestamp - prevTimestamp);
+    public void setLastFrameStamp(int val) {
+        this.lastFrameStamp = val;
+    }
+
+    public void frameUpdate(int frameStamp) {
+        if (lastFrameStamp - receivedFrameStamp > Config.MAX_FRAMES_LATENCY) {
+            quality.lower();
+            System.out.println("Latency too high! Lowering quality");
         }
-        prevTimestamp = timestamp;
-    }
-
-    public Viewer() {
-        newUpdate();
-        loginTime = lastUpdate;
-    }
-
-    public void newUpdate() {
-        lastUpdate = System.currentTimeMillis();
+        receivedFrameStamp = frameStamp;
     }
 }

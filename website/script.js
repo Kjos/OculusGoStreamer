@@ -370,6 +370,14 @@ function connectWebSocket() {
 			image.ip1 = type % 2 == 0 ? 0 : 1;
 			image.ip2 = 1 - image.ip1;
 			image.type = type;
+			var framestamp = bytes[5];
+			framestamp <<= 8;
+			framestamp |= bytes[4];
+			framestamp <<= 8;
+			framestamp |= bytes[3];
+			framestamp <<= 8;
+			framestamp |= bytes[2];
+			console.log(framestamp);
 
 			if (type == 1 || type == 2) {
 				lastKeyFrame = image;
@@ -386,13 +394,13 @@ function connectWebSocket() {
 				case 2: imageFormat = "png";
 					break;
 			}
-			var blob = new Blob( [ bytes.subarray(2) ], { type: "image/" + imageFormat } );
+			var blob = new Blob( [ bytes.subarray(6) ], { type: "image/" + imageFormat } );
 			image.src = urlCreator.createObjectURL( blob );
 			delete blob;
+
+			websocket.send(">" + framestamp);
 		}
 		delete bytes;
-
-		websocket.send("1");
 
 	};
 	websocket.onerror = function (msg) {

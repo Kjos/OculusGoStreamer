@@ -61,8 +61,8 @@ public class Manager extends BaseWebSocketHandler {
     public void onMessage(WebSocketConnection connection, String message) {
         if (viewer == null) return;
 
-        if (message.equals("1")) {
-            viewer.frameUpdate();
+        if (message.startsWith(">")) {
+            viewer.frameUpdate(Integer.parseInt(message.substring(1)));
         } else {
             input.parseInput(message);
         }

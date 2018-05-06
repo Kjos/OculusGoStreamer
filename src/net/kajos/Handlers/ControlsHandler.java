@@ -43,7 +43,6 @@ public class ControlsHandler implements HttpHandler {
                         break;
                 }
 
-                player.newUpdate();
             } catch (NumberFormatException e) {
                 System.out.println("Malformed integer passing by");
                 continue;
