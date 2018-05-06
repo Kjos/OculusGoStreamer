@@ -59,7 +59,7 @@ public class Config {
             try {
                 String contents = new String(Files.readAllBytes(file.toPath()));
                 configJson = new JSONObject(contents);
-                
+
             } catch (Exception e) {
                 Config.print("Error reading config.json!");
                 e.printStackTrace();
@@ -102,7 +102,7 @@ public class Config {
 
     public int MAX_FRAMES_LATENCY = 3;
 
-    public float QUALITY_ALPHA = .1f;
+    public float QUALITY_ALPHA = 0.05f;
     public float KEYFRAME_THRESHOLD = .3f;
     public float KEYFRAME_THRESHOLD2 = 3.3f;
 
