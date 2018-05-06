@@ -34,12 +34,12 @@ public class ScreenRecorder {
 
         String mrl = "screen://";
         String[] options = {
-                ":screen-fps=" + Config.FPS,
+                ":screen-fps=" + Config.get().FPS,
                 ":live-caching=0",
-                ":screen-width=" + Config.SCREEN_WIDTH,
-                ":screen-height=" + Config.SCREEN_HEIGHT,
-                ":screen-left=" + Config.SCREEN_LEFT,
-                ":screen-top=" + Config.SCREEN_TOP
+                ":screen-width=" + Config.get().SCREEN_WIDTH,
+                ":screen-height=" + Config.get().SCREEN_HEIGHT,
+                ":screen-left=" + Config.get().SCREEN_LEFT,
+                ":screen-top=" + Config.get().SCREEN_TOP
         };
         factory = new MediaPlayerFactory();
         callback = new RenderCallback(image, manager);

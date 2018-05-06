@@ -1,31 +1,115 @@
 package net.kajos;
 
+import org.json.JSONObject;
+
+import java.io.File;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+
 public class Config {
-    public static final int WEB_PORT = 7578;
+    private static Config instance = null;
 
-    public static final int SCREEN_LEFT = 1920;
-    public static final int SCREEN_TOP = 0;
-    public static final int SCREEN_WIDTH = 1920;
-    public static final int SCREEN_HEIGHT = 1080;
-    public static final int FPS = 30;
+    public static Config get() {
+        return instance;
+    }
 
-    public static final int MAX_FRAMES_LATENCY = 3;
+    private static String createDefaultConfig() {
+        JSONObject obj = new JSONObject();
+        obj.put("WEB_PORT", instance.WEB_PORT);
+        
+        obj.put("SCREEN_WIDTH", instance.SCREEN_WIDTH);
+        obj.put("SCREEN_HEIGHT", instance.SCREEN_HEIGHT);
+        obj.put("SCREEN_LEFT", instance.SCREEN_LEFT);
+        obj.put("SCREEN_TOP", instance.SCREEN_TOP);
+        obj.put("FPS", instance.FPS);
+        obj.put("MAX_FRAMES_LATENCY", instance.MAX_FRAMES_LATENCY);
+        obj.put("MAX_FRAME_SKIP", instance.MAX_FRAME_SKIP);
 
-    public static float FRAMETIME_ALPHA = 0.1f;
-    public static float QUALITY_ALPHA = 1f;
-    public static float QUALITY_ADJUST = .05f;
-    public static float KEYFRAME_THRESHOLD = .3f;
-    public static float KEYFRAME_THRESHOLD2 = 3.3f;
+        obj.put("MIN_QUALITY", instance.MIN_QUALITY);
+        obj.put("MAX_QUALITY", instance.MAX_QUALITY);
 
-    public static final String HIGH_FORMAT = Constants.PNG;
-    public static final String LOW_FORMAT = Constants.JPEG;
-    public static final String INTERFRAME_FORMAT = Constants.JPEG;
+        obj.put("HIGH_FORMAT", instance.HIGH_FORMAT);
+        obj.put("LOW_FORMAT", instance.LOW_FORMAT);
+        obj.put("INTERFRAME_FORMAT", instance.INTERFRAME_FORMAT );
 
-    public static final float IGNORE_DIFFERENCE = 0.000005f;
+        return obj.toString(1);
+    }
+
+    public static Config load() {
+        instance = new Config();
+
+        File file = new File("config.json");
+        if (!file.exists() || !file.canRead()) {
+            Config.print("No config.json file found!");
+            Config.print("Writing default config.json.");
+            try {
+                file.createNewFile();
+                try (PrintWriter out = new PrintWriter(file)) {
+                    out.println(createDefaultConfig());
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            System.exit(1);
+        }
+
+        try {
+            String contents = new String(Files.readAllBytes(file.toPath()));
+            JSONObject obj = new JSONObject(contents);
+            instance.WEB_PORT = obj.getInt("WEB_PORT");
+
+            instance.SCREEN_WIDTH = obj.getInt("SCREEN_WIDTH");
+            instance.SCREEN_HEIGHT = obj.getInt("SCREEN_HEIGHT");
+            instance.SCREEN_LEFT = obj.getInt("SCREEN_LEFT");
+            instance.SCREEN_TOP = obj.getInt("SCREEN_TOP");
+            instance.FPS = obj.getInt("FPS");
+            instance.MAX_FRAMES_LATENCY = obj.getInt("MAX_FRAMES_LATENCY");
+            instance.MAX_FRAME_SKIP = obj.getInt("MAX_FRAME_SKIP");
+
+            instance.MIN_QUALITY = obj.getFloat("MIN_QUALITY");
+            instance.MAX_QUALITY = obj.getFloat("MAX_QUALITY");
+
+            instance.HIGH_FORMAT = obj.getString("HIGH_FORMAT");
+            instance.LOW_FORMAT = obj.getString("LOW_FORMAT");
+            instance.INTERFRAME_FORMAT = obj.getString("INTERFRAME_FORMAT");
+
+        } catch (Exception e) {
+            Config.print("Error reading config.json!");
+            e.printStackTrace();
+            System.exit(1);
+        }
+        return instance;
+    }
+
+    public static void print(String line) {
+        System.out.println(line);
+    }
+
+    public int WEB_PORT = 7578;
+
+    public int SCREEN_LEFT = 1920;
+    public int SCREEN_TOP = 0;
+    public int SCREEN_WIDTH = 1920;
+    public int SCREEN_HEIGHT = 1080;
+    public int FPS = 30;
+
+    public int MAX_FRAMES_LATENCY = 3;
+
+    public float FRAMETIME_ALPHA = 0.1f;
+    public float QUALITY_ALPHA = 1f;
+    public float QUALITY_ADJUST = .05f;
+    public float KEYFRAME_THRESHOLD = .3f;
+    public float KEYFRAME_THRESHOLD2 = 3.3f;
+
+    public String HIGH_FORMAT = Constants.PNG;
+    public String LOW_FORMAT = Constants.JPEG;
+    public String INTERFRAME_FORMAT = Constants.JPEG;
+
+    public float IGNORE_DIFFERENCE = 0.000005f;
 
     // 1 is no frameskip, 2 every other frame, 3 every 2 in 3 frames are skipped
-    public static final int MAX_FRAME_SKIP = 3;
+    public int MAX_FRAME_SKIP = 3;
 
-    public static final float MIN_QUALITY = .3f;
-    public static final float MAX_QUALITY = .9f;
+    public float MIN_QUALITY = .3f;
+    public float MAX_QUALITY = .9f;
 }

@@ -403,9 +403,9 @@ function connectWebSocket() {
 			} else {
 				image.keyFrame = lastKeyFrame;
 			}
-			image.frameLoad = frameCompositing;
+			image.frameLoad = frameCompositing;// Alternative method: framePixelEditing
 			image.onload = function() {
-				image.frameLoad(); // Alternative method: framePixelEditing
+				image.frameLoad(); 
 				websocket.send(">" + framestamp);
 			};
 			var imageFormat;

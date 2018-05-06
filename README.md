@@ -20,5 +20,5 @@ A desktop streaming application for the OculusGo and GearVR (although untested).
 - Video compression needs overall improvement. Perhaps the interframe method can be removed, but I think the bandwidth usage might otherwise become too high at cost of quality. Overall interframe compression is GPU-costly for browserside.
 - Sound is missing.
 - Bundle everything as single executable.
-- Config file support or commandline parameters if sufficient.
+- Config file support or commandline parameters if sufficient. (Done, config.json)
 - Maintain aspect ratio. Will also lessen bandwidth usage a tiny bit. (Done)

@@ -1,17 +1,11 @@
 package net.kajos.Manager;
 
-
-import net.kajos.Config;
-import net.kajos.LowPassFilter;
-
 import java.util.concurrent.Semaphore;
 
 public class Viewer {
     public Quality quality = new Quality();
 
     public int rgb[][][] = null;
-
-    public int frameTime = 1000 / Config.FPS;
 
     public int lastKeyFrameSize = -1;
     public int lastInterFrameSize = 0;

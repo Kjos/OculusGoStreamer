@@ -18,6 +18,8 @@ import java.util.concurrent.Executors;
  * Created by kajos on 6-8-17.
  */
 public class Server {
+    private Config mem;
+
     private WebServer webServer;
     private ControlsHandler controlsHandler;
 
@@ -28,7 +30,8 @@ public class Server {
     }
 
     public void resize(int clientWidth, int clientHeight) {
-        float displayAspect = (float)Config.SCREEN_WIDTH / (float)Config.SCREEN_HEIGHT;
+        float displayAspect = (float)Config.get().get().SCREEN_WIDTH /
+                (float)Config.get().SCREEN_HEIGHT;
         float clientAspect = (float)clientWidth / (float)clientHeight;
         float diffAspect = displayAspect / clientAspect;
         if (diffAspect < 1f) {
@@ -46,11 +49,12 @@ public class Server {
     }
 
     public void start() throws InterruptedException, AWTException {
+        mem = Config.load();
         manager = new Manager();
 
         controlsHandler = new ControlsHandler(this, manager);
 
-        webServer = WebServers.createWebServer(Executors.newFixedThreadPool(Constants.THREADS), Config.WEB_PORT);
+        webServer = WebServers.createWebServer(Executors.newFixedThreadPool(Constants.THREADS), Config.get().WEB_PORT);
         webServer.add(new FilterHandler());
         webServer.add("/control", controlsHandler);
         webServer.add("/websocket", manager);
