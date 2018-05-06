@@ -71,13 +71,13 @@ public class LowPassFilter {
         }
     }
 
-    public boolean lower(float amount, float min) {
-        get(prev - amount);
+    public boolean lower(float min) {
+        get(prev - 1f);
         return capMin(min);
     }
 
-    public boolean raise(float amount, float max) {
-        get(prev + amount);
+    public boolean raise(float max) {
+        get(prev + 1f);
         return capMax(max);
     }
 

@@ -27,6 +27,7 @@ public class Config {
 
         obj.put("MIN_QUALITY", instance.MIN_QUALITY);
         obj.put("MAX_QUALITY", instance.MAX_QUALITY);
+        obj.put("QUALITY_ALPHA", instance.QUALITY_ALPHA);
 
         obj.put("HIGH_FORMAT", instance.HIGH_FORMAT);
         obj.put("LOW_FORMAT", instance.LOW_FORMAT);
@@ -68,6 +69,7 @@ public class Config {
 
             instance.MIN_QUALITY = obj.getFloat("MIN_QUALITY");
             instance.MAX_QUALITY = obj.getFloat("MAX_QUALITY");
+            instance.QUALITY_ALPHA = obj.getFloat("QUALITY_ALPHA");
 
             instance.HIGH_FORMAT = obj.getString("HIGH_FORMAT");
             instance.LOW_FORMAT = obj.getString("LOW_FORMAT");
@@ -87,16 +89,15 @@ public class Config {
 
     public int WEB_PORT = 7578;
 
-    public int SCREEN_LEFT = 1920;
+    public int SCREEN_LEFT = 0;
     public int SCREEN_TOP = 0;
     public int SCREEN_WIDTH = 1920;
     public int SCREEN_HEIGHT = 1080;
-    public int FPS = 30;
+    public int FPS = 20;
 
     public int MAX_FRAMES_LATENCY = 3;
 
-    public float QUALITY_ALPHA = 1f;
-    public float QUALITY_ADJUST = .05f;
+    public float QUALITY_ALPHA = .1f;
     public float KEYFRAME_THRESHOLD = .3f;
     public float KEYFRAME_THRESHOLD2 = 3.3f;
 
@@ -110,5 +111,5 @@ public class Config {
     public int MAX_FRAME_SKIP = 3;
 
     public float MIN_QUALITY = .3f;
-    public float MAX_QUALITY = .9f;
+    public float MAX_QUALITY = 1f;
 }

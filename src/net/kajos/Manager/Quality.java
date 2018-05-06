@@ -12,16 +12,17 @@ public class Quality {
     public LowPassFilter jpegQuality = new LowPassFilter(Config.get().QUALITY_ALPHA, Config.get().MAX_QUALITY);
 
     public void lower() {
-        if (jpegQuality.lower(Config.get().QUALITY_ADJUST, Config.get().MIN_QUALITY)) {
+        if (jpegQuality.lower(Config.get().MIN_QUALITY)) {
             if (frameSkip < Config.get().MAX_FRAME_SKIP) frameSkip++;
         }
         frameFormat = Config.get().LOW_FORMAT;
     }
 
     public void raise() {
-        if (jpegQuality.raise(Config.get().QUALITY_ADJUST, Config.get().MAX_QUALITY)) {
+        if (frameSkip > 1) {
+            frameSkip--;
+        } else  if (jpegQuality.raise(Config.get().MAX_QUALITY)) {
             frameFormat = Config.get().HIGH_FORMAT;
-            if (frameSkip > 1) frameSkip--;
         }
     }
 }
