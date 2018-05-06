@@ -62,43 +62,35 @@ public class RenderCallback extends RenderCallbackAdapter {
                 boolean isKeyFrame = viewer.frameCount == 0;
                 boolean missingKeyFrame = missingKeyframe(viewer);
 
-                int viewerBytes;
                 if (isKeyFrame || missingKeyFrame) {
-                    viewerBytes = interlaceKeyFrame(viewer, frameId, frameData, missingKeyFrame);
+                    interlaceKeyFrame(viewer, frameId, frameData, missingKeyFrame);
                 } else {
-                    viewerBytes = interlaceFrame(viewer, frameId, frameData);
+                    interlaceFrame(viewer, frameId, frameData);
                 }
+            }
 
-                int bandwidth = (int)viewer.bandwidth.get(viewerBytes);
-
+            @Override
+            public void run() {
                 boolean latencyTooHigh = frameId - viewer.receivedFrameStamp > Config.MAX_FRAMES_LATENCY;
                 if (latencyTooHigh) {
                     System.out.println("Latency too high! Lowering quality");
                 }
 
                 Quality quality = viewer.quality;
-                // Not needed anymore to check bandwidth:
-                //  || bandwidth > Config.MAX_BANDWIDTH_BYTES_FRAME
-
                 if (latencyTooHigh) {
                     quality.lower();
                 } else {
                     quality.raise();
                 }
-            }
 
-            @Override
-            public void run() {
                 boolean lateEncoding = !viewer.frameSem.tryAcquire();
 
                 if (lateEncoding) {
                     manager.sendEmptyImage(frameId);
-                    viewer.bandwidth.get(0);
                     System.out.println("Busy encoding");
 
                 } else if(frameId % viewer.quality.frameSkip != 0) {
                     manager.sendEmptyImage(frameId);
-                    viewer.bandwidth.get(0);
                     System.out.println("Skipped frame");
                     viewer.frameSem.release();
 
@@ -110,7 +102,7 @@ public class RenderCallback extends RenderCallbackAdapter {
         });
     }
 
-    private int interlaceKeyFrame(Viewer viewer, int frameStamp, int[] frameData, boolean missingKeyFrame) {
+    private void interlaceKeyFrame(Viewer viewer, int frameStamp, int[] frameData, boolean missingKeyFrame) {
         Quality quality = viewer.quality;
 
         viewer.keyFrameToggle = !viewer.keyFrameToggle;
@@ -171,14 +163,10 @@ public class RenderCallback extends RenderCallbackAdapter {
         viewer.lastKeyFrameSize = data.length;
 
         pool.put(img);
-
-        return data.length;
     }
 
-    private int interlaceFrame(Viewer viewer, int frameStamp, int[] frameData) {
+    private void interlaceFrame(Viewer viewer, int frameStamp, int[] frameData) {
         Quality quality = viewer.quality;
-
-        int viewerBytes = 0;
 
         int ip = viewer.frameCount % 2;
         boolean interpol = ip == 0;
@@ -255,7 +243,6 @@ public class RenderCallback extends RenderCallbackAdapter {
                 System.out.println("Interframe: " + quality.interImageFormat + ", size: " + data.length +
                     ", diff.:" + diff + ", sum diff.:" + viewer.sumDifference);
 
-                viewerBytes = data.length;
                 manager.sendImage(data);
 
                 // Frame is not going back to keyframe
@@ -313,7 +300,6 @@ public class RenderCallback extends RenderCallbackAdapter {
                 }
                 byte[] data = img.getCompressedBytes(ip + 3, frameStamp, quality.jpegQuality.get(),
                         quality.interImageFormat);
-                viewerBytes = data.length;
                 manager.sendImage(data);
 
                 System.out.println("Interframe 2: " + quality.interImageFormat + ", size: " + data.length);
@@ -324,7 +310,5 @@ public class RenderCallback extends RenderCallbackAdapter {
         }
 
         pool.put(img);
-
-        return viewerBytes;
     }
 }

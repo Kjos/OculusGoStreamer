@@ -74,10 +74,4 @@ public class Manager extends BaseWebSocketHandler {
             input.parseInput(message);
         }
     }
-
-    public float getSumBandwidth() {
-        if (viewer == null) return 0f;
-
-        return viewer.bandwidth.get();
-    }
 }

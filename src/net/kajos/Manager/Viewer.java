@@ -24,7 +24,6 @@ public class Viewer {
 
     public int clientWidth = 1000;
     public int clientHeight = 1000;
-    public LowPassFilter bandwidth = new LowPassFilter(Config.LOWPASS_BANDWIDTH);
 
     public int receivedFrameStamp = 0;
 
