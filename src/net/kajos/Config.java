@@ -13,7 +13,7 @@ public class Config {
         return instance;
     }
 
-    private static String createDefaultConfig() {
+    private static JSONObject createDefaultConfig() {
         JSONObject obj = new JSONObject();
         obj.put("WEB_PORT", instance.WEB_PORT);
 
@@ -33,53 +33,58 @@ public class Config {
         obj.put("LOW_FORMAT", instance.LOW_FORMAT);
         obj.put("INTERFRAME_FORMAT", instance.INTERFRAME_FORMAT );
 
-        return obj.toString(1);
+        return obj;
     }
 
     public static Config load() {
         instance = new Config();
 
         File file = new File("config.json");
+        JSONObject configJson = null;
         if (!file.exists() || !file.canRead()) {
             Config.print("No config.json file found!");
             Config.print("Writing default config.json.");
             try {
                 file.createNewFile();
+
+                configJson = createDefaultConfig();
                 try (PrintWriter out = new PrintWriter(file)) {
-                    out.println(createDefaultConfig());
+                    out.println(configJson.toString(1));
                 }
             } catch (Exception e) {
                 e.printStackTrace();
+                System.exit(1);
             }
-            System.exit(1);
+        } else {
+            try {
+                String contents = new String(Files.readAllBytes(file.toPath()));
+                configJson = new JSONObject(contents);
+                
+            } catch (Exception e) {
+                Config.print("Error reading config.json!");
+                e.printStackTrace();
+                System.exit(1);
+            }
         }
 
-        try {
-            String contents = new String(Files.readAllBytes(file.toPath()));
-            JSONObject obj = new JSONObject(contents);
-            instance.WEB_PORT = obj.getInt("WEB_PORT");
+        instance.WEB_PORT = configJson.getInt("WEB_PORT");
 
-            instance.SCREEN_WIDTH = obj.getInt("SCREEN_WIDTH");
-            instance.SCREEN_HEIGHT = obj.getInt("SCREEN_HEIGHT");
-            instance.SCREEN_LEFT = obj.getInt("SCREEN_LEFT");
-            instance.SCREEN_TOP = obj.getInt("SCREEN_TOP");
-            instance.FPS = obj.getInt("FPS");
-            instance.MAX_FRAMES_LATENCY = obj.getInt("MAX_FRAMES_LATENCY");
-            instance.MAX_FRAME_SKIP = obj.getInt("MAX_FRAME_SKIP");
+        instance.SCREEN_WIDTH = configJson.getInt("SCREEN_WIDTH");
+        instance.SCREEN_HEIGHT = configJson.getInt("SCREEN_HEIGHT");
+        instance.SCREEN_LEFT = configJson.getInt("SCREEN_LEFT");
+        instance.SCREEN_TOP = configJson.getInt("SCREEN_TOP");
+        instance.FPS = configJson.getInt("FPS");
+        instance.MAX_FRAMES_LATENCY = configJson.getInt("MAX_FRAMES_LATENCY");
+        instance.MAX_FRAME_SKIP = configJson.getInt("MAX_FRAME_SKIP");
 
-            instance.MIN_QUALITY = obj.getFloat("MIN_QUALITY");
-            instance.MAX_QUALITY = obj.getFloat("MAX_QUALITY");
-            instance.QUALITY_ALPHA = obj.getFloat("QUALITY_ALPHA");
+        instance.MIN_QUALITY = configJson.getFloat("MIN_QUALITY");
+        instance.MAX_QUALITY = configJson.getFloat("MAX_QUALITY");
+        instance.QUALITY_ALPHA = configJson.getFloat("QUALITY_ALPHA");
 
-            instance.HIGH_FORMAT = obj.getString("HIGH_FORMAT");
-            instance.LOW_FORMAT = obj.getString("LOW_FORMAT");
-            instance.INTERFRAME_FORMAT = obj.getString("INTERFRAME_FORMAT");
+        instance.HIGH_FORMAT = configJson.getString("HIGH_FORMAT");
+        instance.LOW_FORMAT = configJson.getString("LOW_FORMAT");
+        instance.INTERFRAME_FORMAT = configJson.getString("INTERFRAME_FORMAT");
 
-        } catch (Exception e) {
-            Config.print("Error reading config.json!");
-            e.printStackTrace();
-            System.exit(1);
-        }
         return instance;
     }
 

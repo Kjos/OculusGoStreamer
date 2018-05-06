@@ -1,7 +1,18 @@
-OculusGo DesktopStreamer v3 
------------------------------------ by Kaj Toet
+# OculusGoStreamer
 
-Instructions:
+A desktop streaming application for the OculusGo and GearVR (although untested).
+
+------ Made by Kaj Toet --- 
+
+- Cross platform using Java.
+- Captures desktop with VLC using VLCj library.
+- Compresses video using JPEG, PNG or GIF. 
+- Uses custom interlacing and interframe compression.
+- Streams over websockets.
+- Supports Go virtual keyboard. Input is copied to clipboard on PC and then copy-pasted, so it can handle all characters.
+- Supports Go pointer for mouse.
+
+##Instructions:
 - Install VLC. It's required.
 - Run from commandline: java -jar OculusGoStreamer.jar
 - Or any other way you run Java programs.
@@ -9,22 +20,19 @@ Instructions:
 - Visit the address in your Oculus browser.
 - Click the keyboard icon to open the keyboard.
 
-Notes:
-- Works on all platforms with Java and VLC support.
-- VLC version might matter, I guess the latest is best.
-- There is quite some latency when using the Oculus controller.
-- Default setting are primary window on a 1920x1080 display. If your monitor isn't 1920x1080, things might not work.
-- Interlacing isn't very nice, but it keeps the decompression of the images lightweight. 
-But it might be changed in the future.
-- After removing your headset, refresh the page possible if it stopped.
+##Notes
+- At 10% battery the connection or browser will be limited and streaming will stutter.
+- When you have the headset off, the browser will keep running in the background, so close the app when you're done.
 
-TBC
-
-Changes from v3:
-- Fixed issue with interlacing artifacts that were due to mismatching resolution. Looks better and uses less bandwidth.
-
-Changes from v2:
-- Keyboard uses clipboard now. Now supports all characters on Oculus onscreen keyboard.
-
-Changes from v1:
-- Added keyboard. Not complete yet.
+##Todo
+- Improve latency. TCP makes it so packets can get stacked. Needs to send and receive frame timestamps to be able to read the actual latency and account for it. (Done)
+- Browser side pull up menu so more options can be accessible.
+- Such as fullscreen support.
+- Or switching displays.
+- Improve input latency for mouse cursor. Don't know why or if it can be improved much, but I think it can. (Mostly done by fixing the video latency. Don't think it can be improved anymore.)
+- Support bluetooth keyboard and other controllers.
+- Video compression needs overall improvement. Perhaps the interframe method can be removed, but I think the bandwidth usage might otherwise become too high at cost of quality. Overall interframe compression is GPU-costly for browserside. (Mostly done)
+- Sound is missing.
+- Bundle everything as single executable.
+- Config file support or commandline parameters if sufficient. (Done, config.json)
+- Maintain aspect ratio. Will also lessen bandwidth usage a tiny bit. (Done)

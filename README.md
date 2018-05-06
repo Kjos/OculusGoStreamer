@@ -2,6 +2,8 @@
 
 A desktop streaming application for the OculusGo and GearVR (although untested).
 
+------ Made by Kaj Toet --- 
+
 - Cross platform using Java.
 - Captures desktop with VLC using VLCj library.
 - Compresses video using JPEG, PNG or GIF. 
@@ -9,6 +11,14 @@ A desktop streaming application for the OculusGo and GearVR (although untested).
 - Streams over websockets.
 - Supports Go virtual keyboard. Input is copied to clipboard on PC and then copy-pasted, so it can handle all characters.
 - Supports Go pointer for mouse.
+
+##Instructions:
+- Install VLC. It's required.
+- Run from commandline: java -jar OculusGoStreamer.jar
+- Or any other way you run Java programs.
+- Visit the address printed in the terminal, it will have port 7578.
+- Visit the address in your Oculus browser.
+- Click the keyboard icon to open the keyboard.
 
 ##Notes
 - At 10% battery the connection or browser will be limited and streaming will stutter.

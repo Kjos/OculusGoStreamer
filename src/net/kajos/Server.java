@@ -61,7 +61,7 @@ public class Server {
         webServer.add(new StaticFileHandler("website/"));
         webServer.start();
 
-        System.out.println("OculusGo DesktopStreamer v1 by Kaj Toet");
+        System.out.println("OculusGo DesktopStreamer beta by Kaj Toet");
         System.out.println("------------------------------------------------");
 
         try {
