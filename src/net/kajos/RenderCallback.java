@@ -144,7 +144,7 @@ public class RenderCallback extends RenderCallbackAdapter {
         viewer.lastInterFrameSize = 0;
         viewer.skipInterlace2 = false;
 
-        byte[] data = img.getCompressedBytes(code, frameStamp, quality.jpegQuality.get(),
+        byte[] data = img.getCompressedBytes(code, frameStamp, quality.jpegQuality,
                 quality.frameFormat);
 
         System.out.println("Keyframe " + code + ": " + quality.frameFormat + ", size: " + data.length);
@@ -228,7 +228,7 @@ public class RenderCallback extends RenderCallbackAdapter {
                 }
             } else {
 
-                byte[] data = img.getCompressedBytes(ip + 3, frameStamp, quality.jpegQuality.get(),
+                byte[] data = img.getCompressedBytes(ip + 3, frameStamp, quality.jpegQuality,
                         quality.interImageFormat);
 
                 System.out.println("Interframe: " + quality.interImageFormat + ", size: " + data.length +
@@ -289,7 +289,7 @@ public class RenderCallback extends RenderCallbackAdapter {
                         pixels[p2] = (cr << 16) | (cg << 8) | cb;
                     }
                 }
-                byte[] data = img.getCompressedBytes(ip + 3, frameStamp, quality.jpegQuality.get(),
+                byte[] data = img.getCompressedBytes(ip + 3, frameStamp, quality.jpegQuality,
                         quality.interImageFormat);
                 manager.sendImage(data);
 
