@@ -26,18 +26,9 @@ public class Viewer {
     public int clientHeight = 1000;
     public LowPassFilter bandwidth = new LowPassFilter(Config.LOWPASS_BANDWIDTH);
 
-    private long lastFrameStamp = 0;
-    private int receivedFrameStamp = 0;
-
-    public void setLastFrameStamp(int val) {
-        this.lastFrameStamp = val;
-    }
+    public int receivedFrameStamp = 0;
 
     public void frameUpdate(int frameStamp) {
-        if (lastFrameStamp - receivedFrameStamp > Config.MAX_FRAMES_LATENCY) {
-            quality.lower();
-            System.out.println("Latency too high! Lowering quality");
-        }
         receivedFrameStamp = frameStamp;
     }
 }

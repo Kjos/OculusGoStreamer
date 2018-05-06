@@ -20,9 +20,16 @@ public class Manager extends BaseWebSocketHandler {
         connection.send(data);
     }
 
-    final static byte[] EMPTY_IMAGE = new byte[]{0};
-    public void sendEmptyImage() {
-        sendImage(EMPTY_IMAGE);
+    public void sendEmptyImage(int framestamp) {
+        byte[] data = new byte[]{0, 0, 0, 0, 0};
+        data[1] = (byte) (framestamp & 0xff);
+        framestamp >>= 8;
+        data[2] = (byte) (framestamp & 0xff);
+        framestamp >>= 8;
+        data[3] = (byte) (framestamp & 0xff);
+        framestamp >>= 8;
+        data[4] = (byte) (framestamp & 0xff);
+        sendImage(data);
     }
 
     private void closeConnection() {

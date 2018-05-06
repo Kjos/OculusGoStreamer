@@ -71,14 +71,20 @@ public class RenderCallback extends RenderCallbackAdapter {
 
                 int bandwidth = (int)viewer.bandwidth.get(viewerBytes);
 
+                boolean latencyTooHigh = frameId - viewer.receivedFrameStamp > Config.MAX_FRAMES_LATENCY;
+                if (latencyTooHigh) {
+                    System.out.println("Latency too high! Lowering quality");
+                }
+
                 Quality quality = viewer.quality;
-                if (bandwidth > Config.MAX_BANDWIDTH_BYTES_FRAME) {
+                // Not needed anymore to check bandwidth:
+                //  || bandwidth > Config.MAX_BANDWIDTH_BYTES_FRAME
+
+                if (latencyTooHigh) {
                     quality.lower();
                 } else {
                     quality.raise();
                 }
-
-                viewer.setLastFrameStamp(frameId);
             }
 
             @Override
@@ -86,12 +92,12 @@ public class RenderCallback extends RenderCallbackAdapter {
                 boolean lateEncoding = !viewer.frameSem.tryAcquire();
 
                 if (lateEncoding) {
-                    manager.sendEmptyImage();
+                    manager.sendEmptyImage(frameId);
                     viewer.bandwidth.get(0);
                     System.out.println("Busy encoding");
 
                 } else if(frameId % viewer.quality.frameSkip != 0) {
-                    manager.sendEmptyImage();
+                    manager.sendEmptyImage(frameId);
                     viewer.bandwidth.get(0);
                     System.out.println("Skipped frame");
                     viewer.frameSem.release();
@@ -235,7 +241,7 @@ public class RenderCallback extends RenderCallbackAdapter {
 
             if (diff < Config.IGNORE_DIFFERENCE) {
                 //System.out.println(diff);
-                manager.sendEmptyImage();
+                manager.sendEmptyImage(frameStamp);
                 viewer.skipInterlace2 = true;
                 if (quality.lastKeyFrameFormat != Config.HIGH_FORMAT) {
                     //viewer.frameCount += Config.B_FRAME_SPEED_UP;
@@ -313,7 +319,7 @@ public class RenderCallback extends RenderCallbackAdapter {
                 System.out.println("Interframe 2: " + quality.interImageFormat + ", size: " + data.length);
 
             } else {
-                manager.sendEmptyImage();
+                manager.sendEmptyImage(frameStamp);
             }
         }
 

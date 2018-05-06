@@ -365,6 +365,15 @@ function connectWebSocket() {
 				ctx.globalCompositeOperation = "source-over";
 				ctx.drawImage(canvas, 0, 0, canvas.width, canvas.height);
 			}
+			var framestamp = bytes[4];
+			framestamp <<= 8;
+			framestamp |= bytes[3];
+			framestamp <<= 8;
+			framestamp |= bytes[2];
+			framestamp <<= 8;
+			framestamp |= bytes[1];
+
+			websocket.send(">" + framestamp);
 		} else {
 			frameCnt++;
 			if (frameCnt > 10) {
@@ -394,7 +403,11 @@ function connectWebSocket() {
 			} else {
 				image.keyFrame = lastKeyFrame;
 			}
-			image.onload = frameCompositing; // Alternative method: framePixelEditing
+			image.frameLoad = frameCompositing;
+			image.onload = function() {
+				image.frameLoad(); // Alternative method: framePixelEditing
+				websocket.send(">" + framestamp);
+			};
 			var imageFormat;
 			switch(compression) {
 				case 0: imageFormat = "jpeg";
@@ -407,8 +420,6 @@ function connectWebSocket() {
 			var blob = new Blob( [ bytes.subarray(6) ], { type: "image/" + imageFormat } );
 			image.src = urlCreator.createObjectURL( blob );
 			delete blob;
-
-			websocket.send(">" + framestamp);
 		}
 		delete bytes;
 
