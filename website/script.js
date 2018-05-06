@@ -29,7 +29,15 @@ function sendCommand(command, value) {
 }
 
 function getCursor(e) {
-	var pos = [e.pageX, e.pageY];
+	var pos = [0,0];
+	if(e.type == 'touchstart' || e.type == 'touchmove' || e.type == 'touchend' || e.type == 'touchcancel'){
+		var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
+		pos[0] = touch.pageX;
+		pos[1] = touch.pageY;
+	} else if (e.type == 'mousedown' || e.type == 'mouseup' || e.type == 'mousemove' || e.type == 'mouseover'|| e.type=='mouseout' || e.type=='mouseenter' || e.type=='mouseleave') {
+		pos[0] = e.pageX;
+		pos[1] = e.pageY;
+	}
 	pos[0] -= (window.innerWidth - canvas.width) / 2;
 	pos[1] -= (window.innerHeight - canvas.height) / 2;
 	pos[0] *= 10000;
@@ -46,35 +54,25 @@ function getCursor(e) {
 
 var lastmovetime = Date.now();
 function inputSetup() {
-	$("#canvas").mousemove(function( e ) {
-		var t = Date.now();
-		if (t - lastmovetime < 30) return;
+	$("#canvas").on({ 'mousemove' : function( e ) {
+			var t = Date.now();
+			if (t - lastmovetime < 30) return;
 
-		var pos = getCursor(e);
-		if (!pos) return;
-
-		lastmovetime = t;
-		sendCommand("mouseMove", pos);
-	});
-	$("#canvas").on({ 'touchmove' : function( e ) {
-			var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
-			var pos = getCursor(touch);
+			var pos = getCursor(e);
 			if (!pos) return;
 
 			sendCommand("mouseMove", pos);
 		}
 	});
 	$("#canvas").on({ 'touchstart' : function( e ) {
-			var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
-			var pos = getCursor(touch);
+			var pos = getCursor(e);
 			if (!pos) return;
 
 			sendCommand("mousePress", pos);
 		}
 	});
 	$("#canvas").on({ 'touchend' : function( e ) {
-			var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
-			var pos = getCursor(touch);
+			var pos = getCursor(e);
 			if (!pos) return;
 
 			sendCommand("mouseRelease", pos);
