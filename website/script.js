@@ -34,9 +34,15 @@ function inputSetup() {
 		var t = Date.now();
 		if (t - lastmovetime < 30) return;
 
-		var pos = [0,0];
-		pos[0] = event.pageX * 10000 / canvas.width;
-		pos[1] = event.pageY * 10000 / canvas.height;
+		var pos = [event.pageX, event.pageY];
+		pos[0] -= (window.innerWidth - canvas.width) / 2;
+		pos[1] -= (window.innerHeight - canvas.height) / 2;
+		pos[0] *= 10000;
+		pos[1] *= 10000;
+		pos[0] /= canvas.width;
+		pos[1] /= canvas.height;
+
+		if (pos[0] < 0 || pos[1] < 0 || pos[0] > 10000 || pos[1] > 10000) return;
 
 		lastmovetime = t;
 		sendCommand("mouseMove", pos);
@@ -70,9 +76,13 @@ function canvasResize(image, force) {
 
 	var createIpCanvas = !ipCanvas || ipCanvas[0].height != height;
 
-	if (force || createIpCanvas || canvas.width != image.width) {	
+	if (force || createIpCanvas || canvas.width != image.width || canvas.height != height) {	
 		canvas.width = image.width;
 		canvas.height = height;
+        	canvas.style.position = "absolute";
+		canvas.style.left = ((window.innerWidth - image.width) / 2) + "px";
+		canvas.style.top = ((window.innerHeight - height) / 2) + "px";
+		
 		frameCanvas.width = image.width;
 		frameCanvas.height = height;
 		frameCanvas2.width = image.width;

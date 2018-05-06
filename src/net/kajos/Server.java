@@ -3,6 +3,7 @@ package net.kajos;
 import net.kajos.Handlers.FilterHandler;
 import net.kajos.Manager.Manager;
 import net.kajos.Handlers.ControlsHandler;
+import net.kajos.Manager.Viewer;
 import org.webbitserver.*;
 import org.webbitserver.handler.StaticFileHandler;
 
@@ -26,10 +27,21 @@ public class Server {
     public Server() {
     }
 
-    public void resize(int width, int height) {
-        if (width != recorder.videoWidth || height != recorder.videoHeight) {
+    public void resize(int clientWidth, int clientHeight) {
+        float displayAspect = (float)Config.SCREEN_WIDTH / (float)Config.SCREEN_HEIGHT;
+        float clientAspect = (float)clientWidth / (float)clientHeight;
+        float diffAspect = displayAspect / clientAspect;
+        if (diffAspect < 1f) {
+            clientWidth = (int)((float)clientWidth * diffAspect);
+        } else {
+            clientHeight = (int)((float)clientHeight / diffAspect);
+        }
+
+        if (clientWidth != recorder.videoWidth || clientHeight != recorder.videoHeight) {
             recorder.stop();
-            recorder.start(width, height);
+            Viewer viewer = manager.getViewer();
+            viewer.rgb = null;
+            recorder.start(clientWidth, clientHeight);
         }
     }
 
