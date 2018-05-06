@@ -17,9 +17,6 @@ public class RenderCallback extends RenderCallbackAdapter {
     private ExecutorService exec;
     private ImagePool pool;
 
-    private LowPassFilter frameTime = new LowPassFilter(Config.get().FRAMETIME_ALPHA,
-            1000f / (float)Config.get().FPS);
-
     private int width, height;
     private Manager manager;
 
@@ -37,8 +34,6 @@ public class RenderCallback extends RenderCallbackAdapter {
 
     }
 
-    private long prevTimestamp = -1;
-
     private boolean missingKeyframe(Viewer viewer) {
         return viewer.rgb == null || viewer.rgb[0][0].length != width ||
                 viewer.rgb[0].length != height;
@@ -46,10 +41,6 @@ public class RenderCallback extends RenderCallbackAdapter {
 
     @Override
     public void onDisplay(DirectMediaPlayer mediaPlayer, int[] frameData) {
-        long timestamp = System.currentTimeMillis();
-        if (prevTimestamp != -1) frameTime.get(timestamp - prevTimestamp);
-        prevTimestamp = timestamp;
-
         frameCount++;
 
         final Viewer viewer = manager.getViewer();

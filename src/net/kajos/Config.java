@@ -16,7 +16,7 @@ public class Config {
     private static String createDefaultConfig() {
         JSONObject obj = new JSONObject();
         obj.put("WEB_PORT", instance.WEB_PORT);
-        
+
         obj.put("SCREEN_WIDTH", instance.SCREEN_WIDTH);
         obj.put("SCREEN_HEIGHT", instance.SCREEN_HEIGHT);
         obj.put("SCREEN_LEFT", instance.SCREEN_LEFT);
@@ -95,7 +95,6 @@ public class Config {
 
     public int MAX_FRAMES_LATENCY = 3;
 
-    public float FRAMETIME_ALPHA = 0.1f;
     public float QUALITY_ALPHA = 1f;
     public float QUALITY_ADJUST = .05f;
     public float KEYFRAME_THRESHOLD = .3f;

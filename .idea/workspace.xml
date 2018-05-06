@@ -7,29 +7,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9181a8b5-c386-487b-b0df-6f1b68c80a62" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/config.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/OculusGoStreamer/net/kajos/Config.class" afterPath="$PROJECT_DIR$/out/production/OculusGoStreamer/net/kajos/Config.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/OculusGoStreamer/net/kajos/Manager/Input.class" afterPath="$PROJECT_DIR$/out/production/OculusGoStreamer/net/kajos/Manager/Input.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/OculusGoStreamer/net/kajos/Manager/Quality.class" afterPath="$PROJECT_DIR$/out/production/OculusGoStreamer/net/kajos/Manager/Quality.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/OculusGoStreamer/net/kajos/Manager/Viewer.class" afterPath="$PROJECT_DIR$/out/production/OculusGoStreamer/net/kajos/Manager/Viewer.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/OculusGoStreamer/net/kajos/RenderCallback$1.class" afterPath="$PROJECT_DIR$/out/production/OculusGoStreamer/net/kajos/RenderCallback$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/OculusGoStreamer/net/kajos/RenderCallback.class" afterPath="$PROJECT_DIR$/out/production/OculusGoStreamer/net/kajos/RenderCallback.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/OculusGoStreamer/net/kajos/ScreenRecorder.class" afterPath="$PROJECT_DIR$/out/production/OculusGoStreamer/net/kajos/ScreenRecorder.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/OculusGoStreamer/net/kajos/Server$1.class" afterPath="$PROJECT_DIR$/out/production/OculusGoStreamer/net/kajos/Server$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/OculusGoStreamer/net/kajos/Server.class" afterPath="$PROJECT_DIR$/out/production/OculusGoStreamer/net/kajos/Server.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/OculusGoStreamer/org/json/JSONObject$Null.class" afterPath="$PROJECT_DIR$/out/production/OculusGoStreamer/org/json/JSONObject$Null.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/OculusGoStreamer/org/json/JSONObject.class" afterPath="$PROJECT_DIR$/out/production/OculusGoStreamer/org/json/JSONObject.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/kajos/Config.java" afterPath="$PROJECT_DIR$/src/net/kajos/Config.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/kajos/Manager/Input.java" afterPath="$PROJECT_DIR$/src/net/kajos/Manager/Input.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/kajos/Manager/Quality.java" afterPath="$PROJECT_DIR$/src/net/kajos/Manager/Quality.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/kajos/Manager/Viewer.java" afterPath="$PROJECT_DIR$/src/net/kajos/Manager/Viewer.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/kajos/RenderCallback.java" afterPath="$PROJECT_DIR$/src/net/kajos/RenderCallback.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/kajos/ScreenRecorder.java" afterPath="$PROJECT_DIR$/src/net/kajos/ScreenRecorder.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/kajos/Server.java" afterPath="$PROJECT_DIR$/src/net/kajos/Server.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/json/JSONObject.java" afterPath="$PROJECT_DIR$/src/org/json/JSONObject.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/website/script.js" afterPath="$PROJECT_DIR$/website/script.js" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -44,7 +23,7 @@
       <file leaf-file-name="ScreenRecorder.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/net/kajos/ScreenRecorder.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="567">
+            <state relative-caret-position="162">
               <caret line="41" column="46" lean-forward="false" selection-start-line="41" selection-start-column="46" selection-end-line="41" selection-end-column="46" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -58,14 +37,14 @@
       <file leaf-file-name="Config.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/net/kajos/Config.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1138">
-              <caret line="18" column="8" lean-forward="false" selection-start-line="18" selection-start-column="8" selection-end-line="18" selection-end-column="8" />
+            <state relative-caret-position="131">
+              <caret line="98" column="31" lean-forward="false" selection-start-line="98" selection-start-column="17" selection-end-line="98" selection-end-column="31" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#224#225#0" expanded="true" />
                 <element signature="e#255#256#0" expanded="true" />
-                <element signature="e#2927#2928#0" expanded="true" />
-                <element signature="e#2967#2968#0" expanded="true" />
+                <element signature="e#2919#2920#0" expanded="true" />
+                <element signature="e#2959#2960#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -138,8 +117,8 @@
       <file leaf-file-name="RenderCallback.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/net/kajos/RenderCallback.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3378">
-              <caret line="267" column="52" lean-forward="false" selection-start-line="267" selection-start-column="52" selection-end-line="267" selection-end-column="52" />
+            <state relative-caret-position="234">
+              <caret line="45" column="13" lean-forward="false" selection-start-line="45" selection-start-column="13" selection-end-line="45" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -147,21 +126,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ImageWrapper.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/net/kajos/ImageWrapper.java">
+      <file leaf-file-name="Quality.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/net/kajos/Manager/Quality.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="64" column="9" lean-forward="true" selection-start-line="64" selection-start-column="9" selection-end-line="71" selection-end-column="40" />
+            <state relative-caret-position="351">
+              <caret line="14" column="27" lean-forward="false" selection-start-line="14" selection-start-column="27" selection-end-line="14" selection-end-column="27" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Quality.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/net/kajos/Manager/Quality.java">
+      <file leaf-file-name="LowPassFilter.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/net/kajos/LowPassFilter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="173">
-              <caret line="14" column="43" lean-forward="false" selection-start-line="14" selection-start-column="30" selection-end-line="14" selection-end-column="43" />
+            <state relative-caret-position="212">
+              <caret line="73" column="19" lean-forward="false" selection-start-line="73" selection-start-column="19" selection-end-line="73" selection-end-column="19" />
               <folding />
             </state>
           </provider>
@@ -178,10 +157,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>lastInterFrameSize</find>
-      <find>png</find>
-      <find>diff</find>
-      <find>frameCount</find>
       <find>skipInterlace2</find>
       <find>shiftX</find>
       <find>frameSize</find>
@@ -208,6 +183,10 @@
       <find>Recorder</find>
       <find>bandwidth</find>
       <find>Config.</find>
+      <find>FRAMETIME_ALPHA</find>
+      <find>Config.get().QUALITY_ALPHA</find>
+      <find>alpha</find>
+      <find>QUALITY_ADJUST</find>
     </findStrings>
     <replaceStrings>
       <replace>fundsSeconds</replace>
@@ -277,10 +256,10 @@
         <option value="$PROJECT_DIR$/src/net/kajos/Manager/Quality.java" />
         <option value="$PROJECT_DIR$/src/net/kajos/Manager/Input.java" />
         <option value="$PROJECT_DIR$/src/net/kajos/Manager/Viewer.java" />
-        <option value="$PROJECT_DIR$/src/net/kajos/RenderCallback.java" />
         <option value="$PROJECT_DIR$/src/net/kajos/ScreenRecorder.java" />
         <option value="$PROJECT_DIR$/src/net/kajos/Server.java" />
         <option value="$PROJECT_DIR$/src/org/json/JSONObject.java" />
+        <option value="$PROJECT_DIR$/src/net/kajos/RenderCallback.java" />
         <option value="$PROJECT_DIR$/src/net/kajos/Config.java" />
       </list>
     </option>
@@ -568,8 +547,8 @@
             <element signature="imports" expanded="true" />
             <element signature="e#224#225#0" expanded="true" />
             <element signature="e#255#256#0" expanded="true" />
-            <element signature="e#2927#2928#0" expanded="true" />
-            <element signature="e#2967#2968#0" expanded="true" />
+            <element signature="e#2919#2920#0" expanded="true" />
+            <element signature="e#2959#2960#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -712,14 +691,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/net/kajos/LowPassFilter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1647">
-          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/net/kajos/ImagePool.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-631">
@@ -789,14 +760,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/net/kajos/Manager/Quality.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
-          <caret line="14" column="43" lean-forward="false" selection-start-line="14" selection-start-column="30" selection-end-line="14" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/net/kajos/Manager/Input.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="312">
@@ -814,28 +777,6 @@
           <folding>
             <element signature="e#643#644#0" expanded="true" />
             <element signature="e#690#691#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/net/kajos/RenderCallback.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3378">
-          <caret line="267" column="52" lean-forward="false" selection-start-line="267" selection-start-column="52" selection-end-line="267" selection-end-column="52" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/net/kajos/ScreenRecorder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="567">
-          <caret line="41" column="46" lean-forward="false" selection-start-line="41" selection-start-column="46" selection-end-line="41" selection-end-column="46" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <marker date="1525628027311" expanded="false" signature="1863:1874" ph=" { " />
-            <marker date="1525628027311" expanded="false" signature="1918:1924" ph=" }" />
           </folding>
         </state>
       </provider>
@@ -863,16 +804,54 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/net/kajos/ScreenRecorder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="41" column="46" lean-forward="false" selection-start-line="41" selection-start-column="46" selection-end-line="41" selection-end-column="46" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <marker date="1525628027311" expanded="false" signature="1863:1874" ph=" { " />
+            <marker date="1525628027311" expanded="false" signature="1918:1924" ph=" }" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/net/kajos/RenderCallback.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="45" column="13" lean-forward="false" selection-start-line="45" selection-start-column="13" selection-end-line="45" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/net/kajos/LowPassFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="212">
+          <caret line="73" column="19" lean-forward="false" selection-start-line="73" selection-start-column="19" selection-end-line="73" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/net/kajos/Manager/Quality.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="351">
+          <caret line="14" column="27" lean-forward="false" selection-start-line="14" selection-start-column="27" selection-end-line="14" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/net/kajos/Config.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1138">
-          <caret line="18" column="8" lean-forward="false" selection-start-line="18" selection-start-column="8" selection-end-line="18" selection-end-column="8" />
+        <state relative-caret-position="131">
+          <caret line="98" column="31" lean-forward="false" selection-start-line="98" selection-start-column="17" selection-end-line="98" selection-end-column="31" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#224#225#0" expanded="true" />
             <element signature="e#255#256#0" expanded="true" />
-            <element signature="e#2927#2928#0" expanded="true" />
-            <element signature="e#2967#2968#0" expanded="true" />
+            <element signature="e#2919#2920#0" expanded="true" />
+            <element signature="e#2959#2960#0" expanded="true" />
           </folding>
         </state>
       </provider>
