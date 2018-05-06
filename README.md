@@ -21,3 +21,4 @@ A desktop streaming application for the OculusGo and GearVR (although untested).
 - Sound is missing.
 - Bundle everything as single executable.
 - Config file support or commandline parameters if sufficient.
+- Maintain aspect ratio. Will also lessen bandwidth usage a tiny bit.
