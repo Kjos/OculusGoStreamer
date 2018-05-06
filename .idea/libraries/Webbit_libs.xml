@@ -1,0 +1,24 @@
+<component name="libraryTable">
+  <library name="Webbit-libs">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/autojar.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-codec-1.6.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-logging-1.1.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/gson-1.7.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/httpasyncclient-cache-4.0.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/httpasyncclient-4.0.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/httpclient-4.3.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/httpcore-4.3.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/httpclient-cache-4.3.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/httpcore-nio-4.3.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/junit-4.10.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jarjar-1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/mockito-all-1.9.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/netty-3.6.5.Final.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/lib/mockito-all-1.9.0.jar!/" />
+    </SOURCES>
+  </library>
+</component>
