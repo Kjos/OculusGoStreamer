@@ -30,6 +30,8 @@ public class Server {
     }
 
     public void resize(int clientWidth, int clientHeight) {
+        mem = Config.load();
+
         float displayAspect = (float)Config.get().get().SCREEN_WIDTH /
                 (float)Config.get().SCREEN_HEIGHT;
         float clientAspect = (float)clientWidth / (float)clientHeight;
@@ -42,8 +44,7 @@ public class Server {
 
         if (clientWidth != recorder.videoWidth || clientHeight != recorder.videoHeight) {
             recorder.stop();
-            Viewer viewer = manager.getViewer();
-            viewer.rgb = null;
+            manager.getViewer().reset();
             recorder.start(clientWidth, clientHeight);
         }
     }

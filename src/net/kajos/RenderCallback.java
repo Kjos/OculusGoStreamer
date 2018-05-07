@@ -13,6 +13,7 @@ import java.util.concurrent.Executors;
 
 public class RenderCallback extends RenderCallbackAdapter {
     private int frameCount = 0;
+    private int allowedLatency = 0;
 
     private ExecutorService exec;
     private ImagePool pool;
@@ -46,6 +47,15 @@ public class RenderCallback extends RenderCallbackAdapter {
         final Viewer viewer = manager.getViewer();
         if (viewer == null) return;
 
+        if (viewer.receivedFrameStamp < Constants.LATENCY_POLL_FRAMES) {
+            int latency = frameCount - viewer.receivedFrameStamp + Config.get().ADD_FRAMES_LATENCY;
+            manager.sendEmptyImage(frameCount);
+
+            allowedLatency = Math.max(latency, allowedLatency);
+            System.out.println("Polling minimum achievable latency: " + allowedLatency);
+            return;
+        }
+
         final int frameId = frameCount;
         exec.submit(new Runnable() {
 
@@ -62,7 +72,7 @@ public class RenderCallback extends RenderCallbackAdapter {
 
             @Override
             public void run() {
-                boolean latencyTooHigh = frameId - viewer.receivedFrameStamp > Config.get().MAX_FRAMES_LATENCY;
+                boolean latencyTooHigh = frameId - viewer.receivedFrameStamp > Config.get().ADD_FRAMES_LATENCY;
                 if (latencyTooHigh) {
                     System.out.println("Latency too high! Lowering quality");
                 }

@@ -2,7 +2,6 @@ package net.kajos.Handlers;
 import net.kajos.Manager.Manager;
 import net.kajos.Manager.Viewer;
 import net.kajos.Server;
-import net.kajos.Util;
 import org.json.JSONObject;
 import org.webbitserver.HttpControl;
 import org.webbitserver.HttpHandler;
@@ -23,7 +22,7 @@ public class ControlsHandler implements HttpHandler {
 
     @Override
     public void handleHttpRequest(HttpRequest request, HttpResponse response, HttpControl control) throws Exception {
-        Viewer player = manager.ensureViewer();
+        Viewer player = manager.createNewViewer();
 
         Set<String> qParamKeys = request.queryParamKeys();
         Iterator<String> keyIt = qParamKeys.iterator();
@@ -53,6 +52,7 @@ public class ControlsHandler implements HttpHandler {
 
         JSONObject obj = new JSONObject();
 
+        System.out.println("Called controls");
         response.header("Content-type", "text/json")
                 .header("Access-Control-Allow-Origin", "*")
                 .content(obj.toString(1))

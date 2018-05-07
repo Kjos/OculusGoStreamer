@@ -42,8 +42,8 @@ A desktop streaming application for the OculusGo and GearVR (although untested).
      "QUALITY_ALPHA": 0.05,
     // Skip is 1: no skip. Skip is 2: every other frame.
      "MAX_FRAME_SKIP": 3,
-    // Allow for 3 frames of latency, then lower quality
-     "MAX_FRAMES_LATENCY": 3,
+    // Allow for 2 extra frames of latency, then lower quality. Set higher for more skiping but nicer image
+     "ADD_FRAMES_LATENCY": 2,
     // The following 3 parameters can be set to gif/png/jpeg
     // When jpeg quality range maxed out, switch to png
      "HIGH_FORMAT": "png",

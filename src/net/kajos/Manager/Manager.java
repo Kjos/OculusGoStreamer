@@ -37,7 +37,6 @@ public class Manager extends BaseWebSocketHandler {
             connection.close();
             connection = null;
         }
-        viewer = null;
     }
 
     public void onOpen(WebSocketConnection conn) {
@@ -59,8 +58,8 @@ public class Manager extends BaseWebSocketHandler {
         return viewer;
     }
 
-    public Viewer ensureViewer() {
-        if (viewer == null) viewer = new Viewer();
+    public Viewer createNewViewer() {
+        viewer = new Viewer();
         return viewer;
     }
 

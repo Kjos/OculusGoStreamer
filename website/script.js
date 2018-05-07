@@ -214,21 +214,26 @@ function frameCompositing() {
 		// lighter
 		// res: 0, 1, 1, 0
 
+// Copy image
 		fctx2.globalCompositeOperation = "source-over";
 		fctx2.drawImage(this, 0, 0, canvas.width, frameCanvas2.height);
 
+// Take lower half
 		fctx2.globalCompositeOperation = "darken";
 		fctx2.fillStyle = 'rgb(128,128,128)';
 		fctx2.fillRect(0,0,canvas.width, frameCanvas2.height);
 
+// Multiply by 2
 		fctx2.globalCompositeOperation = "color-dodge";
 		fctx2.fillStyle = 'rgb(128,128,128)';
 		fctx2.fillRect(0,0,canvas.width, frameCanvas2.height);
 
+// Invert
 		fctx2.globalCompositeOperation = "difference";
 		fctx2.fillStyle = 'rgb(255,255,255)';
 		fctx2.fillRect(0,0,canvas.width, frameCanvas2.height);
 
+// Subtract with keyframe
 		fctx2.globalCompositeOperation = "difference"; 
 		fctx2.drawImage(this.keyFrame, 0, 0, canvas.width, frameCanvas2.height);
 
@@ -236,34 +241,43 @@ function frameCompositing() {
 		fctx.drawImage(frameCanvas2, 0, 0, canvas.width, canvas.height);
 
 		// ------
+// Copy
 		fctx2.globalCompositeOperation = "source-over";
 		fctx2.drawImage(this, 0, 0, canvas.width, frameCanvas2.height);
 
+// Take upper half
 		fctx2.globalCompositeOperation = "lighten";
 		fctx2.fillStyle = 'rgb(128,128,128)';
 		fctx2.fillRect(0,0,canvas.width, frameCanvas2.height);
 
+// Invert
 		fctx2.globalCompositeOperation = "difference";
 		fctx2.fillStyle = 'rgb(255,255,255)';
 		fctx2.fillRect(0,0,canvas.width, frameCanvas2.height);
 
+// Multiply
 		fctx2.globalCompositeOperation = "color-dodge";
 		fctx2.fillStyle = 'rgb(128,128,128)';
 		fctx2.fillRect(0,0,canvas.width, frameCanvas2.height);
 
+// Invert
 		fctx2.globalCompositeOperation = "difference";
 		fctx2.fillStyle = 'rgb(255,255,255)';
 		fctx2.fillRect(0,0,canvas.width, frameCanvas2.height);
 
+// Add to stored fb
 		fctx.globalCompositeOperation = "lighter";
 		fctx.drawImage(frameCanvas2, 0, 0, canvas.width, canvas.height);
 
+// Interlace
 		fctx.globalCompositeOperation = "source-atop";
 		fctx.drawImage(ipCanvas[this.ip1], 0, 0, canvas.width, canvas.height);
 
+// Interlace 2
 		ctx.globalCompositeOperation = "source-atop";
 		ctx.drawImage(ipCanvas[this.ip2], 0, 0, canvas.width, canvas.height);
 
+// Copy
 		ctx.globalCompositeOperation = "lighter"; 
 		ctx.drawImage(frameCanvas, 0, 0, canvas.width, canvas.height);
 	}
@@ -461,36 +475,42 @@ function pollDelay() {
 
 
 var isActive = false;
+var pollTimeout = null;
 function poll() {
-	$.ajax({
-	    url: "/control",
-	    dataType: "json",
-	    data: {
-		"WIDTH": window.innerWidth,
-		"HEIGHT": window.innerHeight
-	    },
-	    success: function( data ) {
-		isActive = true;
+	if (pollTimeout) clearTimeout(pollTimeout);
+	pollTimeout = setTimeout(function() {
+		$.ajax({
+		    url: "/control",
+		    dataType: "json",
+		    data: {
+			"WIDTH": window.innerWidth,
+			"HEIGHT": window.innerHeight
+		    },
+		    success: function( data ) {
+			isActive = true;
 
-		connectWebSocket();
-
-		//$("#message").html("<a href=\"#\" onclick=\"logOut(); return false;\">Log out</a>");
-
-		pollDelay();
-	    },
-	    error: function(xhr, status, error) {
-		parseError(xhr);
-	    }
-	});
+			connectWebSocket();
+		    },
+		    error: function(xhr, status, error) {
+			parseError(xhr);
+		    }
+		});
+	}, 500);
 }
 
 $(document).ready(function(){
 	canvas = document.getElementById("canvas");
+	var ctx = canvas.getContext("2d");
+	ctx.font = "30px Arial";
+	ctx.fillStyle = 'rgb(255,255,255)';
+	ctx.fillText("OculusGoStreamer - Kaj Toet", 10, 50);
+
 	frameCanvas = document.createElement('canvas');
 	frameCanvas2 = document.createElement('canvas');
 
 	inputSetup();
 
+	window.onresize = poll;
 	poll();
 
         document.getElementById("keyboardHack").focus();

@@ -24,4 +24,9 @@ public class Viewer {
     public void frameUpdate(int frameStamp) {
         receivedFrameStamp = frameStamp;
     }
+
+    public void reset() {
+        receivedFrameStamp = 0;
+        rgb = null;
+    }
 }

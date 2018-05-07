@@ -22,7 +22,7 @@ public class Config {
         obj.put("SCREEN_LEFT", instance.SCREEN_LEFT);
         obj.put("SCREEN_TOP", instance.SCREEN_TOP);
         obj.put("FPS", instance.FPS);
-        obj.put("MAX_FRAMES_LATENCY", instance.MAX_FRAMES_LATENCY);
+        obj.put("ADD_FRAMES_LATENCY", instance.ADD_FRAMES_LATENCY);
         obj.put("MAX_FRAME_SKIP", instance.MAX_FRAME_SKIP);
 
         obj.put("MIN_QUALITY", instance.MIN_QUALITY);
@@ -74,7 +74,7 @@ public class Config {
         instance.SCREEN_LEFT = configJson.getInt("SCREEN_LEFT");
         instance.SCREEN_TOP = configJson.getInt("SCREEN_TOP");
         instance.FPS = configJson.getInt("FPS");
-        instance.MAX_FRAMES_LATENCY = configJson.getInt("MAX_FRAMES_LATENCY");
+        instance.ADD_FRAMES_LATENCY = configJson.getInt("ADD_FRAMES_LATENCY");
         instance.MAX_FRAME_SKIP = configJson.getInt("MAX_FRAME_SKIP");
 
         instance.MIN_QUALITY = configJson.getFloat("MIN_QUALITY");
@@ -100,7 +100,7 @@ public class Config {
     public int SCREEN_HEIGHT = 1080;
     public int FPS = 20;
 
-    public int MAX_FRAMES_LATENCY = 3;
+    public int ADD_FRAMES_LATENCY = 1;
 
     public float QUALITY_ALPHA = 0.05f;
     public float KEYFRAME_THRESHOLD = .3f;
