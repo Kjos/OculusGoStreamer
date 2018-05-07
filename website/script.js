@@ -277,7 +277,7 @@ function frameCompositing() {
 		ctx.globalCompositeOperation = "source-atop";
 		ctx.drawImage(ipCanvas[this.ip2], 0, 0, canvas.width, canvas.height);
 
-// Copy
+// Merge both
 		ctx.globalCompositeOperation = "lighter"; 
 		ctx.drawImage(frameCanvas, 0, 0, canvas.width, canvas.height);
 	}
