@@ -385,7 +385,7 @@ function connectWebSocket() {
 	websocket.binaryType = 'arraybuffer';
 	websocket.onopen = function () {
 		console.log("MJPEG connected");
-		lastKeyFrame = null;
+		lastKeyFrame = new Array();
 		lastKeyData = new Array();
 	};
 	websocket.onclose = function () {
@@ -436,9 +436,9 @@ function connectWebSocket() {
 			console.log(framestamp);
 
 			if (type == 1 || type == 2) {
-				lastKeyFrame = image;
+				lastKeyFrame[type-1] = image;
 			} else {
-				image.keyFrame = lastKeyFrame;
+				image.keyFrame = lastKeyFrame[type-3];
 			}
 			image.frameLoad = frameCompositing;// Alternative method: framePixelEditing
 			image.onload = function() {

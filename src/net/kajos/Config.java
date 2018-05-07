@@ -110,11 +110,9 @@ public class Config {
     public String LOW_FORMAT = Constants.JPEG;
     public String INTERFRAME_FORMAT = Constants.JPEG;
 
-    public float IGNORE_DIFFERENCE = 0.000005f;
-
     // 1 is no frameskip, 2 every other frame, 3 every 2 in 3 frames are skipped
     public int MAX_FRAME_SKIP = 3;
 
     public float MIN_QUALITY = .3f;
-    public float MAX_QUALITY = 1f;
+    public float MAX_QUALITY = .9f;
 }

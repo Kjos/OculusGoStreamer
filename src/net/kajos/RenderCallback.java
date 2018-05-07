@@ -36,8 +36,8 @@ public class RenderCallback extends RenderCallbackAdapter {
     }
 
     private boolean missingKeyframe(Viewer viewer) {
-        return viewer.rgb == null || viewer.rgb[0][0].length != width ||
-                viewer.rgb[0].length != height;
+        return viewer.rgb == null || viewer.rgb[0][0][0].length != width ||
+                viewer.rgb[0][0].length != height;
     }
 
     @Override
@@ -109,6 +109,7 @@ public class RenderCallback extends RenderCallbackAdapter {
         viewer.keyFrameToggle = !viewer.keyFrameToggle;
 
         boolean interpol = viewer.keyFrameToggle;
+        int keyframe = interpol ? 0 : 1;
         int code = interpol ? 1 : 2;
 
         ImageWrapper img = pool.get();
@@ -125,13 +126,13 @@ public class RenderCallback extends RenderCallbackAdapter {
         int[] pixels = img.pixels;
 
         if (missingKeyFrame) {
-            viewer.rgb = new int[3][height][width];
+            viewer.rgb = new int[2][3][height][width];
             System.out.println("Create framebuffer");
         }
 
-        int[][] r = viewer.rgb[0];
-        int[][] g = viewer.rgb[1];
-        int[][] b = viewer.rgb[2];
+        int[][] r = viewer.rgb[keyframe][0];
+        int[][] g = viewer.rgb[keyframe][1];
+        int[][] b = viewer.rgb[keyframe][2];
 
         for (int y = 0; y < img.height; y++, p+=skipW) {
             for (int x = 0; x < img.width; x++, p++, p2++) {
@@ -149,19 +150,19 @@ public class RenderCallback extends RenderCallbackAdapter {
 
         quality.lastKeyFrameFormat = quality.frameFormat;
         quality.frameFormat = Config.get().LOW_FORMAT;
-        viewer.lastDifference = 0;
+        viewer.lastDifference[keyframe] = 0;
         viewer.sumDifference = 0f;
-        viewer.lastInterFrameSize = 0;
-        viewer.skipInterlace2 = false;
+        viewer.lastInterFrameSize[keyframe] = 0;
 
         byte[] data = img.getCompressedBytes(code, frameStamp, quality.jpegQuality,
                 quality.frameFormat);
 
-        System.out.println("Keyframe " + code + ": " + quality.frameFormat + ", size: " + data.length);
+        System.out.println("Keyframe " + keyframe + ": " + quality.frameFormat + ", size: " + data.length +
+                ", quality: " + quality.jpegQuality);
 
         manager.sendImage(data);
         viewer.frameCount++;
-        viewer.lastKeyFrameSize = data.length;
+        viewer.lastKeyFrameSize[keyframe] = data.length;
 
         pool.put(img);
     }
@@ -170,145 +171,107 @@ public class RenderCallback extends RenderCallbackAdapter {
         Quality quality = viewer.quality;
 
         int ip = viewer.frameCount % 2;
-        boolean interpol = ip == 0;
+        boolean interpol = (ip == 1) ^ viewer.keyFrameToggle;
+        int keyframe = interpol ? 0 : 1;
+        int code = interpol ? 3 : 4;
 
         ImageWrapper img = pool.get();
 
-        int startX = 0;
         int startY = 0;
         if (interpol) startY += 1;
-        // Interlaced, skip one extra
-        int skipW = width * 2 - img.width;
 
-        int p = startX + startY * width;
+        int p = startY * width;
         int p2 = 0;
 
         int[] pixels = img.pixels;
 
         viewer.frameCount++;
 
-        if (interpol == viewer.keyFrameToggle) {
-            viewer.skipInterlace2 = false;
+        float difference = 0;
 
-            float difference = 0;
+        int[][] ar = viewer.rgb[keyframe][0];
+        int[][] ag = viewer.rgb[keyframe][1];
+        int[][] ab = viewer.rgb[keyframe][2];
 
-            for (int y = 0; y < img.height; y++, p += skipW) {
-                int[] r = viewer.rgb[0][y];
-                int[] g = viewer.rgb[1][y];
-                int[] b = viewer.rgb[2][y];
-                for (int x = 0; x < img.width; x++, p++, p2++) {
-                    int c = frameData[p];
-                    int cr = (c >> 16) & 0xff;
-                    int cg = (c >> 8) & 0xff;
-                    int cb = c & 0xff;
+        for (int y = 0; y < img.height; y++, p += width) {
+            int[] r = ar[y];
+            int[] g = ag[y];
+            int[] b = ab[y];
+            for (int x = 0; x < img.width; x++, p++, p2++) {
+                int c = frameData[p];
+                int cr = (c >> 16) & 0xff;
+                int cg = (c >> 8) & 0xff;
+                int cb = c & 0xff;
 
-                    cr = cr - r[x];
-                    cg = cg - g[x];
-                    cb = cb - b[x];
+                cr = cr - r[x];
+                cg = cg - g[x];
+                cb = cb - b[x];
 
-                    cr /= 2;
-                    cg /= 2;
-                    cb /= 2;
+                cr /= 2;
+                cg /= 2;
+                cb /= 2;
 
-                    difference += Math.abs(cr);
-                    difference += Math.abs(cg);
-                    difference += Math.abs(cb);
+                difference += Math.abs(cr);
+                difference += Math.abs(cg);
+                difference += Math.abs(cb);
 
-                    cr = 127 + cr;
-                    cg = 127 + cg;
-                    cb = 127 + cb;
+                cr = 127 + cr;
+                cg = 127 + cg;
+                cb = 127 + cb;
 
-                    pixels[p2] = (cr << 16) | (cg << 8) | cb;
-                }
+                pixels[p2] = (cr << 16) | (cg << 8) | cb;
             }
+        }
 
-            difference /= (float)(img.width * img.height * 127);
+        difference /= (float)(img.width * img.height * 127);
 
-            viewer.sumDifference += difference;
+        viewer.sumDifference += difference;
 
-            float diff = Math.abs(viewer.lastDifference - difference);
+        float diff = Math.abs(viewer.lastDifference[keyframe] - difference);
 
-            if (diff < Config.get().IGNORE_DIFFERENCE) {
-                //System.out.println(diff);
-                manager.sendEmptyImage(frameStamp);
-                viewer.skipInterlace2 = true;
-                if (quality.lastKeyFrameFormat != Config.get().HIGH_FORMAT) {
-                    //viewer.frameCount += Config.get().B_FRAME_SPEED_UP;
-                    quality.frameFormat = Config.get().HIGH_FORMAT;
-                }
-            } else {
+        if (diff < Constants.IGNORE_DIFFERENCE) {
+            //System.out.println(diff);
+            manager.sendEmptyImage(frameStamp);
+            if (quality.lastKeyFrameFormat != Config.get().HIGH_FORMAT) {
+                //viewer.frameCount += Config.get().B_FRAME_SPEED_UP;
+                quality.frameFormat = Config.get().HIGH_FORMAT;
+            }
+        } else {
 
-                byte[] data = img.getCompressedBytes(ip + 3, frameStamp, quality.jpegQuality,
-                        quality.interImageFormat);
+            byte[] data = img.getCompressedBytes(code, frameStamp, quality.jpegQuality,
+                    quality.interImageFormat);
 
-                System.out.println("Interframe: " + quality.interImageFormat + ", size: " + data.length +
-                    ", diff.:" + diff + ", sum diff.:" + viewer.sumDifference);
+            System.out.println("Interframe " + keyframe + ": " + quality.interImageFormat + ", size: " + data.length +
+                ", diff.:" + diff + ", sum diff.:" + viewer.sumDifference + ", quality: " + quality.jpegQuality);
 
-                manager.sendImage(data);
+            manager.sendImage(data);
 
-                // Frame is not going back to keyframe
-                if (data.length > viewer.lastKeyFrameSize) {
-                    //System.out.print("Keyframe smaller than interframe");
+            // Frame is not going back to keyframe
+            if (data.length > viewer.lastKeyFrameSize[keyframe]) {
+                //System.out.print("Keyframe smaller than interframe");
+                System.out.println("Bframes: " + viewer.frameCount);
+                viewer.frameCount = 0;
+                quality.frameFormat = Config.get().LOW_FORMAT;
+            } else if (viewer.lastDifference[keyframe] < difference &&
+                    viewer.lastInterFrameSize[keyframe] < data.length) {
+
+                if (difference > Config.get().KEYFRAME_THRESHOLD ||
+                        data.length > viewer.lastKeyFrameSize[keyframe]) {
                     System.out.println("Bframes: " + viewer.frameCount);
                     viewer.frameCount = 0;
                     quality.frameFormat = Config.get().LOW_FORMAT;
-                } else if (viewer.lastDifference < difference &&
-                        viewer.lastInterFrameSize < data.length) {
-
-                    if (difference > Config.get().KEYFRAME_THRESHOLD ||
-                            data.length > viewer.lastKeyFrameSize) {
-                        System.out.println("Bframes: " + viewer.frameCount);
-                        viewer.frameCount = 0;
-                        quality.frameFormat = Config.get().LOW_FORMAT;
-                    }
                 }
-
-                viewer.lastInterFrameSize = data.length;
             }
 
-            if (viewer.sumDifference > Config.get().KEYFRAME_THRESHOLD2) {
-                System.out.println("Bframes: " + viewer.frameCount + " Sum diff: " + viewer.sumDifference);
-                viewer.frameCount = 0;
-            }
-
-            viewer.lastDifference = difference;
-        } else {
-            if (!viewer.skipInterlace2) {
-                for (int y = 0; y < img.height; y++, p += skipW) {
-                    int[] r = viewer.rgb[0][y];
-                    int[] g = viewer.rgb[1][y];
-                    int[] b = viewer.rgb[2][y];
-                    for (int x = 0; x < img.width; x++, p++, p2++) {
-                        int c = frameData[p];
-                        int cr = (c >> 16) & 0xff;
-                        int cg = (c >> 8) & 0xff;
-                        int cb = c & 0xff;
-
-                        cr = cr - r[x];
-                        cg = cg - g[x];
-                        cb = cb - b[x];
-
-                        cr /= 2;
-                        cg /= 2;
-                        cb /= 2;
-
-                        cr = 127 + cr;
-                        cg = 127 + cg;
-                        cb = 127 + cb;
-
-                        pixels[p2] = (cr << 16) | (cg << 8) | cb;
-                    }
-                }
-                byte[] data = img.getCompressedBytes(ip + 3, frameStamp, quality.jpegQuality,
-                        quality.interImageFormat);
-                manager.sendImage(data);
-
-                System.out.println("Interframe 2: " + quality.interImageFormat + ", size: " + data.length);
-
-            } else {
-                manager.sendEmptyImage(frameStamp);
-            }
+            viewer.lastInterFrameSize[keyframe] = data.length;
         }
+
+        if (viewer.sumDifference > Config.get().KEYFRAME_THRESHOLD2) {
+            System.out.println("Bframes: " + viewer.frameCount + " Sum diff: " + viewer.sumDifference);
+            viewer.frameCount = 0;
+        }
+
+        viewer.lastDifference[keyframe] = difference;
 
         pool.put(img);
     }
