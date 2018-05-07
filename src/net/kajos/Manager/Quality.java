@@ -5,7 +5,6 @@ import net.kajos.Config;
 public class Quality {
     public String frameFormat = Config.get().HIGH_FORMAT;
     public String interImageFormat = Config.get().INTERFRAME_FORMAT;
-    public String lastKeyFrameFormat = frameFormat;
     public int frameSkip = 1;
 
     public float jpegQuality = Config.get().MAX_QUALITY;

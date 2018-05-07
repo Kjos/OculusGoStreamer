@@ -60,6 +60,7 @@ public class Manager extends BaseWebSocketHandler {
 
     public Viewer createNewViewer() {
         viewer = new Viewer();
+        System.out.println("Create viewer");
         return viewer;
     }
 

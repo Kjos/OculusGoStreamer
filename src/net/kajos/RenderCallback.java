@@ -47,6 +47,7 @@ public class RenderCallback extends RenderCallbackAdapter {
         final Viewer viewer = manager.getViewer();
         if (viewer == null) return;
 
+        // Initial latency polling
         if (viewer.receivedFrameStamp < Constants.LATENCY_POLL_FRAMES) {
             int latency = frameCount - viewer.receivedFrameStamp + Config.get().ADD_FRAMES_LATENCY;
             manager.sendEmptyImage(frameCount);
@@ -148,8 +149,6 @@ public class RenderCallback extends RenderCallbackAdapter {
             }
         }
 
-        quality.lastKeyFrameFormat = quality.frameFormat;
-        quality.frameFormat = Config.get().LOW_FORMAT;
         viewer.lastDifference[keyframe] = 0;
         viewer.sumDifference = 0f;
         viewer.lastInterFrameSize[keyframe] = 0;
@@ -224,18 +223,15 @@ public class RenderCallback extends RenderCallbackAdapter {
         }
 
         difference /= (float)(img.width * img.height * 127);
-
-        viewer.sumDifference += difference;
+        difference /= (float)Config.get().FPS;
 
         float diff = Math.abs(viewer.lastDifference[keyframe] - difference);
 
-        if (diff < Constants.IGNORE_DIFFERENCE) {
+        viewer.sumDifference += difference;
+
+        if (diff < Constants.IGNORE_DIFFERENCE / (float)Config.get().FPS) {
             //System.out.println(diff);
             manager.sendEmptyImage(frameStamp);
-            if (quality.lastKeyFrameFormat != Config.get().HIGH_FORMAT) {
-                //viewer.frameCount += Config.get().B_FRAME_SPEED_UP;
-                quality.frameFormat = Config.get().HIGH_FORMAT;
-            }
         } else {
 
             byte[] data = img.getCompressedBytes(code, frameStamp, quality.jpegQuality,
@@ -248,10 +244,8 @@ public class RenderCallback extends RenderCallbackAdapter {
 
             // Frame is not going back to keyframe
             if (data.length > viewer.lastKeyFrameSize[keyframe]) {
-                //System.out.print("Keyframe smaller than interframe");
                 System.out.println("Bframes: " + viewer.frameCount);
                 viewer.frameCount = 0;
-                quality.frameFormat = Config.get().LOW_FORMAT;
             } else if (viewer.lastDifference[keyframe] < difference &&
                     viewer.lastInterFrameSize[keyframe] < data.length) {
 
@@ -259,14 +253,13 @@ public class RenderCallback extends RenderCallbackAdapter {
                         data.length > viewer.lastKeyFrameSize[keyframe]) {
                     System.out.println("Bframes: " + viewer.frameCount);
                     viewer.frameCount = 0;
-                    quality.frameFormat = Config.get().LOW_FORMAT;
                 }
             }
 
             viewer.lastInterFrameSize[keyframe] = data.length;
         }
 
-        if (viewer.sumDifference > Config.get().KEYFRAME_THRESHOLD2) {
+        if (viewer.sumDifference > Config.get().KEYFRAME_THRESHOLD_SUM) {
             System.out.println("Bframes: " + viewer.frameCount + " Sum diff: " + viewer.sumDifference);
             viewer.frameCount = 0;
         }
