@@ -1,5 +1,6 @@
 package net.kajos;
 
+import com.sun.jna.NativeLibrary;
 import net.kajos.Handlers.FilterHandler;
 import net.kajos.Manager.Manager;
 import net.kajos.Handlers.ControlsHandler;
@@ -50,7 +51,7 @@ public class Server {
         }
     }
 
-    private void webDirectoryCheck() {
+    private static void webDirectoryCheck() {
         File dir = new File("website");
         if (!dir.exists()) {
             System.out.println("Webserver contents are missing!");
@@ -59,7 +60,7 @@ public class Server {
         }
     }
 
-    private void javaVersionCheck() {
+    private static void javaVersionCheck() {
         String version = System.getProperty("java.version");
         System.out.println("Java version: " + version);
         System.out.println("Note: Required 1.6 or higher.");
@@ -70,8 +71,23 @@ public class Server {
 
         System.out.println("Note: Make sure VLC matches architecture type (32/64)!");
         System.out.println("Note: VLC version required >2.1");
-        System.out.println("Download url VLC: http://download.videolan.org/pub/videolan/vlc/");
         System.out.println();
+    }
+
+    private static void windowsHelper() {
+        if (!Util.isWindows()) {
+            return;
+        }
+
+        String dirname = "vlc-3.0.1";
+        File folder = new File(dirname);
+        if (folder.exists()) {
+            System.out.println("VLC already downloaded.");
+        } else {
+            VLCDownload.run();
+        }
+
+        NativeLibrary.addSearchPath("libvlc", dirname);
     }
 
     public void start() throws InterruptedException, AWTException {
@@ -81,6 +97,7 @@ public class Server {
 
         javaVersionCheck();
         webDirectoryCheck();
+        windowsHelper();
 
         mem = Config.load();
         manager = new Manager();

@@ -47,9 +47,10 @@ public class ScreenRecorder {
             mediaPlayer = factory.newDirectMediaPlayer(new TestBufferFormatCallback(), callback);
             mediaPlayer.playMedia(mrl, options);
         } catch (RuntimeException e) {
-            System.out.println("Error: Problem with calling VLC.");
+            System.out.println("Error: Problem while calling VLC!");
             System.out.println("Is your VLC of version >2.1?");
             System.out.println("Is your VLC of the same architecture as Java (32/64bit)?");
+            System.out.println("Download VLC here: http://download.videolan.org/pub/videolan/vlc/");
             e.printStackTrace();
             System.exit(1);
         }

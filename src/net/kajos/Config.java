@@ -45,13 +45,15 @@ public class Config {
             obj.put("SCREEN_LEFT", rect.x);
             obj.put("SCREEN_TOP", rect.y);
         } else {
-            System.out.println("Couldn't determine screen size!");
+            System.out.println("Error: Couldn't determine screen size!");
             System.out.println("Edit SCREEN_WIDTH and SCREEN_HEIGHT to match your display.");
             obj.put("SCREEN_WIDTH", instance.SCREEN_WIDTH);
             obj.put("SCREEN_HEIGHT", instance.SCREEN_HEIGHT);
             obj.put("SCREEN_LEFT", instance.SCREEN_LEFT);
             obj.put("SCREEN_TOP", instance.SCREEN_TOP);
         }
+        System.out.println();
+
         obj.put("FPS", instance.FPS);
         obj.put("ADD_FRAMES_LATENCY", instance.ADD_FRAMES_LATENCY);
         obj.put("MAX_FRAME_SKIP", instance.MAX_FRAME_SKIP);
@@ -72,30 +74,25 @@ public class Config {
     public static Config load() {
         instance = new Config();
 
-        File file = new File("config.json");
         JSONObject configJson = null;
-        if (!file.exists() || !file.canRead()) {
-            Config.print("No config.json file found!");
-            Config.print("Writing default config.json.");
-            try {
-                file.createNewFile();
+        try {
+            File file = new File("config.json");
+            if (!file.exists() || !file.canRead()) {
+                Config.print("No config.json file found!");
+                Config.print("Writing default config.json.");
+                    file.createNewFile();
 
-                configJson = createDefaultConfig();
-                try (PrintWriter out = new PrintWriter(file)) {
-                    out.println(configJson.toString(1));
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-                System.exit(1);
-            }
-        } else {
-            try {
+                    configJson = createDefaultConfig();
+                    try (PrintWriter out = new PrintWriter(file)) {
+                        out.println(configJson.toString(1));
+                    }
+            } else {
                 String contents = new String(Files.readAllBytes(file.toPath()));
                 configJson = new JSONObject(contents);
-            } catch (IOException e) {
-                e.printStackTrace();
-                System.exit(1);
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.exit(1);
         }
         try {
             instance.WEB_PORT = configJson.getInt("WEB_PORT");
@@ -120,7 +117,7 @@ public class Config {
             instance.KEYFRAME_THRESHOLD = configJson.getFloat("KEYFRAME_THRESHOLD");
             instance.KEYFRAME_THRESHOLD_SUM = configJson.getFloat("KEYFRAME_THRESHOLD_SUM");
         } catch (Exception e) {
-            Config.print("Error reading config.json!");
+            Config.print("Error: config.json is malformed!");
             Config.print("Remove the config.json and a default config.json will be generated on run.");
             e.printStackTrace();
             System.exit(1);
