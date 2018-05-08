@@ -59,11 +59,21 @@ public class Server {
         }
     }
 
+    private void javaVersionCheck() {
+        String version = System.getProperty("java.version");
+        System.out.println("Java version: " + version);
+        String arch = System.getProperty("os.arch");
+        System.out.println("Architecture: " + arch);
+        System.out.println("Make sure VLC matches architecture type (32/64)!");
+        System.out.println("Download latest VLC: http://download.videolan.org/pub/videolan/vlc/");
+    }
+
     public void start() throws InterruptedException, AWTException {
         System.out.println("------------------------------------------------");
         System.out.println("OculusGo DesktopStreamer beta by Kaj Toet");
         System.out.println("------------------------------------------------");
 
+        javaVersionCheck();
         webDirectoryCheck();
 
         mem = Config.load();
