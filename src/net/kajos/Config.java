@@ -3,7 +3,9 @@ package net.kajos;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.awt.*;
 import java.io.File;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 
@@ -14,14 +16,42 @@ public class Config {
         return instance;
     }
 
+    private static Rectangle getMaximumScreenBounds() {
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsDevice[] gs = ge.getScreenDevices();
+        for(GraphicsDevice curGs : gs)
+        {
+            GraphicsConfiguration[] gc = curGs.getConfigurations();
+            for(GraphicsConfiguration curGc : gc)
+            {
+                Rectangle bounds = curGc.getBounds();
+                return bounds;
+            }
+        }
+        return null;
+    }
+
     private static JSONObject createDefaultConfig() {
         JSONObject obj = new JSONObject();
         obj.put("WEB_PORT", instance.WEB_PORT);
 
-        obj.put("SCREEN_WIDTH", instance.SCREEN_WIDTH);
-        obj.put("SCREEN_HEIGHT", instance.SCREEN_HEIGHT);
-        obj.put("SCREEN_LEFT", instance.SCREEN_LEFT);
-        obj.put("SCREEN_TOP", instance.SCREEN_TOP);
+        Rectangle rect = getMaximumScreenBounds();
+        if (rect != null) {
+            System.out.println("Using screen as default:");
+            System.out.println("> Width: " + rect.width + ", height: " + rect.height);
+            System.out.println("> Left: " + rect.x + ", top: " + rect.y);
+            obj.put("SCREEN_WIDTH", rect.width);
+            obj.put("SCREEN_HEIGHT", rect.height);
+            obj.put("SCREEN_LEFT", rect.x);
+            obj.put("SCREEN_TOP", rect.y);
+        } else {
+            System.out.println("Couldn't determine screen size!");
+            System.out.println("Edit SCREEN_WIDTH and SCREEN_HEIGHT to match your display.");
+            obj.put("SCREEN_WIDTH", instance.SCREEN_WIDTH);
+            obj.put("SCREEN_HEIGHT", instance.SCREEN_HEIGHT);
+            obj.put("SCREEN_LEFT", instance.SCREEN_LEFT);
+            obj.put("SCREEN_TOP", instance.SCREEN_TOP);
+        }
         obj.put("FPS", instance.FPS);
         obj.put("ADD_FRAMES_LATENCY", instance.ADD_FRAMES_LATENCY);
         obj.put("MAX_FRAME_SKIP", instance.MAX_FRAME_SKIP);
@@ -54,7 +84,7 @@ public class Config {
                 try (PrintWriter out = new PrintWriter(file)) {
                     out.println(configJson.toString(1));
                 }
-            } catch (Exception e) {
+            } catch (IOException e) {
                 e.printStackTrace();
                 System.exit(1);
             }
@@ -62,34 +92,38 @@ public class Config {
             try {
                 String contents = new String(Files.readAllBytes(file.toPath()));
                 configJson = new JSONObject(contents);
-
-                instance.WEB_PORT = configJson.getInt("WEB_PORT");
-
-                instance.SCREEN_WIDTH = configJson.getInt("SCREEN_WIDTH");
-                instance.SCREEN_HEIGHT = configJson.getInt("SCREEN_HEIGHT");
-                instance.SCREEN_LEFT = configJson.getInt("SCREEN_LEFT");
-                instance.SCREEN_TOP = configJson.getInt("SCREEN_TOP");
-                instance.FPS = configJson.getInt("FPS");
-                instance.ADD_FRAMES_LATENCY = configJson.getInt("ADD_FRAMES_LATENCY");
-                instance.MAX_FRAME_SKIP = configJson.getInt("MAX_FRAME_SKIP");
-
-                instance.MIN_QUALITY = configJson.getFloat("MIN_QUALITY");
-                instance.MAX_QUALITY = configJson.getFloat("MAX_QUALITY");
-                instance.QUALITY_ALPHA = configJson.getFloat("QUALITY_ALPHA")
-                        / instance.FPS;
-
-                instance.HIGH_FORMAT = configJson.getString("HIGH_FORMAT");
-                instance.LOW_FORMAT = configJson.getString("LOW_FORMAT");
-                instance.INTERFRAME_FORMAT = configJson.getString("INTERFRAME_FORMAT");
-
-                instance.KEYFRAME_THRESHOLD = configJson.getFloat("KEYFRAME_THRESHOLD");
-                instance.KEYFRAME_THRESHOLD_SUM = configJson.getFloat("KEYFRAME_THRESHOLD_SUM");
-            } catch (Exception e) {
-                Config.print("Error reading config.json!");
-                Config.print("Remove the config.json and a default config.json will be generated on run.");
+            } catch (IOException e) {
                 e.printStackTrace();
                 System.exit(1);
             }
+        }
+        try {
+            instance.WEB_PORT = configJson.getInt("WEB_PORT");
+
+            instance.SCREEN_WIDTH = configJson.getInt("SCREEN_WIDTH");
+            instance.SCREEN_HEIGHT = configJson.getInt("SCREEN_HEIGHT");
+            instance.SCREEN_LEFT = configJson.getInt("SCREEN_LEFT");
+            instance.SCREEN_TOP = configJson.getInt("SCREEN_TOP");
+            instance.FPS = configJson.getInt("FPS");
+            instance.ADD_FRAMES_LATENCY = configJson.getInt("ADD_FRAMES_LATENCY");
+            instance.MAX_FRAME_SKIP = configJson.getInt("MAX_FRAME_SKIP");
+
+            instance.MIN_QUALITY = configJson.getFloat("MIN_QUALITY");
+            instance.MAX_QUALITY = configJson.getFloat("MAX_QUALITY");
+            instance.QUALITY_ALPHA = configJson.getFloat("QUALITY_ALPHA")
+                    / instance.FPS;
+
+            instance.HIGH_FORMAT = configJson.getString("HIGH_FORMAT");
+            instance.LOW_FORMAT = configJson.getString("LOW_FORMAT");
+            instance.INTERFRAME_FORMAT = configJson.getString("INTERFRAME_FORMAT");
+
+            instance.KEYFRAME_THRESHOLD = configJson.getFloat("KEYFRAME_THRESHOLD");
+            instance.KEYFRAME_THRESHOLD_SUM = configJson.getFloat("KEYFRAME_THRESHOLD_SUM");
+        } catch (Exception e) {
+            Config.print("Error reading config.json!");
+            Config.print("Remove the config.json and a default config.json will be generated on run.");
+            e.printStackTrace();
+            System.exit(1);
         }
 
         return instance;
