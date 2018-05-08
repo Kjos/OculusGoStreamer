@@ -14,7 +14,7 @@ A desktop streaming application for the OculusGo and GearVR (although untested).
 
 ## Instructions:
 - Also see notes
-- Install VLC. It's required. 
+- Install VLC. It's required.
 - Run from commandline: java -jar OculusGoStreamer.jar
 - Or any other way you run Java programs.
 - Visit the address printed in the terminal in your PCs browser, it will have port 7578.
@@ -61,6 +61,9 @@ A desktop streaming application for the OculusGo and GearVR (although untested).
 - Requires Java 1.6 or higher. VLCj for Mac OSX can only handle JVM 1.6 (? not sure).
 - The vlcj included library requires version 2.1.0+ of VLC installed.
 - VLC needs to be same architecture as JVM. Both 32 or both 64. You can check java version with "java -version".
+- If not working from start, you can download VLC here: http://download.videolan.org/pub/videolan/vlc/3.0.2/
+Put the VLC directory located in the zip/tar next to the JAR.
+Run java  -Djna.library.path=VLC-x.x.x/ -jar Oculusxx.jar
 - More information about vlcj: http://capricasoftware.co.uk/#/projects/vlcj/tutorial/prerequisites
 
 - At 10% battery the connection or browser will be limited and streaming will stutter.
