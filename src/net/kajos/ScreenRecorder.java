@@ -41,10 +41,18 @@ public class ScreenRecorder {
                 ":screen-left=" + Config.get().SCREEN_LEFT,
                 ":screen-top=" + Config.get().SCREEN_TOP
         };
-        factory = new MediaPlayerFactory();
-        callback = new RenderCallback(image, manager);
-        mediaPlayer = factory.newDirectMediaPlayer(new TestBufferFormatCallback(), callback);
-        mediaPlayer.playMedia(mrl, options);
+        try {
+            factory = new MediaPlayerFactory();
+            callback = new RenderCallback(image, manager);
+            mediaPlayer = factory.newDirectMediaPlayer(new TestBufferFormatCallback(), callback);
+            mediaPlayer.playMedia(mrl, options);
+        } catch (RuntimeException e) {
+            System.out.println("Error: Problem with calling VLC.");
+            System.out.println("Is your VLC of version >2.1?");
+            System.out.println("Is your VLC of the same architecture as Java (32/64bit)?");
+            e.printStackTrace();
+            System.exit(1);
+        }
 
         System.out.println("Recorder set up, width: " + width + ", height: " + height);
     }

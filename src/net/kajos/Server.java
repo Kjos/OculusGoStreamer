@@ -62,14 +62,16 @@ public class Server {
     private void javaVersionCheck() {
         String version = System.getProperty("java.version");
         System.out.println("Java version: " + version);
-        System.out.println("Required 1.6 or higher.");
+        System.out.println("Note: Required 1.6 or higher.");
 
         String arch = System.getProperty("os.arch");
         System.out.println("Architecture: " + arch);
-        System.out.println("Make sure VLC matches architecture type (32/64)!");
+        System.out.println();
 
-        System.out.println("VLC version required >2.1");
-        System.out.println("Download latest VLC: http://download.videolan.org/pub/videolan/vlc/");
+        System.out.println("Note: Make sure VLC matches architecture type (32/64)!");
+        System.out.println("Note: VLC version required >2.1");
+        System.out.println("Download url VLC: http://download.videolan.org/pub/videolan/vlc/");
+        System.out.println();
     }
 
     public void start() throws InterruptedException, AWTException {

@@ -7,9 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9181a8b5-c386-487b-b0df-6f1b68c80a62" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config.json" afterPath="$PROJECT_DIR$/config.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/kajos/Config.java" afterPath="$PROJECT_DIR$/src/net/kajos/Config.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/kajos/ScreenRecorder.java" afterPath="$PROJECT_DIR$/src/net/kajos/ScreenRecorder.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/kajos/Server.java" afterPath="$PROJECT_DIR$/src/net/kajos/Server.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -32,11 +30,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Config.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Config.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/net/kajos/Config.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="233">
-              <caret line="89" column="13" lean-forward="true" selection-start-line="89" selection-start-column="13" selection-end-line="89" selection-end-column="13" />
+            <state relative-caret-position="341">
+              <caret line="111" column="43" lean-forward="false" selection-start-line="111" selection-start-column="43" selection-end-line="111" selection-end-column="43" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -47,34 +45,39 @@
       <file leaf-file-name="ScreenRecorder.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/net/kajos/ScreenRecorder.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="837">
-              <caret line="41" column="46" lean-forward="false" selection-start-line="41" selection-start-column="46" selection-end-line="41" selection-end-column="46" />
+            <state relative-caret-position="455">
+              <caret line="51" column="86" lean-forward="false" selection-start-line="51" selection-start-column="86" selection-end-line="51" selection-end-column="86" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#508#509#0" expanded="true" />
+                <element signature="e#546#547#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/net/kajos/Main.java">
+      <file leaf-file-name="MediaPlayerFactory.java" pinned="false" current-in-tab="false">
+        <entry file="jar://$PROJECT_DIR$/lib/vlcj/vlcj-3.10.1-sources.jar!/uk/co/caprica/vlcj/player/MediaPlayerFactory.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="189">
-              <caret line="7" column="18" lean-forward="false" selection-start-line="7" selection-start-column="18" selection-end-line="7" selection-end-column="18" />
-              <folding />
+            <state relative-caret-position="-193">
+              <caret line="280" column="11" lean-forward="false" selection-start-line="280" selection-start-column="11" selection-end-line="280" selection-end-column="11" />
+              <folding>
+                <element signature="e#10374#10375#0" expanded="true" />
+                <element signature="e#10411#10412#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Server.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Server.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/net/kajos/Server.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="395">
-              <caret line="70" column="53" lean-forward="false" selection-start-line="70" selection-start-column="53" selection-end-line="70" selection-end-column="53" />
+            <state relative-caret-position="138">
+              <caret line="61" column="37" lean-forward="false" selection-start-line="61" selection-start-column="37" selection-end-line="61" selection-end-column="37" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#3530#3633#0" expanded="true" />
-                <element signature="e#3632#3633#0" expanded="true" />
+                <element signature="e#3605#3708#0" expanded="true" />
+                <element signature="e#3707#3708#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -105,8 +108,8 @@
       <file leaf-file-name="RenderCallback.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/net/kajos/RenderCallback.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="6156">
-              <caret line="237" column="29" lean-forward="false" selection-start-line="237" selection-start-column="29" selection-end-line="237" selection-end-column="29" />
+            <state relative-caret-position="2136">
+              <caret line="99" column="31" lean-forward="true" selection-start-line="99" selection-start-column="31" selection-end-line="99" selection-end-column="31" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -236,7 +239,6 @@
         <option value="$PROJECT_DIR$/src/net/kajos/Handlers/FilterHandler.java" />
         <option value="$PROJECT_DIR$/src/net/kajos/Main.java" />
         <option value="$PROJECT_DIR$/src/net/kajos/ImageWrapper.java" />
-        <option value="$PROJECT_DIR$/src/net/kajos/ScreenRecorder.java" />
         <option value="$PROJECT_DIR$/src/org/json/JSONObject.java" />
         <option value="$PROJECT_DIR$/src/net/kajos/LowPassFilter.java" />
         <option value="$PROJECT_DIR$/src/net/kajos/Manager/Input.java" />
@@ -246,9 +248,10 @@
         <option value="$PROJECT_DIR$/src/net/kajos/Manager/Manager.java" />
         <option value="$PROJECT_DIR$/src/net/kajos/RenderCallback.java" />
         <option value="$PROJECT_DIR$/src/net/kajos/Manager/Quality.java" />
-        <option value="$PROJECT_DIR$/src/net/kajos/Server.java" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/src/net/kajos/Config.java" />
+        <option value="$PROJECT_DIR$/src/net/kajos/ScreenRecorder.java" />
+        <option value="$PROJECT_DIR$/src/net/kajos/Server.java" />
       </list>
     </option>
   </component>
@@ -482,6 +485,8 @@
           <caret line="32" column="10" lean-forward="false" selection-start-line="32" selection-start-column="10" selection-end-line="32" selection-end-column="10" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#508#509#0" expanded="true" />
+            <element signature="e#546#547#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -546,8 +551,8 @@
           <caret line="60" column="48" lean-forward="false" selection-start-line="60" selection-start-column="48" selection-end-line="60" selection-end-column="48" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3530#3633#0" expanded="true" />
-            <element signature="e#3632#3633#0" expanded="true" />
+            <element signature="e#3605#3708#0" expanded="true" />
+            <element signature="e#3707#3708#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -571,13 +576,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="54">
           <caret line="2" column="17" lean-forward="false" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/lib/vlcj/vlcj-3.10.1-sources.jar!/uk/co/caprica/vlcj/player/MediaPlayerFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="16470">
-          <caret line="689" column="33" lean-forward="false" selection-start-line="689" selection-start-column="33" selection-end-line="689" selection-end-column="33" />
         </state>
       </provider>
     </entry>
@@ -742,26 +740,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/net/kajos/RenderCallback.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6156">
-          <caret line="237" column="29" lean-forward="false" selection-start-line="237" selection-start-column="29" selection-end-line="237" selection-end-column="29" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/net/kajos/ScreenRecorder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="837">
-          <caret line="41" column="46" lean-forward="false" selection-start-line="41" selection-start-column="46" selection-end-line="41" selection-end-column="46" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/net/kajos/Manager/Viewer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
@@ -788,18 +766,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/net/kajos/Server.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="395">
-          <caret line="70" column="53" lean-forward="false" selection-start-line="70" selection-start-column="53" selection-end-line="70" selection-end-column="53" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#3530#3633#0" expanded="true" />
-            <element signature="e#3632#3633#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="405">
@@ -808,12 +774,57 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/net/kajos/Config.java">
+    <entry file="file://$PROJECT_DIR$/src/net/kajos/RenderCallback.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="233">
-          <caret line="89" column="13" lean-forward="true" selection-start-line="89" selection-start-column="13" selection-end-line="89" selection-end-column="13" />
+        <state relative-caret-position="2136">
+          <caret line="99" column="31" lean-forward="true" selection-start-line="99" selection-start-column="31" selection-end-line="99" selection-end-column="31" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/net/kajos/Config.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="341">
+          <caret line="111" column="43" lean-forward="false" selection-start-line="111" selection-start-column="43" selection-end-line="111" selection-end-column="43" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/lib/vlcj/vlcj-3.10.1-sources.jar!/uk/co/caprica/vlcj/player/MediaPlayerFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-193">
+          <caret line="280" column="11" lean-forward="false" selection-start-line="280" selection-start-column="11" selection-end-line="280" selection-end-column="11" />
+          <folding>
+            <element signature="e#10374#10375#0" expanded="true" />
+            <element signature="e#10411#10412#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/net/kajos/ScreenRecorder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="455">
+          <caret line="51" column="86" lean-forward="false" selection-start-line="51" selection-start-column="86" selection-end-line="51" selection-end-column="86" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#508#509#0" expanded="true" />
+            <element signature="e#546#547#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/net/kajos/Server.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="61" column="37" lean-forward="false" selection-start-line="61" selection-start-column="37" selection-end-line="61" selection-end-column="37" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#3605#3708#0" expanded="true" />
+            <element signature="e#3707#3708#0" expanded="true" />
           </folding>
         </state>
       </provider>
