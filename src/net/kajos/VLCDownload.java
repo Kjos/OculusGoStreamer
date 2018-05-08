@@ -16,7 +16,7 @@ public class VLCDownload {
         run();
     }
 
-    private static void download(String url, Path path) {
+    private static boolean download(String url, Path path) {
         try {
             System.out.println("Downloading new VLC copy..");
             URL website = new URL(url);
@@ -24,10 +24,11 @@ public class VLCDownload {
             Files.copy(in, path, StandardCopyOption.REPLACE_EXISTING);
             in.close();
             System.out.println("Download completed.");
+            return true;
         } catch (IOException e) {
             System.out.println("Couldn't download VLC.");
             e.printStackTrace();
-            System.exit(1);
+            return false;
         }
     }
 
@@ -39,10 +40,10 @@ public class VLCDownload {
             String arch = System.getProperty("os.arch");
             if (arch.contains("64")) {
                 System.out.println("Need 64 bit version.");
-                download(WINDOWS_64, zipFile.toPath());
+                if (!download(WINDOWS_64, zipFile.toPath())) return;
             } else {
                 System.out.println("Need 32 bit version.");
-                download(WINDOWS_32, zipFile.toPath());
+                if (!download(WINDOWS_32, zipFile.toPath())) return;
             }
         }
 
