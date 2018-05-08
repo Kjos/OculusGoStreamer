@@ -57,7 +57,7 @@ A desktop streaming application for the OculusGo and GearVR (although untested).
 ```
 
 ## Notes
-- Requires Java 1.6 or higher. VLCj for Mac OSX can only handle JVM 1.6.
+- Requires Java 1.6 or higher. VLCj for Mac OSX can only handle JVM 1.6 (? not sure).
 - The vlcj included library requires version 2.1.0+ of VLC installed.
 - VLC needs to be same architecture as JVM. Both 32 or both 64. You can check java version with "java -version".
 - More information about vlcj: http://capricasoftware.co.uk/#/projects/vlcj/tutorial/prerequisites
