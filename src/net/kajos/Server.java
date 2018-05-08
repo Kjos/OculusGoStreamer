@@ -8,6 +8,7 @@ import org.webbitserver.*;
 import org.webbitserver.handler.StaticFileHandler;
 
 import java.awt.*;
+import java.io.File;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.UnknownHostException;
@@ -49,7 +50,18 @@ public class Server {
         }
     }
 
+    private void webDirectoryCheck() {
+        File dir = new File("website");
+        if (!dir.exists()) {
+            System.out.println("Webserver contents are missing!");
+            System.out.println("Place the 'website' directory next to the JAR executable.");
+            System.exit(1);
+        }
+    }
+
     public void start() throws InterruptedException, AWTException {
+        webDirectoryCheck();
+
         mem = Config.load();
         manager = new Manager();
 
