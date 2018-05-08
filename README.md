@@ -13,7 +13,8 @@ A desktop streaming application for the OculusGo and GearVR (although untested).
 - Supports Go pointer for mouse.
 
 ## Instructions:
-- Install VLC. It's required. (vlcj requires version 2.1.0+ of VLC)
+- Also see notes
+- Install VLC. It's required. 
 - Run from commandline: java -jar OculusGoStreamer.jar
 - Or any other way you run Java programs.
 - Visit the address printed in the terminal in your PCs browser, it will have port 7578.
