@@ -21,7 +21,7 @@ public class Quality {
     public void raise() {
         if (frameSkip > 1) {
             frameSkip--;
-        } else  {
+        } else {
             jpegQuality += Config.get().QUALITY_ALPHA;
             if (jpegQuality > Config.get().MAX_QUALITY) {
                 jpegQuality = Config.get().MAX_QUALITY;

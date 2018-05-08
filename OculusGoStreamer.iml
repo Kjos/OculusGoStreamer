@@ -7,7 +7,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Webbit-libs" level="project" />
-    <orderEntry type="library" name="vlcj" level="project" />
+    <orderEntry type="library" exported="" name="Webbit-libs" level="project" />
+    <orderEntry type="library" exported="" name="vlcj" level="project" />
   </component>
 </module>
