@@ -27,7 +27,6 @@ public class VLCDownload {
             return true;
         } catch (IOException e) {
             System.out.println("Couldn't download VLC.");
-            e.printStackTrace();
             return false;
         }
     }
