@@ -60,6 +60,10 @@ public class Server {
     }
 
     public void start() throws InterruptedException, AWTException {
+        System.out.println("------------------------------------------------");
+        System.out.println("OculusGo DesktopStreamer beta by Kaj Toet");
+        System.out.println("------------------------------------------------");
+
         webDirectoryCheck();
 
         mem = Config.load();
@@ -73,9 +77,6 @@ public class Server {
         webServer.add("/websocket", manager);
         webServer.add(new StaticFileHandler("website/"));
         webServer.start();
-
-        System.out.println("OculusGo DesktopStreamer beta by Kaj Toet");
-        System.out.println("------------------------------------------------");
 
         try {
             System.out.print("Address: " + getLocalHostLANAddress().toString());
