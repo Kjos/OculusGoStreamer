@@ -90,11 +90,11 @@ public class Server {
             System.out.println();
         }
 
-
         if (folder.exists()) {
-            NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), dirname);
-            String plugin = folder.getAbsolutePath() + "/plugins";
-            System.setProperty("VLC_PLUGIN_PATH", plugin);
+            String absPath = folder.getAbsolutePath();
+            NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), absPath);
+            String plugin = absPath + "/plugins";
+            System.setProperty("VLC_PLUGIN_PATH", "");
             System.out.println("Set plugins folder: " + plugin);
             System.out.println();
         }
