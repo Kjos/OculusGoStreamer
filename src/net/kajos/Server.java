@@ -10,11 +10,21 @@ import org.webbitserver.handler.StaticFileHandler;
 
 import java.awt.*;
 import java.io.File;
-import java.net.InetAddress;
-import java.net.NetworkInterface;
-import java.net.UnknownHostException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.*;
+import java.nio.file.*;
+import java.security.CodeSource;
+import java.util.Collections;
 import java.util.Enumeration;
+import java.util.Iterator;
 import java.util.concurrent.Executors;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
+import java.util.stream.Stream;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 /**
  * Created by kajos on 6-8-17.
@@ -66,7 +76,7 @@ public class Server {
         System.out.println("Note: Required 1.6 or higher.");
 
         String arch = System.getProperty("os.arch");
-        System.out.println("Architecture: " + arch);
+        System.out.println("Java architecture: " + arch);
         System.out.println();
 
         System.out.println("Note: Make sure VLC matches architecture type (32/64)!");
@@ -90,14 +100,49 @@ public class Server {
         NativeLibrary.addSearchPath("libvlc", dirname);
     }
 
-    public void start() throws InterruptedException, AWTException {
+    private void extractWebsiteContents() {
+        File dir = new File("website/");
+
+        if (dir.exists()) return;
+
+        dir.mkdir();
+        try {
+            CodeSource src = Server.class.getProtectionDomain().getCodeSource();
+            URL jar = src.getLocation();
+            ZipInputStream zip = new ZipInputStream(jar.openStream());
+            while(true) {
+                ZipEntry e = zip.getNextEntry();
+                if (e == null)
+                    break;
+
+                String name = e.getName();
+                if (name.startsWith("website/") && !name.equals("website/")) {
+                    System.out.println("Extracting: " + name);
+
+                    InputStream io = getClass().getResourceAsStream("/" + name);
+                    FileOutputStream fos = new FileOutputStream(name);
+                    byte[] buf = new byte[256];
+                    int read = 0;
+                    while ((read = io.read(buf)) > 0) {
+                        fos.write(buf, 0, read);
+                    }
+                    fos.close();
+                    io.close();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void start() throws InterruptedException, AWTException, URISyntaxException {
         System.out.println("------------------------------------------------");
         System.out.println("OculusGo DesktopStreamer beta by Kaj Toet");
         System.out.println("------------------------------------------------");
 
         javaVersionCheck();
-        webDirectoryCheck();
         windowsHelper();
+        extractWebsiteContents();
 
         mem = Config.load();
         manager = new Manager();
@@ -112,7 +157,7 @@ public class Server {
         webServer.start();
 
         try {
-            System.out.print("Address: " + getLocalHostLANAddress().toString());
+            System.out.print("Open address in browser: " + getLocalHostLANAddress().toString());
             System.out.println(":" + webServer.getPort());
         } catch (UnknownHostException e) {
             e.printStackTrace();
