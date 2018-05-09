@@ -14,14 +14,15 @@ A desktop streaming application for the OculusGo and GearVR (although untested).
 
 ## Instructions:
 - Also see notes
-- Install VLC. It's required.
+- Download VLC. The streamer uses VLC libraries. For Windows, the app should autodownload the
+correct VLC on first run.
 - Run from commandline: java -jar OculusGoStreamer.jar
 - Or any other way you run Java programs.
 - Visit the address printed in the terminal in your PCs browser, it will have port 7578.
 - It will print "Polling minimum achievable latency" for a few seconds.
 - And then should begin to stream.
-- Visit the address in your Oculus browser.
-- Click the keyboard icon to open the keyboard.
+- Visit the address in your browser.
+- Click the keyboard icon to open the keyboard for touchscreen devices.
 
 ## config.json
 ```
@@ -66,6 +67,7 @@ Put the VLC directory located in the zip/tar next to the JAR.
 Run java  -Djna.library.path=VLC-x.x.x/ -jar Oculusxx.jar
 - More information about vlcj: http://capricasoftware.co.uk/#/projects/vlcj/tutorial/prerequisites
 
+For OculusGo specifically:
 - At 10% battery the connection or browser will be limited and streaming will stutter.
 - When you have the headset off, the browser will keep running in the background, so close the app when you're done.
 
@@ -78,6 +80,6 @@ Run java  -Djna.library.path=VLC-x.x.x/ -jar Oculusxx.jar
 - Support bluetooth keyboard and other controllers.
 - Video compression needs overall improvement. Perhaps the interframe method can be removed, but I think the bandwidth usage might otherwise become too high at cost of quality. Overall interframe compression is GPU-costly for browserside. (Mostly done)
 - Sound is missing.
-- Bundle everything as single executable.
+- Bundle everything as single executable. (Website dir now extracts from Jar, for Windows VLC is downloaded)
 - Config file support or commandline parameters if sufficient. (Done, config.json)
 - Maintain aspect ratio. Will also lessen bandwidth usage a tiny bit. (Done)
