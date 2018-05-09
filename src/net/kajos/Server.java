@@ -1,11 +1,14 @@
 package net.kajos;
 
+import com.sun.jna.Native;
 import com.sun.jna.NativeLibrary;
 import net.kajos.Handlers.FilterHandler;
 import net.kajos.Manager.Manager;
 import net.kajos.Handlers.ControlsHandler;
 import org.webbitserver.*;
 import org.webbitserver.handler.StaticFileHandler;
+import uk.co.caprica.vlcj.binding.LibVlc;
+import uk.co.caprica.vlcj.runtime.RuntimeUtil;
 
 import java.awt.*;
 import java.io.File;
@@ -84,9 +87,11 @@ public class Server {
             System.out.println("VLC already downloaded.");
         } else {
             VLCDownload.run();
+            System.out.println();
         }
 
-        NativeLibrary.addSearchPath("libvlc", dirname);
+        NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), dirname);
+        System.setProperty("VLC_PLUGIN_PATH", "");
     }
 
     private void extractWebsiteContents() {
