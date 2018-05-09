@@ -4,25 +4,17 @@ import com.sun.jna.NativeLibrary;
 import net.kajos.Handlers.FilterHandler;
 import net.kajos.Manager.Manager;
 import net.kajos.Handlers.ControlsHandler;
-import net.kajos.Manager.Viewer;
 import org.webbitserver.*;
 import org.webbitserver.handler.StaticFileHandler;
 
 import java.awt.*;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.*;
-import java.nio.file.*;
 import java.security.CodeSource;
-import java.util.Collections;
 import java.util.Enumeration;
-import java.util.Iterator;
 import java.util.concurrent.Executors;
-import java.util.jar.JarEntry;
-import java.util.jar.JarFile;
-import java.util.stream.Stream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -84,12 +76,9 @@ public class Server {
         System.out.println();
     }
 
-    private static void windowsHelper() {
-        if (!Util.isWindows()) {
-            return;
-        }
+    private static void vlcHelper() {
+        String dirname = "vlc-" + VLCDownload.VLC;
 
-        String dirname = "vlc-3.0.1";
         File folder = new File(dirname);
         if (folder.exists()) {
             System.out.println("VLC already downloaded.");
@@ -133,6 +122,8 @@ public class Server {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        webDirectoryCheck();
     }
 
     public void start() throws InterruptedException, AWTException, URISyntaxException {
@@ -141,8 +132,8 @@ public class Server {
         System.out.println("------------------------------------------------");
 
         javaVersionCheck();
-        windowsHelper();
         extractWebsiteContents();
+        vlcHelper();
 
         mem = Config.load();
         manager = new Manager();

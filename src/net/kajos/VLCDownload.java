@@ -31,19 +31,57 @@ public class VLCDownload {
         }
     }
 
-    private static final String WINDOWS_32 = "http://download.videolan.org/pub/videolan/vlc/3.0.1/win32/vlc-3.0.1-win32.zip";
-    private static final String WINDOWS_64 = "http://download.videolan.org/pub/videolan/vlc/3.0.1/win64/vlc-3.0.1-win64.zip";
+    public static final String VLC = "2.2.6";
+    private static final String MAC = "http://download.videolan.org/pub/videolan/vlc/2.2.6/macosx/";
+    private static final String LINUX = "http://download.videolan.org/pub/videolan/vlc/" +
+            VLC + "/vlc-" + VLC + ".tar.xz";
+    private static final String WINDOWS_32 = "http://download.videolan.org/pub/videolan/vlc/" +
+            VLC + "/win32/vlc-" + VLC + "-win32.zip";
+    private static final String WINDOWS_64 = "http://download.videolan.org/pub/videolan/vlc/" +
+            VLC + "/win64/vlc-" + VLC + "-win64.zip";
     public static void run() {
+        String downloadUrl = null;
+        boolean archIs64 = System.getProperty("os.arch").contains("64");
+        if (archIs64) {
+            System.out.println("Note: Need VLC 64 bit version for this JRE.");
+        } else {
+            System.out.println("Note: Need VLC 32 bit version for this JRE.");
+        }
+
         File zipFile = new File("vlc-compressed.zip");
         if (!zipFile.exists()) {
-            String arch = System.getProperty("os.arch");
-            if (arch.contains("64")) {
-                System.out.println("Need 64 bit version.");
-                if (!download(WINDOWS_64, zipFile.toPath())) return;
+
+            if (Util.isMac() || Util.isLinux()) {
+                String vlcVersion = executeBashCommand("file $(which vlc)");
+                System.out.println("VLC version info:");
+                System.out.println(vlcVersion);
+                if ((vlcVersion.contains("64") && archIs64) ||
+                        (!vlcVersion.contains("64") && !archIs64)) {
+                    System.out.println("Seems VLC and Java architecture already match.");
+                    System.out.println("If still not working, download VLC " + VLC + ".");
+                } else {
+                    System.out.println("Seems VLC and Java architecture don't match!");
+                }
+                if (archIs64) {
+                    System.out.println("Download and install 64-bit VLC from here:");
+                } else {
+                    System.out.println("Download and install 32-bit VLC from here:");
+                }
+                System.out.println(Util.isMac() ? MAC : LINUX);
+                return;
+
+            } else if (Util.isWindows()) {
+                if (archIs64) {
+                    downloadUrl = WINDOWS_64;
+                } else {
+                    downloadUrl = WINDOWS_32;
+                }
             } else {
-                System.out.println("Need 32 bit version.");
-                if (!download(WINDOWS_32, zipFile.toPath())) return;
+                System.out.println("Unknown system! Don't know what VLC to download.");
+                return;
             }
+
+            if (!download(downloadUrl, zipFile.toPath())) return;
         }
 
         System.out.println("Uncompressing VLC zip file..");
@@ -106,4 +144,32 @@ public class VLCDownload {
         }
     }
 
+    public static String executeBashCommand(String command) {
+        System.out.println("Executing BASH command:\n   " + command);
+        Runtime r = Runtime.getRuntime();
+        // Use bash -c so we can handle things like multi commands separated by ; and
+        // things like quotes, $, |, and \. My tests show that command comes as
+        // one argument to bash, so we do not need to quote it to make it one thing.
+        // Also, exec may object if it does not have an executable file as the first thing,
+        // so having bash here makes it happy provided bash is installed and in path.
+        String[] commands = {"bash", "-c", command};
+        String output = "";
+        try {
+            Process p = r.exec(commands);
+
+            p.waitFor();
+            BufferedReader b = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            String line = "";
+
+            while ((line = b.readLine()) != null) {
+                output += line;
+            }
+
+            b.close();
+        } catch (Exception e) {
+            System.err.println("Failed to execute bash with command: " + command);
+            e.printStackTrace();
+        }
+        return output;
+    }
 }
