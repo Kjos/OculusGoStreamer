@@ -8,6 +8,8 @@ import net.kajos.Handlers.ControlsHandler;
 import org.webbitserver.*;
 import org.webbitserver.handler.StaticFileHandler;
 import uk.co.caprica.vlcj.binding.LibVlc;
+import uk.co.caprica.vlcj.binding.LibVlcFactory;
+import uk.co.caprica.vlcj.discovery.NativeDiscovery;
 import uk.co.caprica.vlcj.runtime.RuntimeUtil;
 
 import java.awt.*;
@@ -94,7 +96,7 @@ public class Server {
             String absPath = folder.getAbsolutePath();
             NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), absPath);
             String plugin = absPath + "/plugins";
-            System.setProperty("VLC_PLUGIN_PATH", "");
+            System.setProperty("VLC_PLUGIN_PATH", plugin);
             System.out.println("Set plugins folder: " + plugin);
             System.out.println();
         }
