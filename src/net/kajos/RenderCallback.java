@@ -8,6 +8,8 @@ import uk.co.caprica.vlcj.player.direct.RenderCallbackAdapter;
 
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -43,65 +45,67 @@ public class RenderCallback extends RenderCallbackAdapter {
     @Override
     public void onDisplay(DirectMediaPlayer mediaPlayer, int[] frameData) {
         frameCount++;
+        
+        final Iterator<Viewer> it = manager.getViewers().iterator();
 
-        final Viewer viewer = manager.getViewer();
-        if (viewer == null) return;
-
-        // Initial latency polling
-        if (viewer.receivedFrameStamp < Constants.LATENCY_POLL_FRAMES) {
-            int latency = frameCount - viewer.receivedFrameStamp + Config.get().ADD_FRAMES_LATENCY;
-            manager.sendEmptyImage(frameCount);
-
-            allowedLatency = Math.max(latency, allowedLatency);
-            System.out.println("Polling minimum achievable latency: " + allowedLatency);
-            return;
+        while (it.hasNext()) {
+            Viewer viewer = it.next();
+            // Initial latency polling
+            if (viewer.receivedFrameStamp < Constants.LATENCY_POLL_FRAMES) {
+                int latency = frameCount - viewer.receivedFrameStamp + Config.get().ADD_FRAMES_LATENCY;
+                manager.sendEmptyImage(viewer, frameCount);
+    
+                allowedLatency = Math.max(latency, allowedLatency);
+                System.out.println("Polling minimum achievable latency: " + allowedLatency);
+                return;
+            }
+    
+            final int frameId = frameCount;
+            exec.submit(new Runnable() {
+    
+                private void runFrame() {
+                    boolean isKeyFrame = viewer.frameCount == 0;
+                    boolean missingKeyFrame = missingKeyframe(viewer);
+    
+                    if (isKeyFrame || missingKeyFrame) {
+                        interlaceKeyFrame(viewer, frameId, frameData, missingKeyFrame);
+                    } else {
+                        interlaceFrame(viewer, frameId, frameData);
+                    }
+                }
+    
+                @Override
+                public void run() {
+                    boolean latencyTooHigh = frameId - viewer.receivedFrameStamp > Config.get().ADD_FRAMES_LATENCY;
+                    if (latencyTooHigh) {
+                        System.out.println("Latency too high! Lowering quality");
+                    }
+    
+                    Quality quality = viewer.quality;
+                    if (latencyTooHigh) {
+                        quality.lower();
+                    } else {
+                        quality.raise();
+                    }
+    
+                    boolean lateEncoding = !viewer.frameSem.tryAcquire();
+    
+                    if (lateEncoding) {
+                        manager.sendEmptyImage(viewer, frameId);
+                        System.out.println("Busy encoding");
+    
+                    } else if(frameId % viewer.quality.frameSkip != 0) {
+                        manager.sendEmptyImage(viewer, frameId);
+                        System.out.println("Skipped frame");
+                        viewer.frameSem.release();
+    
+                    } else {
+                        runFrame();
+                        viewer.frameSem.release();
+                    }
+                }
+            });
         }
-
-        final int frameId = frameCount;
-        exec.submit(new Runnable() {
-
-            private void runFrame() {
-                boolean isKeyFrame = viewer.frameCount == 0;
-                boolean missingKeyFrame = missingKeyframe(viewer);
-
-                if (isKeyFrame || missingKeyFrame) {
-                    interlaceKeyFrame(viewer, frameId, frameData, missingKeyFrame);
-                } else {
-                    interlaceFrame(viewer, frameId, frameData);
-                }
-            }
-
-            @Override
-            public void run() {
-                boolean latencyTooHigh = frameId - viewer.receivedFrameStamp > Config.get().ADD_FRAMES_LATENCY;
-                if (latencyTooHigh) {
-                    System.out.println("Latency too high! Lowering quality");
-                }
-
-                Quality quality = viewer.quality;
-                if (latencyTooHigh) {
-                    quality.lower();
-                } else {
-                    quality.raise();
-                }
-
-                boolean lateEncoding = !viewer.frameSem.tryAcquire();
-
-                if (lateEncoding) {
-                    manager.sendEmptyImage(frameId);
-                    System.out.println("Busy encoding");
-
-                } else if(frameId % viewer.quality.frameSkip != 0) {
-                    manager.sendEmptyImage(frameId);
-                    System.out.println("Skipped frame");
-                    viewer.frameSem.release();
-
-                } else {
-                    runFrame();
-                    viewer.frameSem.release();
-                }
-            }
-        });
     }
 
     private void interlaceKeyFrame(Viewer viewer, int frameStamp, int[] frameData, boolean missingKeyFrame) {
@@ -115,13 +119,10 @@ public class RenderCallback extends RenderCallbackAdapter {
 
         ImageWrapper img = pool.get();
 
-        int startX = 0;
         int startY = 0;
         if (interpol) startY += 1;
-        // Interlaced, skip one extra
-        int skipW = width * 2 - img.width;
 
-        int p = startX + startY * width;
+        int p = startY * width;
         int p2 = 0;
 
         int[] pixels = img.pixels;
@@ -135,16 +136,19 @@ public class RenderCallback extends RenderCallbackAdapter {
         int[][] g = viewer.rgb[keyframe][1];
         int[][] b = viewer.rgb[keyframe][2];
 
-        for (int y = 0; y < img.height; y++, p+=skipW) {
+        for (int y = 0; y < img.height; y++, p+=width) {
+            int[] ar = r[y];
+            int[] ag = g[y];
+            int[] ab = b[y];
             for (int x = 0; x < img.width; x++, p++, p2++) {
                 int c = frameData[p];
                 int cr = (c >> 16) & 0xff;
                 int cg = (c >> 8) & 0xff;
                 int cb = c & 0xff;
 
-                r[y][x] = cr;
-                g[y][x] = cg;
-                b[y][x] = cb;
+                ar[x] = cr;
+                ag[x] = cg;
+                ab[x] = cb;
                 pixels[p2] = c;
             }
         }
@@ -159,7 +163,7 @@ public class RenderCallback extends RenderCallbackAdapter {
         System.out.println("Keyframe " + keyframe + ": " + quality.frameFormat + ", size: " + data.length +
                 ", quality: " + quality.jpegQuality);
 
-        manager.sendImage(data);
+        manager.sendImage(viewer, data);
         viewer.frameCount++;
         viewer.lastKeyFrameSize[keyframe] = data.length;
 
@@ -231,7 +235,7 @@ public class RenderCallback extends RenderCallbackAdapter {
 
         if (diff < Constants.IGNORE_DIFFERENCE / (float)Config.get().FPS) {
             //System.out.println(diff);
-            manager.sendEmptyImage(frameStamp);
+            manager.sendEmptyImage(viewer, frameStamp);
         } else {
 
             byte[] data = img.getCompressedBytes(code, frameStamp, quality.jpegQuality,
@@ -240,7 +244,7 @@ public class RenderCallback extends RenderCallbackAdapter {
             System.out.println("Interframe " + keyframe + ": " + quality.interImageFormat + ", size: " + data.length +
                 ", diff.:" + diff + ", sum diff.:" + viewer.sumDifference + ", quality: " + quality.jpegQuality);
 
-            manager.sendImage(data);
+            manager.sendImage(viewer, data);
 
             // Frame is not going back to keyframe
             if (data.length > viewer.lastKeyFrameSize[keyframe]) {

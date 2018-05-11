@@ -1,15 +1,10 @@
 package net.kajos;
 
-import com.sun.jna.Native;
 import com.sun.jna.NativeLibrary;
 import net.kajos.Handlers.FilterHandler;
 import net.kajos.Manager.Manager;
-import net.kajos.Handlers.ControlsHandler;
 import org.webbitserver.*;
 import org.webbitserver.handler.StaticFileHandler;
-import uk.co.caprica.vlcj.binding.LibVlc;
-import uk.co.caprica.vlcj.binding.LibVlcFactory;
-import uk.co.caprica.vlcj.discovery.NativeDiscovery;
 import uk.co.caprica.vlcj.runtime.RuntimeUtil;
 
 import java.awt.*;
@@ -30,7 +25,6 @@ public class Server {
     private Config mem;
 
     private WebServer webServer;
-    private ControlsHandler controlsHandler;
 
     private Manager manager;
     private ScreenRecorder recorder;
@@ -53,7 +47,6 @@ public class Server {
 
         if (clientWidth != recorder.videoWidth || clientHeight != recorder.videoHeight) {
             recorder.stop();
-            manager.getViewer().reset();
             recorder.start(clientWidth, clientHeight);
         }
     }
@@ -149,13 +142,10 @@ public class Server {
         vlcHelper();
 
         mem = Config.load();
-        manager = new Manager();
-
-        controlsHandler = new ControlsHandler(this, manager);
+        manager = new Manager(this);
 
         webServer = WebServers.createWebServer(Executors.newFixedThreadPool(Constants.THREADS), Config.get().WEB_PORT);
         webServer.add(new FilterHandler());
-        webServer.add("/control", controlsHandler);
         webServer.add("/websocket", manager);
         webServer.add(new StaticFileHandler("website/"));
         webServer.start();

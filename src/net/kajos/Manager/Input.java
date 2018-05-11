@@ -41,8 +41,7 @@ public class Input {
     }
 
     private long tPress = 0;
-    public void parseInput(String json) {
-        JSONObject obj = new JSONObject(json);
+    public void parseInput(JSONObject obj) {
         if (obj.has("mouseMove")) {
             JSONArray pos = obj.getJSONArray("mouseMove");
             mouseMove(pos.getInt(0), pos.getInt(1));

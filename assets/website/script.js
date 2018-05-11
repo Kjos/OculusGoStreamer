@@ -387,6 +387,7 @@ function connectWebSocket() {
 		console.log("MJPEG connected");
 		lastKeyFrame = new Array();
 		lastKeyData = new Array();
+		sendCommand("window", [window.innerWidth, window.innerHeight]);
 	};
 	websocket.onclose = function () {
 		console.log("MJPEG disconnected");
@@ -479,22 +480,7 @@ var pollTimeout = null;
 function poll() {
 	if (pollTimeout) clearTimeout(pollTimeout);
 	pollTimeout = setTimeout(function() {
-		$.ajax({
-		    url: "/control",
-		    dataType: "json",
-		    data: {
-			"WIDTH": window.innerWidth,
-			"HEIGHT": window.innerHeight
-		    },
-		    success: function( data ) {
-			isActive = true;
-
-			connectWebSocket();
-		    },
-		    error: function(xhr, status, error) {
-			parseError(xhr);
-		    }
-		});
+		sendCommand("window", [window.innerWidth, window.innerHeight]);
 	}, 500);
 }
 
@@ -509,9 +495,9 @@ $(document).ready(function(){
 	frameCanvas2 = document.createElement('canvas');
 
 	inputSetup();
+	connectWebSocket();
 
 	window.onresize = poll;
-	poll();
 
         document.getElementById("keyboardHack").focus();
 });
