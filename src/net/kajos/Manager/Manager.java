@@ -10,7 +10,9 @@ import java.awt.*;
 import java.util.*;
 
 public class Manager extends BaseWebSocketHandler {
-    private HashMap<WebSocketConnection, Viewer> viewers = new HashMap<>();
+    private Viewer viewer = null;
+    private WebSocketConnection connection;
+
     private Input input;
     private Server server;
 
@@ -19,19 +21,13 @@ public class Manager extends BaseWebSocketHandler {
         this.server = server;
     }
 
-    public void sendImage(Viewer viewer, byte[] data) {
-        Iterator<Map.Entry<WebSocketConnection, Viewer>> it = viewers.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry<WebSocketConnection, Viewer> entry = it.next();
-            if (entry.getValue().equals(viewer)) {
-                WebSocketConnection conn = entry.getKey();
-                conn.send(data);
-                return;
-            }
-        }
+    public void sendImage(byte[] data) {
+        if (connection == null) return;
+
+        connection.send(data);
     }
 
-    public void sendEmptyImage(Viewer viewer, int framestamp) {
+    public void sendEmptyImage(int framestamp) {
         byte[] data = new byte[]{0, 0, 0, 0, 0};
         data[1] = (byte) (framestamp & 0xff);
         framestamp >>= 8;
@@ -40,18 +36,20 @@ public class Manager extends BaseWebSocketHandler {
         data[3] = (byte) (framestamp & 0xff);
         framestamp >>= 8;
         data[4] = (byte) (framestamp & 0xff);
-        sendImage(viewer, data);
+        sendImage(data);
     }
 
     private void closeConnection(WebSocketConnection conn) {
         if (conn != null) {
             conn.close();
-            if (viewers.containsKey(conn)) viewers.remove(conn);
+            viewer = null;
+            connection = null;
         }
     }
 
     public void onOpen(WebSocketConnection conn) {
-        viewers.put(conn, new Viewer());
+        viewer = new Viewer();
+        connection = conn;
         System.out.println("Connection opened");
     }
 
@@ -61,14 +59,12 @@ public class Manager extends BaseWebSocketHandler {
         System.out.println("Connection closed");
     }
 
-    public Collection<Viewer> getViewers() {
-        return viewers.values();
+    public Viewer getViewer() {
+        return viewer;
     }
 
     @Override
     public void onMessage(WebSocketConnection connection, String message) {
-        Viewer viewer = viewers.get(connection);
-
         if (viewer == null) return;
 
         if (message.startsWith(">")) {
