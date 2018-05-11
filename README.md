@@ -21,7 +21,7 @@ correct VLC on first run.
 - Visit the address printed in the terminal in your PCs browser, it will have port 7578.
 - It will print "Polling minimum achievable latency" for a few seconds.
 - And then should begin to stream.
-- Visit the address in your browser.
+- Visit the address in your browser (close the other stream, only 1 stream at a time).
 - Click the keyboard icon to open the keyboard for touchscreen devices.
 
 ## config.json
