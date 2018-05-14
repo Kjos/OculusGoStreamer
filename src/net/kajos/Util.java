@@ -10,7 +10,6 @@ public class Util {
 
     public static boolean isMac() {
         String os = System.getProperty("os.name").toLowerCase();
-        System.out.println("Your OS: " + os);
         return (os.indexOf("mac") >= 0) || (os.indexOf("darwin") >= 0);
     }
 

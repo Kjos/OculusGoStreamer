@@ -54,27 +54,51 @@ function getCursor(e) {
 
 var lastmovetime = Date.now();
 function inputSetup() {
-	$("#canvas").on({ 'mousemove' : function( e ) {
+	var keysDown = new Array();
+	$(window).on({ 'keydown' : function( e ) {
+			if (!keysDown[e.keyCode]) {
+				keysDown[e.keyCode] = true;
+				sendCommand("keyDown", e.keyCode);
+				console.log("keyDown: " + e.keyCode);
+			}
+		}
+	});
+	$(window).on({ 'keyup' : function( e ) {
+			sendCommand("keyUp", e.keyCode);
+			keysDown[e.keyCode] = false;
+		}
+	});
+	$("#canvas").on({ 'mousemove touchmove' : function( e ) {
+			e.preventDefault();
+
 			var t = Date.now();
 			if (t - lastmovetime < 30) return;
 
 			var pos = getCursor(e);
 			if (!pos) return;
 
+			lastmovetime = t;
 			sendCommand("mouseMove", pos);
 		}
 	});
-	$("#canvas").on({ 'touchstart' : function( e ) {
+	$("#canvas").on({ 'mousedown touchstart' : function( e ) {
+			e.preventDefault();
+			$("#keyboardHack").blur();
+
 			var pos = getCursor(e);
 			if (!pos) return;
 
+			console.log("touch start");
 			sendCommand("mousePress", pos);
 		}
 	});
-	$("#canvas").on({ 'touchend' : function( e ) {
+	$("#canvas").on({ 'mouseup touchend touchcancel' : function( e ) {
+			e.preventDefault();
+			
 			var pos = getCursor(e);
 			if (!pos) return;
 
+			console.log("touch end");
 			sendCommand("mouseRelease", pos);
 		}
 	});
@@ -498,6 +522,4 @@ $(document).ready(function(){
 	connectWebSocket();
 
 	window.onresize = poll;
-
-        document.getElementById("keyboardHack").focus();
 });

@@ -8,6 +8,7 @@ canvas {
 	position: fixed:
 	top: 0;
 	left: 0;
+	z-index: 0;
 }
 #keyboardHack {
 	position: fixed;
@@ -24,6 +25,7 @@ canvas {
 	border: 0px;
 	padding: 0px;
 	margin: 0px;
+	z-index: 100;
 }
 a:link{color:inherit}
 a:active{color:inherit}
