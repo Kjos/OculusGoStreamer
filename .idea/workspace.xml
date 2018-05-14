@@ -7,13 +7,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9181a8b5-c386-487b-b0df-6f1b68c80a62" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/website/index.html" afterPath="$PROJECT_DIR$/assets/website/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/website/script.js" afterPath="$PROJECT_DIR$/assets/website/script.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/website/style.css" afterPath="$PROJECT_DIR$/assets/website/style.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/kajos/Util.java" afterPath="$PROJECT_DIR$/src/net/kajos/Util.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/website/index.html" afterPath="$PROJECT_DIR$/website/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/website/script.js" afterPath="$PROJECT_DIR$/website/script.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/website/style.css" afterPath="$PROJECT_DIR$/website/style.css" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -69,11 +65,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Quality.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Quality.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/net/kajos/Manager/Quality.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="702">
-              <caret line="26" column="14" lean-forward="false" selection-start-line="26" selection-start-column="14" selection-end-line="26" selection-end-column="14" />
+            <state relative-caret-position="162">
+              <caret line="12" column="27" lean-forward="false" selection-start-line="11" selection-start-column="25" selection-end-line="20" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -119,7 +115,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Manager.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Manager.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/net/kajos/Manager/Manager.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="206">
@@ -690,9 +686,9 @@
         <state relative-caret-position="3402">
           <caret line="170" column="0" lean-forward="false" selection-start-line="170" selection-start-column="0" selection-end-line="170" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#30970#30971#0" expanded="true" />
-            <element signature="e#31012#31013#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#30970#30971#0" expanded="false" />
+            <element signature="e#31012#31013#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -748,14 +744,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/net/kajos/Manager/Quality.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="702">
-          <caret line="26" column="14" lean-forward="false" selection-start-line="26" selection-start-column="14" selection-end-line="26" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/net/kajos/Constants.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="351">
@@ -802,6 +790,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="206">
           <caret line="68" column="0" lean-forward="true" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/net/kajos/Manager/Quality.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="12" column="27" lean-forward="false" selection-start-line="11" selection-start-column="25" selection-end-line="20" selection-end-column="9" />
           <folding />
         </state>
       </provider>
