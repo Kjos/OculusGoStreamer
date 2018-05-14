@@ -44,7 +44,9 @@ public class RenderCallback extends RenderCallbackAdapter {
     @Override
     public void onDisplay(DirectMediaPlayer mediaPlayer, int[] frameData) {
         frameCount++;
-        
+
+        printBytes();
+
         Viewer viewer = manager.getViewer();
         if (viewer == null) return;
 
@@ -114,6 +116,18 @@ public class RenderCallback extends RenderCallbackAdapter {
         });
     }
 
+    private static int bytesSum = 0;
+    private static long bytesTime = 0;
+    private static void printBytes() {
+        long time = System.currentTimeMillis();
+        long diff = time - bytesTime;
+        if (diff > 1000) {
+            System.out.println((bytesSum * 8 / 1024 / 1024) + "Mbit/s");
+            bytesSum = 0;
+            bytesTime = time;
+        }
+    }
+
     private void interlaceKeyFrame(Viewer viewer, int frameStamp, int[] frameData, boolean missingKeyFrame) {
         Quality quality = viewer.quality;
 
@@ -166,8 +180,12 @@ public class RenderCallback extends RenderCallbackAdapter {
         byte[] data = img.getCompressedBytes(code, frameStamp, quality.jpegQuality,
                 quality.frameFormat);
 
-        System.out.println("Keyframe " + keyframe + ": " + quality.frameFormat + ", size: " + data.length +
-                ", quality: " + quality.jpegQuality);
+        bytesSum += data.length;
+
+        if (Constants.FRAME_LOG) {
+            System.out.println("Keyframe " + keyframe + ": " + quality.frameFormat + ", size: " + data.length +
+                    ", quality: " + quality.jpegQuality);
+        }
 
         manager.sendImage(data);
         viewer.frameCount++;
@@ -247,21 +265,25 @@ public class RenderCallback extends RenderCallbackAdapter {
             byte[] data = img.getCompressedBytes(code, frameStamp, quality.jpegQuality,
                     quality.interImageFormat);
 
-            System.out.println("Interframe " + keyframe + ": " + quality.interImageFormat + ", size: " + data.length +
-                ", diff.:" + diff + ", sum diff.:" + viewer.sumDifference + ", quality: " + quality.jpegQuality);
+            bytesSum += data.length;
+
+            if (Constants.FRAME_LOG) {
+                System.out.println("Interframe " + keyframe + ": " + quality.interImageFormat + ", size: " + data.length +
+                        ", diff.:" + diff + ", sum diff.:" + viewer.sumDifference + ", quality: " + quality.jpegQuality);
+            }
 
             manager.sendImage(data);
 
             // Frame is not going back to keyframe
             if (data.length > viewer.lastKeyFrameSize[keyframe]) {
-                System.out.println("Bframes: " + viewer.frameCount);
+                if (Constants.FRAME_LOG) System.out.println("Bframes: " + viewer.frameCount);
                 viewer.frameCount = 0;
             } else if (viewer.lastDifference[keyframe] < difference &&
                     viewer.lastInterFrameSize[keyframe] < data.length) {
 
                 if (difference > Config.get().KEYFRAME_THRESHOLD ||
                         data.length > viewer.lastKeyFrameSize[keyframe]) {
-                    System.out.println("Bframes: " + viewer.frameCount);
+                    if (Constants.FRAME_LOG) System.out.println("Bframes: " + viewer.frameCount);
                     viewer.frameCount = 0;
                 }
             }
@@ -270,7 +292,9 @@ public class RenderCallback extends RenderCallbackAdapter {
         }
 
         if (viewer.sumDifference > Config.get().KEYFRAME_THRESHOLD_SUM) {
-            System.out.println("Bframes: " + viewer.frameCount + " Sum diff: " + viewer.sumDifference);
+            if (Constants.FRAME_LOG)
+                System.out.println("Bframes: " + viewer.frameCount + " Sum diff: " +
+                        viewer.sumDifference);
             viewer.frameCount = 0;
         }
 
