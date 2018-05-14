@@ -50,9 +50,11 @@ public class RenderCallback extends RenderCallbackAdapter {
 
         // Initial latency polling
         if (viewer.latencyPolls < Constants.LATENCY_POLL_FRAMES) {
-            viewer.latencyPolls++;
-
             manager.sendEmptyImage(frameCount);
+
+            if (viewer.receivedFrameStamp == 0) return;
+
+            viewer.latencyPolls++;
 
             int latency = frameCount - viewer.receivedFrameStamp;
             viewer.allowedLatency += latency;
