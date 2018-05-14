@@ -138,7 +138,7 @@ public class Config {
     public int SCREEN_HEIGHT = 1080;
     public int FPS = 30;
 
-    public int ADD_FRAMES_LATENCY = 1;
+    public int ADD_FRAMES_LATENCY = 2;
 
     public float QUALITY_ALPHA = 1f;
     public float KEYFRAME_THRESHOLD = 0.03f;

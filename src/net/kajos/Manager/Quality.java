@@ -10,12 +10,15 @@ public class Quality {
     public float jpegQuality = Config.get().MAX_QUALITY;
 
     public void lower() {
-        jpegQuality -= Config.get().QUALITY_ALPHA;
-        if (jpegQuality < Config.get().MIN_QUALITY) {
-            jpegQuality = Config.get().MIN_QUALITY;
-            if (frameSkip < Config.get().MAX_FRAME_SKIP) frameSkip++;
+        if (frameSkip < Config.get().MAX_FRAME_SKIP) {
+            frameSkip++;
+        } else {
+            jpegQuality -= Config.get().QUALITY_ALPHA;
+            if (jpegQuality < Config.get().MIN_QUALITY) {
+                jpegQuality = Config.get().MIN_QUALITY;
+            }
+            frameFormat = Config.get().LOW_FORMAT;
         }
-        frameFormat = Config.get().LOW_FORMAT;
     }
 
     public void raise() {

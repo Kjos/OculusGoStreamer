@@ -19,6 +19,8 @@ public class Viewer {
     public int clientHeight = 1000;
 
     public int receivedFrameStamp = 0;
+    public int allowedLatency = 0;
+    public int latencyPolls = 0;
 
     public void frameUpdate(int frameStamp) {
         receivedFrameStamp = frameStamp;

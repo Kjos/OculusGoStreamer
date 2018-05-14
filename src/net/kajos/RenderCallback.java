@@ -15,7 +15,6 @@ import java.util.concurrent.Executors;
 
 public class RenderCallback extends RenderCallbackAdapter {
     private int frameCount = 0;
-    private int allowedLatency = 0;
 
     private ExecutorService exec;
     private ImagePool pool;
@@ -50,12 +49,19 @@ public class RenderCallback extends RenderCallbackAdapter {
         if (viewer == null) return;
 
         // Initial latency polling
-        if (viewer.receivedFrameStamp < Constants.LATENCY_POLL_FRAMES) {
-            int latency = frameCount - viewer.receivedFrameStamp + Config.get().ADD_FRAMES_LATENCY;
+        if (viewer.latencyPolls < Constants.LATENCY_POLL_FRAMES) {
+            viewer.latencyPolls++;
+
             manager.sendEmptyImage(frameCount);
 
-            allowedLatency = Math.max(latency, allowedLatency);
-            System.out.println("Polling minimum achievable latency: " + allowedLatency);
+            int latency = frameCount - viewer.receivedFrameStamp;
+            viewer.allowedLatency += latency;
+
+            if (viewer.latencyPolls == Constants.LATENCY_POLL_FRAMES) {
+                viewer.allowedLatency /= Constants.LATENCY_POLL_FRAMES;
+                viewer.allowedLatency += Config.get().ADD_FRAMES_LATENCY;
+                System.out.println("Polled achievable latency: " + viewer.allowedLatency);
+            }
             return;
         }
 
@@ -75,7 +81,7 @@ public class RenderCallback extends RenderCallbackAdapter {
 
             @Override
             public void run() {
-                boolean latencyTooHigh = frameId - viewer.receivedFrameStamp > Config.get().ADD_FRAMES_LATENCY;
+                boolean latencyTooHigh = frameId - viewer.receivedFrameStamp > viewer.allowedLatency;
                 if (latencyTooHigh) {
                     System.out.println("Latency too high! Lowering quality");
                 }
