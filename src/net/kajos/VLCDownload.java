@@ -31,6 +31,8 @@ public class VLCDownload {
     }
 
     public static final String VLC = "2.2.6";
+    public static final String VLC_DIR = "vlc-override";
+
     private static final String MAC = "http://download.videolan.org/pub/videolan/vlc/2.2.6/macosx/";
     private static final String LINUX = "http://download.videolan.org/pub/videolan/vlc/" +
             VLC + "/vlc-" + VLC + ".tar.xz";
@@ -93,6 +95,11 @@ public class VLCDownload {
             System.out.println("Couldn't uncompress VLC.");
             e.printStackTrace();
             System.exit(1);
+        }
+
+        File extractedDir = new File("vlc-" + VLC);
+        if (extractedDir.exists()) {
+            extractedDir.renameTo(new File(VLC_DIR));
         }
     }
 

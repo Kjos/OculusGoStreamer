@@ -75,9 +75,7 @@ public class Server {
     }
 
     private static void vlcHelper() {
-        String dirname = "vlc-" + VLCDownload.VLC;
-
-        File folder = new File(dirname);
+        File folder = new File(VLCDownload.VLC_DIR);
         if (folder.exists()) {
             System.out.println("VLC already downloaded.");
         } else {
@@ -136,6 +134,11 @@ public class Server {
         System.out.println("------------------------------------------------");
         System.out.println("OculusGo DesktopStreamer beta by Kaj Toet");
         System.out.println("------------------------------------------------");
+        System.out.println("Note: You can override your VLC install by putting");
+        System.out.print("the contents of another VLC in a new folder called '");
+        System.out.print(VLCDownload.VLC_DIR);
+        System.out.println("'.");
+        System.out.println();
 
         javaVersionCheck();
         extractWebsiteContents();
