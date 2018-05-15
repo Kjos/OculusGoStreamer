@@ -1,7 +1,8 @@
 # OculusGoStreamer
 MacOS Note: Problems are being reported with VLC & Java. If you run into them, let me know
 how I can improve things; I'm not a Mac user. The check-handling of architecture types also doesn't
-really seem to match for MacOS, as MacOS uses both architecture types per binary.
+really seem to match for MacOS, as MacOS uses both architecture types per binary. People
+have gotten it to work, but I'm not up to date on what they did.
 
 A desktop streaming application for the OculusGo and GearVR (although untested).
 
