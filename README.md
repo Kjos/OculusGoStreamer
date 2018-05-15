@@ -16,7 +16,7 @@ Basically works in any browser. Reported working with Nintendo Switch as well.
 - Streams over websockets.
 - Supports Go virtual keyboard. Input is copied to clipboard on PC and then copy-pasted, so it can handle all characters.
 - Supports Go pointer for mouse.
-- Test results: ~22mbit/s at 30fps for a Call of Duty Youtube video @ 1920x1080.
+- Test results: ~22mbit/s at 60fps for a Call of Duty Youtube video @ 1920x1080.
  Will be lower if the client browser has a lower resolution as the video is downscaled before compression.
  The OculusGo browser has a resolution of 800x480 when not in fullscreen.
 

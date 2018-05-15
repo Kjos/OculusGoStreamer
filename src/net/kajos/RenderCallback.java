@@ -82,7 +82,7 @@ public class RenderCallback extends RenderCallbackAdapter {
                 } else {
                     data = interlaceFrame(viewer, frameId, frameData);
                 }
-                
+
                 viewer.frameSem.release();
 
                 if (data == null) {
@@ -137,8 +137,6 @@ public class RenderCallback extends RenderCallbackAdapter {
     }
 
     private byte[] interlaceKeyFrame(Viewer viewer, int frameStamp, int[] frameData, boolean missingKeyFrame) {
-        byte[] sendData = null;
-
         Quality quality = viewer.quality;
 
         viewer.keyFrameToggle = !viewer.keyFrameToggle;
@@ -197,17 +195,16 @@ public class RenderCallback extends RenderCallbackAdapter {
                     ", quality: " + quality.jpegQuality);
         }
 
-        sendData = data;
         viewer.frameCount++;
         viewer.lastKeyFrameSize[keyframe] = data.length;
 
         pool.put(img);
 
-        return sendData;
+        return data;
     }
 
     private byte[] interlaceFrame(Viewer viewer, int frameStamp, int[] frameData) {
-        byte[] sendData = null;
+        byte[] data = null;
 
         Quality quality = viewer.quality;
 
@@ -273,7 +270,7 @@ public class RenderCallback extends RenderCallbackAdapter {
 
         if (diff > Constants.IGNORE_DIFFERENCE / (float)Config.get().FPS) {
 
-            byte[] data = img.getCompressedBytes(code, frameStamp, quality.jpegQuality,
+            data = img.getCompressedBytes(code, frameStamp, quality.jpegQuality,
                     quality.interImageFormat);
 
             bytesSum += data.length;
@@ -282,8 +279,6 @@ public class RenderCallback extends RenderCallbackAdapter {
                 System.out.println("Interframe " + keyframe + ": " + quality.interImageFormat + ", size: " + data.length +
                         ", diff.:" + diff + ", sum diff.:" + viewer.sumDifference + ", quality: " + quality.jpegQuality);
             }
-
-            sendData = data;
 
             // Frame is not going back to keyframe
             if (data.length > viewer.lastKeyFrameSize[keyframe]) {
@@ -313,6 +308,6 @@ public class RenderCallback extends RenderCallbackAdapter {
 
         pool.put(img);
 
-        return sendData;
+        return data;
     }
 }

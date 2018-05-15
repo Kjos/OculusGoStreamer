@@ -294,13 +294,13 @@ function connectWebSocket() {
 	websocket = new WebSocket(source);
 	websocket.binaryType = 'arraybuffer';
 	websocket.onopen = function () {
-		console.log("MJPEG connected");
+		console.log("connected");
 		lastKeyFrame = new Array();
 		lastKeyData = new Array();
 		sendCommand("window", [window.innerWidth, window.innerHeight]);
 	};
 	websocket.onclose = function () {
-		console.log("MJPEG disconnected");
+		console.log("disconnected");
 	};
 	websocket.onmessage = function (msg) {
 		var bytes = new Uint8Array(msg.data);
