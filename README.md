@@ -5,6 +5,7 @@ really seem to match for MacOS, as MacOS uses both architecture types per binary
 have gotten it to work, but I'm not up to date on what they did.
 
 A desktop streaming application for the OculusGo and GearVR (although untested).
+Basically works in any browser. Reported working with Nintendo Switch as well.
 
 ------ Made by Kaj Toet --- 
 
