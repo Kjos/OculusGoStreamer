@@ -42,9 +42,9 @@ public class Manager extends BaseWebSocketHandler {
     private void closeConnection(WebSocketConnection conn) {
         if (conn != null) {
             conn.close();
-            viewer = null;
-            connection = null;
         }
+        viewer = null;
+        connection = null;
     }
 
     public void onOpen(WebSocketConnection conn) {

@@ -76,10 +76,19 @@ public class RenderCallback extends RenderCallbackAdapter {
                 boolean isKeyFrame = viewer.frameCount == 0;
                 boolean missingKeyFrame = missingKeyframe(viewer);
 
+                byte[] data;
                 if (isKeyFrame || missingKeyFrame) {
-                    interlaceKeyFrame(viewer, frameId, frameData, missingKeyFrame);
+                    data = interlaceKeyFrame(viewer, frameId, frameData, missingKeyFrame);
                 } else {
-                    interlaceFrame(viewer, frameId, frameData);
+                    data = interlaceFrame(viewer, frameId, frameData);
+                }
+                
+                viewer.frameSem.release();
+
+                if (data == null) {
+                    manager.sendEmptyImage(frameId);
+                } else {
+                    manager.sendImage(data);
                 }
             }
 
@@ -110,7 +119,6 @@ public class RenderCallback extends RenderCallbackAdapter {
 
                 } else {
                     runFrame();
-                    viewer.frameSem.release();
                 }
             }
         });
@@ -128,7 +136,9 @@ public class RenderCallback extends RenderCallbackAdapter {
         }
     }
 
-    private void interlaceKeyFrame(Viewer viewer, int frameStamp, int[] frameData, boolean missingKeyFrame) {
+    private byte[] interlaceKeyFrame(Viewer viewer, int frameStamp, int[] frameData, boolean missingKeyFrame) {
+        byte[] sendData = null;
+
         Quality quality = viewer.quality;
 
         viewer.keyFrameToggle = !viewer.keyFrameToggle;
@@ -187,14 +197,18 @@ public class RenderCallback extends RenderCallbackAdapter {
                     ", quality: " + quality.jpegQuality);
         }
 
-        manager.sendImage(data);
+        sendData = data;
         viewer.frameCount++;
         viewer.lastKeyFrameSize[keyframe] = data.length;
 
         pool.put(img);
+
+        return sendData;
     }
 
-    private void interlaceFrame(Viewer viewer, int frameStamp, int[] frameData) {
+    private byte[] interlaceFrame(Viewer viewer, int frameStamp, int[] frameData) {
+        byte[] sendData = null;
+
         Quality quality = viewer.quality;
 
         int ip = viewer.frameCount % 2;
@@ -257,10 +271,7 @@ public class RenderCallback extends RenderCallbackAdapter {
 
         viewer.sumDifference += difference;
 
-        if (diff < Constants.IGNORE_DIFFERENCE / (float)Config.get().FPS) {
-            //System.out.println(diff);
-            manager.sendEmptyImage(frameStamp);
-        } else {
+        if (diff > Constants.IGNORE_DIFFERENCE / (float)Config.get().FPS) {
 
             byte[] data = img.getCompressedBytes(code, frameStamp, quality.jpegQuality,
                     quality.interImageFormat);
@@ -272,7 +283,7 @@ public class RenderCallback extends RenderCallbackAdapter {
                         ", diff.:" + diff + ", sum diff.:" + viewer.sumDifference + ", quality: " + quality.jpegQuality);
             }
 
-            manager.sendImage(data);
+            sendData = data;
 
             // Frame is not going back to keyframe
             if (data.length > viewer.lastKeyFrameSize[keyframe]) {
@@ -301,5 +312,7 @@ public class RenderCallback extends RenderCallbackAdapter {
         viewer.lastDifference[keyframe] = difference;
 
         pool.put(img);
+
+        return sendData;
     }
 }
