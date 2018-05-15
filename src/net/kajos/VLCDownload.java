@@ -74,7 +74,6 @@ public class VLCDownload {
                 if ((vlcVersion.contains("64") && archIs64) ||
                         (!vlcVersion.contains("64") && !archIs64)) {
                     System.out.println("Seems VLC and Java architecture already match.");
-                    System.out.println("If still not working, download VLC " + VLC + ".");
                 } else {
                     System.out.println("Seems VLC and Java architecture don't match!");
                     System.out.println("Continue on your own peril.");
@@ -85,6 +84,7 @@ public class VLCDownload {
                     System.out.println("Download and install 32-bit VLC from here:");
                 }
                 System.out.println(Util.isMac() ? MAC : LINUX);
+                System.out.println("or try a " + (archIs64 ? "32" : "64") + "bit JRE.");
                 return;
 
             } else if (Util.isWindows()) {
