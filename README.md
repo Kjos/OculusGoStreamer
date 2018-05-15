@@ -16,6 +16,9 @@ Basically works in any browser. Reported working with Nintendo Switch as well.
 - Streams over websockets.
 - Supports Go virtual keyboard. Input is copied to clipboard on PC and then copy-pasted, so it can handle all characters.
 - Supports Go pointer for mouse.
+- Test results: ~22mbit/s at 30fps for a Call of Duty Youtube video @ 1920x1080.
+ Will be lower if the client browser has a lower resolution as the video is downscaled before compression.
+ The OculusGo browser has a resolution of 800x480 when not in fullscreen.
 
 ## Instructions:
 - Run from commandline: java -jar OculusGoStreamer.jar
@@ -32,6 +35,7 @@ Basically works in any browser. Reported working with Nintendo Switch as well.
 - Visit the address in your browser (close the other stream, only 1 stream at a time can be open
  at one time).
 - Click the keyboard icon to open the virtual keyboard.
+- Reloading the browser page will also reload config.json from file.
 
 ## Notes
 - Requires Java 1.6 or higher. VLCj for Mac OSX can only handle JVM 1.6 (? not sure).
@@ -65,8 +69,9 @@ For OculusGo specifically:
     // Jpeg quality range
      "MIN_QUALITY": 0.3,
      "MAX_QUALITY": 1.0,
-    // Jpeg quality adjustment per step, up or down
-     "QUALITY_ALPHA": 0.05,
+    // Jpeg quality adjustment per step, up or down. While running is divided by FPS
+    // So 1.0 will be a step of 0.033 per frame at 30fps.
+     "QUALITY_ALPHA": 1.0,
     // Skip is 1: no skip. Skip is 2: every other frame.
      "MAX_FRAME_SKIP": 3,
     // Allow for 2 extra frames of latency, then lower quality. Set higher for more skiping but nicer image
