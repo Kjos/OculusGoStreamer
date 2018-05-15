@@ -1,16 +1,12 @@
 package net.kajos;
 
-import com.sun.jna.NativeLibrary;
 import net.kajos.Handlers.FilterHandler;
 import net.kajos.Manager.Manager;
 import org.webbitserver.*;
 import org.webbitserver.handler.StaticFileHandler;
-import uk.co.caprica.vlcj.runtime.RuntimeUtil;
 
 import java.awt.*;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
+import java.io.*;
 import java.net.*;
 import java.security.CodeSource;
 import java.util.Enumeration;
@@ -51,42 +47,6 @@ public class Server {
         }
     }
 
-    private static void webDirectoryCheck() {
-        File dir = new File("website");
-        if (!dir.exists()) {
-            System.out.println("Webserver contents are missing!");
-            System.out.println("Place the 'website' directory next to the JAR executable.");
-            System.exit(1);
-        }
-    }
-
-    private static void vlcHelper() {
-        File folder = new File(VLCDownload.VLC_DIR);
-        if (folder.exists()) {
-            System.out.println("VLC already downloaded.");
-        } else {
-            VLCDownload.run();
-            System.out.println();
-        }
-
-        if (folder.exists()) {
-            System.out.println("'vlc-override' folder detected.");
-
-            String absPath = folder.getAbsolutePath();
-
-            System.out.println("Set VLC folder: " + absPath);
-            NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), absPath);
-
-            String plugin = absPath + "/plugins";
-            System.out.println("Set plugins folder: " + plugin);
-            System.setProperty("VLC_PLUGIN_PATH", plugin);
-        } else {
-            System.out.println("'vlc-override' folder not detected, using default VLC install.");
-        }
-
-        System.out.println();
-    }
-
     private void extractWebsiteContents() {
         File dir = new File("website/");
 
@@ -117,25 +77,21 @@ public class Server {
                     io.close();
                 }
             }
+            System.out.println();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        webDirectoryCheck();
     }
 
     public void start() throws InterruptedException, AWTException, URISyntaxException {
         System.out.println("------------------------------------------------");
         System.out.println("OculusGo DesktopStreamer beta by Kaj Toet");
         System.out.println("------------------------------------------------");
-        System.out.println("Note: You can override your VLC install by putting");
-        System.out.print("the contents of another VLC in a new folder called '");
-        System.out.print(VLCDownload.VLC_DIR);
-        System.out.println("'.");
         System.out.println();
 
         extractWebsiteContents();
-        vlcHelper();
+        AutoVLC.helper();
 
         mem = Config.load();
         manager = new Manager(this);
