@@ -60,20 +60,6 @@ public class Server {
         }
     }
 
-    private static void javaVersionCheck() {
-        String version = System.getProperty("java.version");
-        System.out.println("Java version: " + version);
-        System.out.println("Note: Required 1.6 or higher.");
-
-        String arch = System.getProperty("os.arch");
-        System.out.println("Java architecture: " + arch);
-        System.out.println();
-
-        System.out.println("Note: Make sure VLC matches architecture type (32/64)!");
-        System.out.println("Note: VLC version required >2.1");
-        System.out.println();
-    }
-
     private static void vlcHelper() {
         File folder = new File(VLCDownload.VLC_DIR);
         if (folder.exists()) {
@@ -84,13 +70,21 @@ public class Server {
         }
 
         if (folder.exists()) {
+            System.out.println("'vlc-override' folder detected.");
+
             String absPath = folder.getAbsolutePath();
+
+            System.out.println("Set VLC folder: " + absPath);
             NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), absPath);
+
             String plugin = absPath + "/plugins";
-            System.setProperty("VLC_PLUGIN_PATH", plugin);
             System.out.println("Set plugins folder: " + plugin);
-            System.out.println();
+            System.setProperty("VLC_PLUGIN_PATH", plugin);
+        } else {
+            System.out.println("'vlc-override' folder not detected, using default VLC install.");
         }
+
+        System.out.println();
     }
 
     private void extractWebsiteContents() {
@@ -140,7 +134,6 @@ public class Server {
         System.out.println("'.");
         System.out.println();
 
-        javaVersionCheck();
         extractWebsiteContents();
         vlcHelper();
 

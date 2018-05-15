@@ -42,26 +42,42 @@ public class VLCDownload {
             VLC + "/win64/vlc-" + VLC + "-win64.zip";
     public static void run() {
         String downloadUrl = null;
-        boolean archIs64 = System.getProperty("os.arch").contains("64");
+        String version = System.getProperty("java.version");
+        System.out.println("Java version: " + version);
+        System.out.println("Note: Required 1.6 or higher.");
+
+        String arch = System.getProperty("os.arch");
+        System.out.println("Java architecture: " + arch);
+        System.out.println();
+
+        boolean archIs64 = arch.contains("64");
         if (archIs64) {
             System.out.println("Note: Need VLC 64 bit version for this JRE.");
         } else {
             System.out.println("Note: Need VLC 32 bit version for this JRE.");
         }
+        System.out.println();
 
         File zipFile = new File("vlc-compressed.zip");
         if (!zipFile.exists()) {
 
             if (Util.isMac() || Util.isLinux()) {
+                System.out.println("Note: Make sure VLC matches architecture type (32/64 bit)!");
+                System.out.println();
+
                 String vlcVersion = executeBashCommand("file $(which vlc)");
                 System.out.println("VLC version info:");
                 System.out.println(vlcVersion);
+                System.out.println("Note: VLC version required >2.1");
+                System.out.println();
+
                 if ((vlcVersion.contains("64") && archIs64) ||
                         (!vlcVersion.contains("64") && !archIs64)) {
                     System.out.println("Seems VLC and Java architecture already match.");
                     System.out.println("If still not working, download VLC " + VLC + ".");
                 } else {
                     System.out.println("Seems VLC and Java architecture don't match!");
+                    System.out.println("Continue on your own peril.");
                 }
                 if (archIs64) {
                     System.out.println("Download and install 64-bit VLC from here:");
@@ -151,7 +167,6 @@ public class VLCDownload {
     }
 
     public static String executeBashCommand(String command) {
-        System.out.println("Executing BASH command:\n   " + command);
         Runtime r = Runtime.getRuntime();
         // Use bash -c so we can handle things like multi commands separated by ; and
         // things like quotes, $, |, and \. My tests show that command comes as
