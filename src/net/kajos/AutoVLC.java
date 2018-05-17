@@ -98,7 +98,7 @@ public class AutoVLC {
                 String vlcVersion = executeBashCommand("file $(which vlc)");
                 System.out.println("VLC version info:");
                 System.out.println(vlcVersion);
-                System.out.println("Note: VLC version required >2.1");
+                System.out.println("Note: VLC version required >2.1 and <3.0");
                 System.out.println();
 
                 if ((vlcVersion.contains("64") && archIs64) ||
