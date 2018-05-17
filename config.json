@@ -1,6 +1,6 @@
 {
  "ADD_FRAMES_LATENCY": 1,
- "FPS": 60,
+ "FPS": 30,
  "HIGH_FORMAT": "jpeg",
  "INTERFRAME_FORMAT": "jpeg",
  "KEYFRAME_THRESHOLD": 0.03,
