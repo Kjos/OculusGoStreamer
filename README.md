@@ -37,9 +37,9 @@ Basically works in any browser. Reported working with Nintendo Switch as well.
 - The vlcj included library requires version 2.1.0+ of VLC to be present.
 - VLC 3 reported not working for Mac. Possibly Windows and Linux too (unverified), 
 however Windows downloads VLC 2.2.6 from start.
+- VLC 2.2.6 confirmed working. Any 2.x should probably work fine.
 - VLC needs to be same architecture as JVM. The console will print your Java and VLC architectures.
 - If not working from start, you can download VLC here: http://download.videolan.org/pub/videolan/vlc/
-- VLC 2.2.6 confirmed working. Other versions might work fine as well however.
 - You can put the contents of VLC in a directory called 'vlc-override' next to the Jar,
 and it will use that instead of the default VLC.
 - More information about vlcj: http://capricasoftware.co.uk/#/projects/vlcj/tutorial/prerequisites
