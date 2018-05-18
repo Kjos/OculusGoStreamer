@@ -90,8 +90,9 @@ public class Input {
             System.out.println(obj.toString(0));
         }
 
-        if (obj.has("gamepadState")) {
-            System.out.println(obj.toString(0));
+        if (obj.has("backspace")) {
+            robot.keyPress(KeyEvent.VK_BACK_SPACE);
+            robot.keyRelease(KeyEvent.VK_BACK_SPACE);
         }
     }
 }

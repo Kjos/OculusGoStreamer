@@ -86,8 +86,8 @@ For OculusGo specifically:
 
 ## Todo
 - Improve latency. TCP makes it so packets can get stacked. Needs to send and receive frame timestamps to be able to read the actual latency and account for it. (Done)
-- Browser side pull up menu so more options can be accessible.
-- Such as fullscreen support.
+- Browser side pull up menu so more options can be accessible. (Done)
+- Such as fullscreen support. (Done)
 - Or switching displays.
 - Improve input latency for mouse cursor. Don't know why or if it can be improved much, but I think it can. (Mostly done by fixing the video latency. Don't think it can be improved anymore.)
 - Support bluetooth keyboard and other controllers.
