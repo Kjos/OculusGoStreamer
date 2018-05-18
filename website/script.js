@@ -84,18 +84,18 @@ function inputSetup() {
 }
 
 function iterator() {
-	while (commandBuffer.length > 0) {
-		if (websocket && websocket.readyState !== websocket.CLOSED && 
-			websocket.readyState !== websocket.CONNECTING) {
-			websocket.send(commandBuffer.shift());
-		}
-	}
 // OculusGo doesn't handle input listeners correctly.
 // Need to check every once in a while
 	var str = $("#keyboardHack").val();
 	if (str.length > 0) {
 		sendCommand("keys", str);
 		$("#keyboardHack").val('');
+	}
+	while (commandBuffer.length > 0) {
+		if (websocket && websocket.readyState !== websocket.CLOSED && 
+			websocket.readyState !== websocket.CONNECTING) {
+			websocket.send(commandBuffer.shift());
+		}
 	}
 	setTimeout(iterator, 10);
 }
@@ -383,6 +383,27 @@ function connectWebSocket() {
 	};
 }
 
+function toggleFullScreen() {
+  if ((document.fullScreenElement && document.fullScreenElement !== null) ||    // alternative standard method
+      (!document.mozFullScreen && !document.webkitIsFullScreen)) {               // current working methods
+    if (document.documentElement.requestFullScreen) {
+      document.documentElement.requestFullScreen();
+    } else if (document.documentElement.mozRequestFullScreen) {
+      document.documentElement.mozRequestFullScreen();
+    } else if (document.documentElement.webkitRequestFullScreen) {
+      document.documentElement.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
+    }
+  } else {
+    if (document.cancelFullScreen) {
+      document.cancelFullScreen();
+    } else if (document.mozCancelFullScreen) {
+      document.mozCancelFullScreen();
+    } else if (document.webkitCancelFullScreen) {
+      document.webkitCancelFullScreen();
+    }
+  }
+}
+
 var isActive = false;
 var pollTimeout = null;
 function poll() {
@@ -390,6 +411,17 @@ function poll() {
 	pollTimeout = setTimeout(function() {
 		sendCommand("window", [window.innerWidth, window.innerHeight]);
 	}, 500);
+}
+
+function menuInit() {
+	$(".menu-fullscreen").click(toggleFullScreen);
+	$(".menu-open").click(function() {
+		if ($(".menu-contents").css("visibility") == "hidden") {
+			$(".menu-contents").css("visibility", "visible");
+		} else {
+			$(".menu-contents").css("visibility", "hidden");
+		}
+	});
 }
 
 $(document).ready(function(){
@@ -406,4 +438,6 @@ $(document).ready(function(){
 	connectWebSocket();
 
 	window.onresize = poll;
+
+	menuInit();
 });

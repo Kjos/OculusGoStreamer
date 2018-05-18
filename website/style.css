@@ -11,9 +11,6 @@ canvas {
 	z-index: 0;
 }
 #keyboardHack {
-	position: fixed;
-	bottom: 0;
-	right: 0;
 	width: 30px;
 	height: 30px;
   	background-image: url('keyboard.png');
@@ -24,8 +21,25 @@ canvas {
 	background-size: cover;         /* Generic*/
 	border: 0px;
 	padding: 0px;
-	margin: 0px;
+	margin: 3px;
 	z-index: 100;
+}
+.menu-icon {
+	width: 30px;
+	height: 30px;
+	margin: 3px;
+}
+.menu {
+	width: 30px;
+	position: fixed;
+	bottom: 0;
+	right: 0;
+}
+.menu-open {
+	width: 30px;
+}
+.menu-contents {
+	visibility: hidden;
 }
 a:link{color:inherit}
 a:active{color:inherit}
