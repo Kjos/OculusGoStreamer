@@ -1,10 +1,9 @@
 
+var commandBuffer = new Array();
 function sendCommand(command, value) {
 	var send = {};
 	send[command] = value;
-	if (websocket && websocket.readyState !== websocket.CLOSED) {
-		websocket.send(JSON.stringify(send));
-	}
+	commandBuffer.push(JSON.stringify(send));
 }
 
 function getCursor(e) {
@@ -81,18 +80,24 @@ function inputSetup() {
 			sendCommand("mouseRelease", pos);
 		}
 	});
-	checkKeyInput();
+	iterator();
 }
 
+function iterator() {
+	while (commandBuffer.length > 0) {
+		if (websocket && websocket.readyState !== websocket.CLOSED && 
+			websocket.readyState !== websocket.CONNECTING) {
+			websocket.send(commandBuffer.shift());
+		}
+	}
 // OculusGo doesn't handle input listeners correctly.
 // Need to check every once in a while
-function checkKeyInput() {
 	var str = $("#keyboardHack").val();
 	if (str.length > 0) {
 		sendCommand("keys", str);
 		$("#keyboardHack").val('');
 	}
-	setTimeout(checkKeyInput, 30);
+	setTimeout(iterator, 10);
 }
 
 var ipCanvas;

@@ -47,6 +47,7 @@ and it will use that instead of the default VLC.
 For OculusGo specifically:
 - At 10% battery the connection or browser will be limited and streaming will stutter.
 - When you have the headset off, the browser will keep running in the background, so close the app when you're done.
+- If you're experiencing issues connecting to the webserver, try rebooting the Oculus Go.
 
 ## config.json example
 ```

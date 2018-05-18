@@ -56,9 +56,12 @@ public class RenderCallback extends RenderCallbackAdapter {
 
             if (viewer.receivedFrameStamp == 0) return;
 
+            int latency = frameCount - viewer.receivedFrameStamp;
+
+            if (latency < 0) return;
+
             viewer.latencyPolls++;
 
-            int latency = frameCount - viewer.receivedFrameStamp;
             viewer.allowedLatency += latency;
 
             if (viewer.latencyPolls == Constants.LATENCY_POLL_FRAMES) {

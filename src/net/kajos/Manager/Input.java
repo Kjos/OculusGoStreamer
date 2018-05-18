@@ -81,5 +81,17 @@ public class Input {
             keyRelease(KeyEvent.VK_V);
             keyRelease(KeyEvent.VK_CONTROL);
         }
+
+        if (obj.has("keyDown")) {
+            System.out.println(obj.toString(0));
+        }
+
+        if (obj.has("keyUp")) {
+            System.out.println(obj.toString(0));
+        }
+
+        if (obj.has("gamepadState")) {
+            System.out.println(obj.toString(0));
+        }
     }
 }

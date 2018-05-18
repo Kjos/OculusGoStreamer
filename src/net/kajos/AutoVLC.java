@@ -125,27 +125,27 @@ public class AutoVLC {
                 }
             } else {
                 System.out.println("Unknown system! Don't know what VLC to download.");
-                return;
             }
 
             if (!download(downloadUrl, zipFile.toPath())) return;
-        }
 
-        System.out.println("Uncompressing VLC zip file..");
-        try{
-            extractFolder(zipFile);
-            System.out.println("Done uncompressing..");
-            zipFile.delete();
-            System.out.println("Deleted zip.");
-        }catch (Exception e) {
-            System.out.println("Couldn't uncompress VLC.");
-            e.printStackTrace();
-            System.exit(1);
-        }
+        } else {
+            System.out.println("Uncompressing VLC zip file..");
+            try {
+                extractFolder(zipFile);
+                System.out.println("Done uncompressing..");
+                zipFile.delete();
+                System.out.println("Deleted zip.");
+            } catch (Exception e) {
+                System.out.println("Couldn't uncompress VLC.");
+                e.printStackTrace();
+                System.exit(1);
+            }
 
-        File extractedDir = new File("vlc-" + VLC);
-        if (extractedDir.exists()) {
-            extractedDir.renameTo(new File(VLC_DIR));
+            File extractedDir = new File("vlc-" + VLC);
+            if (extractedDir.exists()) {
+                extractedDir.renameTo(new File(VLC_DIR));
+            }
         }
     }
 
