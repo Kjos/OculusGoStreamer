@@ -6,9 +6,7 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9181a8b5-c386-487b-b0df-6f1b68c80a62" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/kajos/Manager/Input.java" afterPath="$PROJECT_DIR$/src/net/kajos/Manager/Input.java" />
-    </list>
+    <list default="true" id="9181a8b5-c386-487b-b0df-6f1b68c80a62" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -104,7 +102,7 @@
       <file leaf-file-name="Input.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/net/kajos/Manager/Input.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="518">
+            <state relative-caret-position="437">
               <caret line="91" column="34" lean-forward="false" selection-start-line="91" selection-start-column="34" selection-end-line="91" selection-end-column="34" />
               <folding />
             </state>
@@ -790,7 +788,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/net/kajos/Manager/Input.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="518">
+        <state relative-caret-position="437">
           <caret line="91" column="34" lean-forward="false" selection-start-line="91" selection-start-column="34" selection-end-line="91" selection-end-column="34" />
           <folding />
         </state>
