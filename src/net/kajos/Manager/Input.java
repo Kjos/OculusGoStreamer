@@ -83,11 +83,13 @@ public class Input {
         }
 
         if (obj.has("keyDown")) {
-            System.out.println(obj.toString(0));
+            int keyCode = obj.getInt("keyDown");
+            robot.keyPress(keyCode);
         }
 
         if (obj.has("keyUp")) {
-            System.out.println(obj.toString(0));
+            int keyCode = obj.getInt("keyUp");
+            robot.keyPress(keyCode);
         }
 
         if (obj.has("backspace")) {
