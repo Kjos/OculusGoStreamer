@@ -16,6 +16,7 @@ Basically works in any browser. Reported working with Nintendo Switch as well.
  The OculusGo browser has a resolution of 800x480 when not in fullscreen.
 
 ## Instructions:
+- Download the Jar: https://github.com/Kjos/OculusGoStreamer/raw/master/out/artifacts/OculusGoStreamer_jar/OculusGoStreamer.jar
 - Run from commandline: java -jar OculusGoStreamer.jar
 - Or any other way you run Java programs.
 - The console will give details about Java and VLC architectures. On Windows, a separate copy of
@@ -88,7 +89,7 @@ For OculusGo specifically:
 - Improve latency. TCP makes it so packets can get stacked. Needs to send and receive frame timestamps to be able to read the actual latency and account for it. (Done)
 - Browser side pull up menu so more options can be accessible. (Done)
 - Such as fullscreen support. (Done)
-- Or switching displays.
+- Or switching displays. (Done)
 - Improve input latency for mouse cursor. Don't know why or if it can be improved much, but I think it can. (Mostly done by fixing the video latency. Don't think it can be improved anymore.)
 - Support bluetooth keyboard and other controllers.
 - Video compression needs overall improvement. Perhaps the interframe method can be removed, but I think the bandwidth usage might otherwise become too high at cost of quality. Overall interframe compression is GPU-costly for browserside. (Mostly done)

@@ -29,10 +29,25 @@ public class Server {
     }
 
     public void resize(int clientWidth, int clientHeight) {
+        resize(Config.get().SELECTED_SCREEN, clientWidth, clientHeight);
+    }
+
+    public void resize(int screenId, int clientWidth, int clientHeight) {
         mem = Config.load();
 
-        float displayAspect = (float)Config.get().get().SCREEN_WIDTH /
-                (float)Config.get().SCREEN_HEIGHT;
+        boolean restart = false;
+        if (screenId != Config.get().SELECTED_SCREEN) {
+            Config.get().SELECTED_SCREEN = screenId;
+            restart = true;
+        }
+
+        if (clientWidth != recorder.videoWidth || clientHeight != recorder.videoHeight) {
+            restart = true;
+        }
+
+        Screen screen = Config.get().getScreen();
+        float displayAspect = (float)screen.width /
+                (float)screen.height;
         float clientAspect = (float)clientWidth / (float)clientHeight;
         float diffAspect = displayAspect / clientAspect;
         if (diffAspect < 1f) {
@@ -41,7 +56,7 @@ public class Server {
             clientHeight = (int)((float)clientHeight / diffAspect);
         }
 
-        if (clientWidth != recorder.videoWidth || clientHeight != recorder.videoHeight) {
+        if (restart) {
             recorder.stop();
             recorder.start(clientWidth, clientHeight);
         }

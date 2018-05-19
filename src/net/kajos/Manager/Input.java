@@ -1,6 +1,7 @@
 package net.kajos.Manager;
 
 import net.kajos.Config;
+import net.kajos.Screen;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -34,8 +35,9 @@ public class Input {
     }
 
     private void mouseMove(int x, int y) {
-        int nx = Config.get().SCREEN_LEFT + x * Config.get().SCREEN_WIDTH / 10000;
-        int ny = Config.get().SCREEN_TOP + y * Config.get().SCREEN_HEIGHT / 10000;
+        Screen screen = Config.get().getScreen();
+        int nx = screen.x + x * screen.width / 10000;
+        int ny = screen.y + y * screen.height / 10000;
 
         robot.mouseMove(nx, ny);
     }

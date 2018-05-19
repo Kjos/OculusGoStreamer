@@ -33,13 +33,14 @@ public class ScreenRecorder {
         image.setAccelerationPriority(1.0f);
 
         String mrl = "screen://";
+        Screen screen = Config.get().getScreen();
         String[] options = {
                 ":screen-fps=" + Config.get().FPS,
                 ":live-caching=0",
-                ":screen-width=" + Config.get().SCREEN_WIDTH,
-                ":screen-height=" + Config.get().SCREEN_HEIGHT,
-                ":screen-left=" + Config.get().SCREEN_LEFT,
-                ":screen-top=" + Config.get().SCREEN_TOP
+                ":screen-width=" + screen.width,
+                ":screen-height=" + screen.height,
+                ":screen-left=" + screen.x,
+                ":screen-top=" + screen.y
         };
         try {
             factory = new MediaPlayerFactory();

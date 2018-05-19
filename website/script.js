@@ -415,6 +415,9 @@ function poll() {
 }
 
 function menuInit() {
+	$(".menu-nextscreen").click(function() {
+		sendCommand("screenSwitch", true);
+	});
 	$(".menu-fullscreen").click(toggleFullScreen);
 	$(".menu-open").click(function() {
 		if ($(".menu-contents").css("visibility") == "hidden") {

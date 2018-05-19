@@ -1,5 +1,6 @@
 package net.kajos.Manager;
 
+import net.kajos.Config;
 import net.kajos.Server;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -75,8 +76,19 @@ public class Manager extends BaseWebSocketHandler {
                 JSONArray ar = obj.getJSONArray("window");
                 viewer.clientWidth = ar.getInt(0);
                 viewer.clientHeight = ar.getInt(1);
+
                 viewer.reset();
                 server.resize(viewer.clientWidth, viewer.clientHeight);
+            }
+            if (obj.has("screenSwitch")) {
+                int screen = Config.get().SELECTED_SCREEN;
+                screen++;
+                screen %= Config.get().SCREENS.length;
+
+                System.out.println("Switch to screen: " + screen);
+
+                viewer.reset();
+                server.resize(screen, viewer.clientWidth, viewer.clientHeight);
             }
             input.parseInput(obj);
         }

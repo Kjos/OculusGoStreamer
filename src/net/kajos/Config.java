@@ -1,13 +1,13 @@
 package net.kajos;
 
-import org.json.JSONException;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.awt.*;
 import java.io.File;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
+import java.util.ArrayList;
 
 public class Config {
     private static Config instance = null;
@@ -16,42 +16,51 @@ public class Config {
         return instance;
     }
 
-    private static Rectangle getMaximumScreenBounds() {
-        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        GraphicsDevice[] gs = ge.getScreenDevices();
-        for(GraphicsDevice curGs : gs)
-        {
-            GraphicsConfiguration[] gc = curGs.getConfigurations();
-            for(GraphicsConfiguration curGc : gc)
-            {
-                Rectangle bounds = curGc.getBounds();
-                return bounds;
-            }
-        }
-        return null;
-    }
-
     private static JSONObject createDefaultConfig() {
         JSONObject obj = new JSONObject();
         obj.put("WEB_PORT", instance.WEB_PORT);
 
-        Rectangle rect = getMaximumScreenBounds();
-        if (rect != null) {
-            System.out.println("Using screen as default:");
-            System.out.println("> Width: " + rect.width + ", height: " + rect.height);
-            System.out.println("> Left: " + rect.x + ", top: " + rect.y);
-            obj.put("SCREEN_WIDTH", rect.width);
-            obj.put("SCREEN_HEIGHT", rect.height);
-            obj.put("SCREEN_LEFT", rect.x);
-            obj.put("SCREEN_TOP", rect.y);
+        ArrayList<Screen> screens = Screen.getScreens();
+        if (screens.size() > 0) {
+            System.out.println("Found " + screens.size() + " screens.");
+
+            JSONArray displays = new JSONArray();
+            instance.SCREENS = new Screen[screens.size()];
+
+            for (int i = 0; i < screens.size(); i++) {
+                Screen screen = screens.get(i);
+                instance.SCREENS[i] = screen;
+
+                JSONObject display = new JSONObject();
+                display.put("SCREEN_X", screen.x);
+                display.put("SCREEN_Y", screen.y);
+                display.put("SCREEN_WIDTH", screen.width);
+                display.put("SCREEN_HEIGHT", screen.height);
+                displays.put(display);
+            }
+
+            obj.put("SCREENS", displays);
+
+
         } else {
             System.out.println("Error: Couldn't determine screen size!");
             System.out.println("Edit SCREEN_WIDTH and SCREEN_HEIGHT to match your display.");
-            obj.put("SCREEN_WIDTH", instance.SCREEN_WIDTH);
-            obj.put("SCREEN_HEIGHT", instance.SCREEN_HEIGHT);
-            obj.put("SCREEN_LEFT", instance.SCREEN_LEFT);
-            obj.put("SCREEN_TOP", instance.SCREEN_TOP);
+            Screen screen = new Screen(0, 0, 1920, 1080);
+
+            JSONArray displays = new JSONArray();
+            JSONObject display = new JSONObject();
+            display.put("SCREEN_X", screen.x);
+            display.put("SCREEN_Y", screen.y);
+            display.put("SCREEN_WIDTH", screen.width);
+            display.put("SCREEN_HEIGHT", screen.height);
+            displays.put(display);
+
+            obj.put("SCREENS", displays);
+
+            instance.SCREENS = new Screen[1];
+            instance.SCREENS[0] = screen;
         }
+
         System.out.println();
 
         obj.put("FPS", instance.FPS);
@@ -97,10 +106,17 @@ public class Config {
         try {
             instance.WEB_PORT = configJson.getInt("WEB_PORT");
 
-            instance.SCREEN_WIDTH = configJson.getInt("SCREEN_WIDTH");
-            instance.SCREEN_HEIGHT = configJson.getInt("SCREEN_HEIGHT");
-            instance.SCREEN_LEFT = configJson.getInt("SCREEN_LEFT");
-            instance.SCREEN_TOP = configJson.getInt("SCREEN_TOP");
+            JSONArray screens = configJson.getJSONArray("SCREENS");
+            instance.SCREENS = new Screen[screens.length()];
+            for (int i = 0; i < instance.SCREENS.length; i++) {
+                JSONObject screen = screens.getJSONObject(i);
+                int dx = screen.getInt("SCREEN_X");
+                int dy = screen.getInt("SCREEN_Y");
+                int dw = screen.getInt("SCREEN_WIDTH");
+                int dh = screen.getInt("SCREEN_HEIGHT");
+                instance.SCREENS[i] = new Screen(dx, dy, dw, dh);
+            }
+
             instance.FPS = configJson.getInt("FPS");
             instance.ADD_FRAMES_LATENCY = configJson.getInt("ADD_FRAMES_LATENCY");
             instance.MAX_FRAME_SKIP = configJson.getInt("MAX_FRAME_SKIP");
@@ -117,7 +133,7 @@ public class Config {
             instance.KEYFRAME_THRESHOLD = configJson.getFloat("KEYFRAME_THRESHOLD");
             instance.KEYFRAME_THRESHOLD_SUM = configJson.getFloat("KEYFRAME_THRESHOLD_SUM");
         } catch (Exception e) {
-            Config.print("Error: config.json is malformed!");
+            Config.print("Error: config.json is malformed or outdated!");
             Config.print("Remove the config.json and a default config.json will be generated on run.");
             e.printStackTrace();
             System.exit(1);
@@ -132,10 +148,13 @@ public class Config {
 
     public int WEB_PORT = 7578;
 
-    public int SCREEN_LEFT = 0;
-    public int SCREEN_TOP = 0;
-    public int SCREEN_WIDTH = 1920;
-    public int SCREEN_HEIGHT = 1080;
+    public Screen[] SCREENS;
+    public int SELECTED_SCREEN = 0;
+
+    public Screen getScreen() {
+        return SCREENS[SELECTED_SCREEN];
+    }
+
     public int FPS = 30;
 
     public int ADD_FRAMES_LATENCY = 2;
