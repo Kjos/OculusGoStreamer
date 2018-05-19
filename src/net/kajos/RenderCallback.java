@@ -248,13 +248,13 @@ public class RenderCallback extends RenderCallbackAdapter {
                 cg = cg - g[x];
                 cb = cb - b[x];
 
-                cr /= 2;
-                cg /= 2;
-                cb /= 2;
-
                 difference += Math.abs(cr);
                 difference += Math.abs(cg);
                 difference += Math.abs(cb);
+
+                cr /= 2;
+                cg /= 2;
+                cb /= 2;
 
                 cr = 127 + cr;
                 cg = 127 + cg;
@@ -264,7 +264,7 @@ public class RenderCallback extends RenderCallbackAdapter {
             }
         }
 
-        difference /= (float)(img.width * img.height * 127);
+        difference /= (float)(img.width * img.height * 255);
         difference /= (float)Config.get().FPS;
 
         float diff = Math.abs(viewer.lastDifference[keyframe] - difference);

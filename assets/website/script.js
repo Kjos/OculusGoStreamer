@@ -1,8 +1,10 @@
 
+var commandBuffer = new Array();
 function sendCommand(command, value) {
 	var send = {};
 	send[command] = value;
-	if (websocket && websocket.readyState !== websocket.CLOSED) {
+	if (websocket && websocket.readyState !== websocket.CLOSED && 
+		websocket.readyState !== websocket.CONNECTING) {
 		websocket.send(JSON.stringify(send));
 	}
 }
@@ -81,18 +83,21 @@ function inputSetup() {
 			sendCommand("mouseRelease", pos);
 		}
 	});
-	checkKeyInput();
+
+	setInterval(keyboardCheck, 100);
 }
 
+function keyboardCheck() {
 // OculusGo doesn't handle input listeners correctly.
 // Need to check every once in a while
-function checkKeyInput() {
 	var str = $("#keyboardHack").val();
-	if (str.length > 0) {
-		sendCommand("keys", str);
-		$("#keyboardHack").val('');
+	if (str.length > 1) {
+		sendCommand("keys", str.substring(1));
+		$("#keyboardHack").val(' ');
+	} else if (str.length == 0) {
+		sendCommand("backspace", true);
+		$("#keyboardHack").val(' ');
 	}
-	setTimeout(checkKeyInput, 30);
 }
 
 var ipCanvas;
@@ -378,6 +383,27 @@ function connectWebSocket() {
 	};
 }
 
+function toggleFullScreen() {
+  if ((document.fullScreenElement && document.fullScreenElement !== null) ||    // alternative standard method
+      (!document.mozFullScreen && !document.webkitIsFullScreen)) {               // current working methods
+    if (document.documentElement.requestFullScreen) {
+      document.documentElement.requestFullScreen();
+    } else if (document.documentElement.mozRequestFullScreen) {
+      document.documentElement.mozRequestFullScreen();
+    } else if (document.documentElement.webkitRequestFullScreen) {
+      document.documentElement.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
+    }
+  } else {
+    if (document.cancelFullScreen) {
+      document.cancelFullScreen();
+    } else if (document.mozCancelFullScreen) {
+      document.mozCancelFullScreen();
+    } else if (document.webkitCancelFullScreen) {
+      document.webkitCancelFullScreen();
+    }
+  }
+}
+
 var isActive = false;
 var pollTimeout = null;
 function poll() {
@@ -385,6 +411,20 @@ function poll() {
 	pollTimeout = setTimeout(function() {
 		sendCommand("window", [window.innerWidth, window.innerHeight]);
 	}, 500);
+}
+
+function menuInit() {
+	$(".menu-nextscreen").click(function() {
+		sendCommand("screenSwitch", true);
+	});
+	$(".menu-fullscreen").click(toggleFullScreen);
+	$(".menu-open").click(function() {
+		if ($(".menu-contents").css("visibility") == "hidden") {
+			$(".menu-contents").css("visibility", "visible");
+		} else {
+			$(".menu-contents").css("visibility", "hidden");
+		}
+	});
 }
 
 $(document).ready(function(){
@@ -401,4 +441,6 @@ $(document).ready(function(){
 	connectWebSocket();
 
 	window.onresize = poll;
+
+	menuInit();
 });

@@ -84,10 +84,10 @@ function inputSetup() {
 		}
 	});
 
-	iterator();
+	setInterval(keyboardCheck, 100);
 }
 
-function iterator() {
+function keyboardCheck() {
 // OculusGo doesn't handle input listeners correctly.
 // Need to check every once in a while
 	var str = $("#keyboardHack").val();
@@ -98,7 +98,6 @@ function iterator() {
 		sendCommand("backspace", true);
 		$("#keyboardHack").val(' ');
 	}
-	setTimeout(iterator, 33);
 }
 
 var ipCanvas;
