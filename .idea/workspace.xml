@@ -7,23 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9181a8b5-c386-487b-b0df-6f1b68c80a62" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/net/kajos/Screen.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/OculusGoStreamer/net/kajos/Config.class" afterPath="$PROJECT_DIR$/out/production/OculusGoStreamer/net/kajos/Config.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/OculusGoStreamer/net/kajos/Manager/Input.class" afterPath="$PROJECT_DIR$/out/production/OculusGoStreamer/net/kajos/Manager/Input.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/OculusGoStreamer/net/kajos/ScreenRecorder$TestBufferFormatCallback.class" afterPath="$PROJECT_DIR$/out/production/OculusGoStreamer/net/kajos/ScreenRecorder$TestBufferFormatCallback.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/OculusGoStreamer/net/kajos/ScreenRecorder.class" afterPath="$PROJECT_DIR$/out/production/OculusGoStreamer/net/kajos/ScreenRecorder.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/OculusGoStreamer/net/kajos/Server$1.class" afterPath="$PROJECT_DIR$/out/production/OculusGoStreamer/net/kajos/Server$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/OculusGoStreamer/net/kajos/Server.class" afterPath="$PROJECT_DIR$/out/production/OculusGoStreamer/net/kajos/Server.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config.json" afterPath="$PROJECT_DIR$/config.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/kajos/Config.java" afterPath="$PROJECT_DIR$/src/net/kajos/Config.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/kajos/Manager/Input.java" afterPath="$PROJECT_DIR$/src/net/kajos/Manager/Input.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/kajos/Manager/Manager.java" afterPath="$PROJECT_DIR$/src/net/kajos/Manager/Manager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/kajos/ScreenRecorder.java" afterPath="$PROJECT_DIR$/src/net/kajos/ScreenRecorder.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/kajos/Server.java" afterPath="$PROJECT_DIR$/src/net/kajos/Server.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/website/index.html" afterPath="$PROJECT_DIR$/website/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/website/script.js" afterPath="$PROJECT_DIR$/website/script.js" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -83,8 +67,8 @@
       <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="243">
-              <caret line="18" column="127" lean-forward="false" selection-start-line="18" selection-start-column="127" selection-end-line="18" selection-end-column="127" />
+            <state relative-caret-position="148">
+              <caret line="54" column="64" lean-forward="false" selection-start-line="54" selection-start-column="64" selection-end-line="54" selection-end-column="64" />
               <folding />
             </state>
           </provider>
@@ -810,8 +794,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="18" column="127" lean-forward="false" selection-start-line="18" selection-start-column="127" selection-end-line="18" selection-end-column="127" />
+        <state relative-caret-position="148">
+          <caret line="54" column="64" lean-forward="false" selection-start-line="54" selection-start-column="64" selection-end-line="54" selection-end-column="64" />
           <folding />
         </state>
       </provider>

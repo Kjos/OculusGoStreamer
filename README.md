@@ -51,39 +51,8 @@ For OculusGo specifically:
 - If you're experiencing issues connecting to the webserver, try rebooting the Oculus Go.
 
 ## config.json example
-```
-    {
-    // Port to host server on
-     "WEB_PORT": 7578,
-    // Capture x, in this case second display
-     "SCREEN_LEFT": 1920,
-    // Capture y
-     "SCREEN_TOP": 0,
-    // Capture width
-     "SCREEN_WIDTH": 1920,
-    // Capture height
-     "SCREEN_HEIGHT": 1080,
-    // Framerate to maintain
-     "FPS": 20,
-    // Jpeg quality range
-     "MIN_QUALITY": 0.3,
-     "MAX_QUALITY": 1.0,
-    // Jpeg quality adjustment per step, up or down. While running is divided by FPS
-    // So 1.0 will be a step of 0.033 per frame at 30fps.
-     "QUALITY_ALPHA": 1.0,
-    // Skip is 1: no skip. Skip is 2: every other frame.
-     "MAX_FRAME_SKIP": 3,
-    // Allow for 2 extra frames of latency, then lower quality. Set higher for more skiping but nicer image
-     "ADD_FRAMES_LATENCY": 2,
-    // The following 3 parameters can be set to gif/png/jpeg
-    // When jpeg quality range maxed out, switch to png
-     "HIGH_FORMAT": "png",
-    // Use jpeg for low quality. If set to gif or png, jpeg quality will only work as a "timer/buffer", has no affect on png/gif quality
-     "LOW_FORMAT": "jpeg",
-    // Format for interframes
-     "INTERFRAME_FORMAT": "jpeg",
-    }
-```
+See:
+https://github.com/Kjos/OculusGoStreamer/blob/master/config.json
 
 ## Todo
 - Improve latency. TCP makes it so packets can get stacked. Needs to send and receive frame timestamps to be able to read the actual latency and account for it. (Done)
