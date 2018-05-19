@@ -163,7 +163,7 @@ public class Config {
     public float KEYFRAME_THRESHOLD = 0.03f;
     public float KEYFRAME_THRESHOLD_SUM = 0.16f;
 
-    public String HIGH_FORMAT = Constants.PNG;
+    public String HIGH_FORMAT = Constants.JPEG;
     public String LOW_FORMAT = Constants.JPEG;
     public String INTERFRAME_FORMAT = Constants.JPEG;
 
