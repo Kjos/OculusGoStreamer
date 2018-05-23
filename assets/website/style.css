@@ -11,8 +11,8 @@ canvas {
 	z-index: 0;
 }
 #keyboardHack {
-	width: 30px;
-	height: 30px;
+	width: 3vw;
+	height: 3vw;
   	background-image: url('keyboard.png');
   	background-repeat:no-repeat;
 	-webkit-background-size: cover; /* For WebKit*/
@@ -21,22 +21,22 @@ canvas {
 	background-size: cover;         /* Generic*/
 	border: 0px;
 	padding: 0px;
-	margin: 3px;
-	z-index: 100;
+	margin: .5vw;
 }
 .menu-icon {
-	width: 30px;
-	height: 30px;
-	margin: 3px;
+	width: 3vw;
+	height: 3vw;
+	margin: .5vw;
 }
 .menu {
-	width: 30px;
+	width: 3vw;
 	position: fixed;
 	bottom: 0;
-	right: 0;
+	right: 1.5vw;
+	z-index: 100;
 }
 .menu-open {
-	width: 30px;
+	width: 3vw;
 }
 .menu-contents {
 	visibility: hidden;

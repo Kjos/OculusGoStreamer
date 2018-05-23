@@ -33,6 +33,9 @@ Basically works in any browser. Tested on Android phone. Reported working with N
  at one time).
 - Click the keyboard icon to open the virtual keyboard.
 - Reloading the browser page will also reload config.json from file.
+- Change raise resolution by lowering 'initial-scale=1.0' in index.html. 0.5 is resolution multiplier of two.
+ Same for lowering resolution, but vice versa. The console output will print your resolution, for example:
+ 'Recorder set up, width: 1096, height: 617'.
 
 ## Notes
 - Requires Java 1.6 or higher. VLCj for Mac OSX can only handle JVM 1.6 (? not sure).

@@ -1,5 +1,4 @@
 
-var commandBuffer = new Array();
 function sendCommand(command, value) {
 	var send = {};
 	send[command] = value;
@@ -64,11 +63,11 @@ function inputSetup() {
 	});
 	$("#canvas").on({ 'mousedown touchstart' : function( e ) {
 			e.preventDefault();
-			$("#keyboardHack").blur();
 
 			var pos = getCursor(e);
 			if (!pos) return;
 
+			$("#keyboardHack").blur();
 			console.log("touch start");
 			sendCommand("mousePress", pos);
 		}
@@ -292,8 +291,6 @@ var frameTime = Date.now();
 var frameCnt = 0;
 function connectWebSocket() {
 	if (websocket && websocket.readyState !== websocket.CLOSED) return;
-
-	$("#imageContainer").show();
 
 	var source = "ws://" + window.location.host + "/websocket?t=" + new Date().getTime();
 	websocket = new WebSocket(source);
