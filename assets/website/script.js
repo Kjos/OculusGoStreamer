@@ -179,11 +179,6 @@ function frameCompositing() {
 		ctx.globalCompositeOperation = "lighter";
 		ctx.drawImage(frameCanvas, 0, 0, canvas.width, canvas.height);
 	} else if ((this.type == 3 || this.type == 4) && this.keyFrame) {
-		if($("#debugBFrame").is(':checked')) {
-			ctx.globalCompositeOperation = "copy";
-			ctx.drawImage(this, 0, 0, canvas.width, canvas.height);
-			return;
-		}
 // Copy image
 		fctx2.globalCompositeOperation = "source-over";
 		fctx2.drawImage(this, 0, 0, canvas.width, frameCanvas2.height);
@@ -252,27 +247,6 @@ function frameCompositing() {
 		ctx.drawImage(frameCanvas, 0, 0, canvas.width, canvas.height);
 	}
 };
-
-function createCanvasData(image) {
-	var h = image.height * 2;
-	if (!canvasImageData || canvasImageData.width != image.width || canvasImageData.height != h) {
-		canvas.width = image.width;
-		canvas.height = h;
-		ctx = canvas.getContext('2d');
-		frameCanvas.width = image.width;
-		frameCanvas.height = image.height;
-		fctx = frameCanvas.getContext('2d');
-
-		canvasImageData = ctx.createImageData(image.width, h);
-		var cData = canvasImageData.data;
-		for (var p = 0; p < cData.length; p++) {
-			cData[p] = 255;
-		}
-
-		lastKeyData = new Array();
-		console.log("Clear canvas");
-	}
-}
 
 var canvas;
 var ctx;

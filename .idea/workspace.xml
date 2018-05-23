@@ -7,10 +7,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9181a8b5-c386-487b-b0df-6f1b68c80a62" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/website/cursor.png" afterPath="$PROJECT_DIR$/assets/website/cursor.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/OculusGoStreamer/net/kajos/RenderCallback$1.class" afterPath="$PROJECT_DIR$/out/production/OculusGoStreamer/net/kajos/RenderCallback$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/OculusGoStreamer/net/kajos/RenderCallback.class" afterPath="$PROJECT_DIR$/out/production/OculusGoStreamer/net/kajos/RenderCallback.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/website/cursor.png" afterPath="$PROJECT_DIR$/website/cursor.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config.json" afterPath="$PROJECT_DIR$/config.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/kajos/Config.java" afterPath="$PROJECT_DIR$/src/net/kajos/Config.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/kajos/ScreenRecorder.java" afterPath="$PROJECT_DIR$/src/net/kajos/ScreenRecorder.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/website/index.html" afterPath="$PROJECT_DIR$/assets/website/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/website/script.js" afterPath="$PROJECT_DIR$/assets/website/script.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/kajos/RenderCallback.java" afterPath="$PROJECT_DIR$/src/net/kajos/RenderCallback.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/website/index.html" afterPath="$PROJECT_DIR$/website/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/website/script.js" afterPath="$PROJECT_DIR$/website/script.js" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -22,11 +28,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Config.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Config.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/net/kajos/Config.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="135" column="0" lean-forward="true" selection-start-line="135" selection-start-column="0" selection-end-line="135" selection-end-column="0" />
+            <state relative-caret-position="531">
+              <caret line="146" column="0" lean-forward="false" selection-start-line="146" selection-start-column="0" selection-end-line="146" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -56,7 +62,7 @@
         <entry file="file://$PROJECT_DIR$/src/net/kajos/ScreenRecorder.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="544">
-              <caret line="43" column="60" lean-forward="true" selection-start-line="43" selection-start-column="60" selection-end-line="43" selection-end-column="60" />
+              <caret line="43" column="60" lean-forward="false" selection-start-line="43" selection-start-column="60" selection-end-line="43" selection-end-column="60" />
               <folding />
             </state>
           </provider>
@@ -77,18 +83,18 @@
       <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="54">
+            <state relative-caret-position="-108">
               <caret line="2" column="57" lean-forward="false" selection-start-line="2" selection-start-column="57" selection-end-line="2" selection-end-column="57" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RenderCallback.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="RenderCallback.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/net/kajos/RenderCallback.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="841">
-              <caret line="300" column="9" lean-forward="false" selection-start-line="300" selection-start-column="9" selection-end-line="300" selection-end-column="9" />
+            <state relative-caret-position="1660">
+              <caret line="135" column="38" lean-forward="false" selection-start-line="135" selection-start-column="38" selection-end-line="135" selection-end-column="38" />
               <folding />
             </state>
           </provider>
@@ -135,7 +141,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>exec</find>
       <find>newUpdate</find>
       <find>getCompressedBytes</find>
       <find>FRAME_SWING</find>
@@ -165,6 +170,7 @@
       <find>printBytes</find>
       <find>SCREENS</find>
       <find>SELECTED_SCREEN</find>
+      <find>bytesSum</find>
     </findStrings>
     <replaceStrings>
       <replace>fundsSeconds</replace>
@@ -235,10 +241,10 @@
         <option value="$PROJECT_DIR$/src/net/kajos/Manager/Manager.java" />
         <option value="$PROJECT_DIR$/src/net/kajos/Server.java" />
         <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/src/net/kajos/RenderCallback.java" />
         <option value="$PROJECT_DIR$/src/net/kajos/Constants.java" />
         <option value="$PROJECT_DIR$/src/net/kajos/ScreenRecorder.java" />
         <option value="$PROJECT_DIR$/src/net/kajos/Config.java" />
+        <option value="$PROJECT_DIR$/src/net/kajos/RenderCallback.java" />
       </list>
     </option>
   </component>
@@ -705,14 +711,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/net/kajos/Manager/Viewer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="621">
-          <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/net/kajos/Manager/Manager.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1890">
@@ -725,22 +723,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1215">
           <caret line="57" column="0" lean-forward="false" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="2" column="57" lean-forward="false" selection-start-line="2" selection-start-column="57" selection-end-line="2" selection-end-column="57" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/net/kajos/RenderCallback.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="841">
-          <caret line="300" column="9" lean-forward="false" selection-start-line="300" selection-start-column="9" selection-end-line="300" selection-end-column="9" />
           <folding />
         </state>
       </provider>
@@ -771,18 +753,42 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/net/kajos/ScreenRecorder.java">
+    <entry file="file://$PROJECT_DIR$/src/net/kajos/Config.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="43" column="60" lean-forward="true" selection-start-line="43" selection-start-column="60" selection-end-line="43" selection-end-column="60" />
+        <state relative-caret-position="531">
+          <caret line="146" column="0" lean-forward="false" selection-start-line="146" selection-start-column="0" selection-end-line="146" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/net/kajos/Config.java">
+    <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="135" column="0" lean-forward="true" selection-start-line="135" selection-start-column="0" selection-end-line="135" selection-end-column="0" />
+        <state relative-caret-position="-108">
+          <caret line="2" column="57" lean-forward="false" selection-start-line="2" selection-start-column="57" selection-end-line="2" selection-end-column="57" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/net/kajos/ScreenRecorder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="544">
+          <caret line="43" column="60" lean-forward="false" selection-start-line="43" selection-start-column="60" selection-end-line="43" selection-end-column="60" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/net/kajos/Manager/Viewer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="621">
+          <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/net/kajos/RenderCallback.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1660">
+          <caret line="135" column="38" lean-forward="false" selection-start-line="135" selection-start-column="38" selection-end-line="135" selection-end-column="38" />
           <folding />
         </state>
       </provider>

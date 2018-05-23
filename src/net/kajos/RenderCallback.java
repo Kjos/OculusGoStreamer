@@ -8,8 +8,6 @@ import uk.co.caprica.vlcj.player.direct.RenderCallbackAdapter;
 
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -127,15 +125,18 @@ public class RenderCallback extends RenderCallbackAdapter {
         });
     }
 
+    private static int frameSum = 0;
     private static int bytesSum = 0;
-    private static long bytesTime = 0;
+    private static long countTime = 0;
     private static void printBytes() {
         long time = System.currentTimeMillis();
-        long diff = time - bytesTime;
+        long diff = time - countTime;
         if (diff > 1000) {
-            System.out.println((bytesSum * 8 / 1024 / 1024) + "Mbit/s");
+            System.out.println((bytesSum * 8 / 1024 / 1024) + "Mbit/s, " +
+                    frameSum + "FPS");
             bytesSum = 0;
-            bytesTime = time;
+            frameSum = 0;
+            countTime = time;
         }
     }
 
@@ -192,6 +193,7 @@ public class RenderCallback extends RenderCallbackAdapter {
                 quality.frameFormat);
 
         bytesSum += data.length;
+        frameSum++;
 
         if (Constants.FRAME_LOG) {
             System.out.println("Keyframe " + keyframe + ": " + quality.frameFormat + ", size: " + data.length +
@@ -277,6 +279,7 @@ public class RenderCallback extends RenderCallbackAdapter {
                     quality.interImageFormat);
 
             bytesSum += data.length;
+            frameSum++;
 
             if (Constants.FRAME_LOG) {
                 System.out.println("Interframe " + keyframe + ": " + quality.interImageFormat + ", size: " + data.length +
