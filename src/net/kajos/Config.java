@@ -3,7 +3,6 @@ package net.kajos;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.awt.*;
 import java.io.File;
 import java.io.PrintWriter;
 import java.nio.file.Files;
@@ -77,6 +76,8 @@ public class Config {
 
         obj.put("KEYFRAME_THRESHOLD", instance.KEYFRAME_THRESHOLD);
         obj.put("KEYFRAME_THRESHOLD_SUM", instance.KEYFRAME_THRESHOLD_SUM);
+
+        obj.put("CURSOR_IMAGE", instance.CURSOR_IMAGE);
         return obj;
     }
 
@@ -132,6 +133,8 @@ public class Config {
 
             instance.KEYFRAME_THRESHOLD = configJson.getFloat("KEYFRAME_THRESHOLD");
             instance.KEYFRAME_THRESHOLD_SUM = configJson.getFloat("KEYFRAME_THRESHOLD_SUM");
+
+            instance.CURSOR_IMAGE = configJson.getString("CURSOR_IMAGE");
         } catch (Exception e) {
             Config.print("Error: config.json is malformed or outdated!");
             Config.print("Remove the config.json and a default config.json will be generated on run.");
@@ -159,6 +162,7 @@ public class Config {
 
     public int ADD_FRAMES_LATENCY = 2;
 
+    public String CURSOR_IMAGE = "";
     public float QUALITY_ALPHA = 1f;
     public float KEYFRAME_THRESHOLD = 0.03f;
     public float KEYFRAME_THRESHOLD_SUM = 0.16f;

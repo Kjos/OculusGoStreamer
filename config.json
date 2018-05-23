@@ -1,6 +1,7 @@
 {
  "ADD_FRAMES_LATENCY": 2,
- "FPS": 60,
+ "CURSOR_IMAGE": "website/cursor.png",
+ "FPS": 30,
  "HIGH_FORMAT": "jpeg",
  "INTERFRAME_FORMAT": "jpeg",
  "KEYFRAME_THRESHOLD": 0.03,

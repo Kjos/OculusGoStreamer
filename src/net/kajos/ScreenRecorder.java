@@ -40,7 +40,8 @@ public class ScreenRecorder {
                 ":screen-width=" + screen.width,
                 ":screen-height=" + screen.height,
                 ":screen-left=" + screen.x,
-                ":screen-top=" + screen.y
+                ":screen-top=" + screen.y,
+                ":screen-mouse-image=" + Config.get().CURSOR_IMAGE
         };
         try {
             factory = new MediaPlayerFactory();
