@@ -223,6 +223,83 @@ function frameCompositingNoInterlacing() {
 	}
 };
 
+function createCanvasData(image) {
+	var h = image.height * 2;
+	if (!canvasImageData || canvasImageData.width != image.width || canvasImageData.height != h) {
+		canvas.width = image.width;
+		canvas.height = h;
+		ctx = canvas.getContext('2d');
+		frameCanvas.width = image.width;
+		frameCanvas.height = image.height;
+		fctx = frameCanvas.getContext('2d');
+
+		canvasImageData = ctx.createImageData(image.width, h);
+		var cData = canvasImageData.data;
+		for (var p = 0; p < cData.length; p++) {
+			cData[p] = 255;
+		}
+
+		lastKeyData = new Array();
+		console.log("Clear canvas");
+	}
+}
+
+function framePixelEditing() {
+	createCanvasData(this);
+	if (this.type == 1 || this.type == 2) {
+		var kData = getImageData(this).data;
+		this.imageData = kData;
+		transferData(kData, this.ip1);
+	} else if ((this.type == 3 || this.type == 4) && this.keyFrame && this.keyFrame.imageData) {
+		var kData = this.keyFrame.imageData;
+		var iData = getImageData(this).data;
+		transferDataI(kData, iData, this.ip1);
+	}
+};
+
+function getImageData(image) {
+	fctx.drawImage(image, 0, 0, 
+		image.width, image.height);
+	return fctx.getImageData(0,0,image.width, 
+		image.height);
+}
+
+var canvasImageData;
+function transferDataI(kData, iData, ip) {
+	var cData = canvasImageData.data;
+	var w = canvas.width * 4;
+	var w2 = w - 4;
+	var p2 = ip == 0 ? 0 : w;
+	for (var p = 0; p < kData.length; p+=4, p2+=4) {
+		var pg = p+1;
+		var pb = p+2;
+		var pg2 = p2+1;
+		var pb2 = p2+2;
+		cData[p2] = kData[p] + (iData[p] - 127) * 2;
+		cData[pg2] = kData[pg] + (iData[pg] - 127) * 2;
+		cData[pb2] = kData[pb] + (iData[pb] - 127) * 2;
+		if (p % w == w2) p2 += w;
+	}
+	ctx.putImageData(canvasImageData, 0, 0);
+}
+function transferData(kData, ip) {
+	var cData = canvasImageData.data;
+	var w = canvas.width * 4;
+	var w2 = w - 4;
+	var p2 = ip == 0 ? 0 : w;
+	for (var p = 0; p < kData.length; p+=4, p2+=4) {
+		var pg = p+1;
+		var pb = p+2;
+		var pg2 = p2+1;
+		var pb2 = p2+2;
+		cData[p2] = kData[p];
+		cData[pg2] = kData[pg];
+		cData[pb2] = kData[pb];
+		if (p % w == w2) p2 += w;
+	}
+	ctx.putImageData(canvasImageData, 0, 0);
+}
+
 var canvas;
 var ctx;
 var frameCanvas;
@@ -240,8 +317,10 @@ var urlCreator = window.URL || window.webkitURL;
 
 var frameTime = Date.now();
 var frameCnt = 0;
-function testDecompression(imageSrc, type) {
-	var image = new Image();
+var testimage;
+var frameFunction;
+function testDecompression(type) {
+	var image = testimage;//new Image();
 	image.ip1 = type % 2 == 0 ? 0 : 1;
 	image.ip2 = 1 - image.ip1;
 	image.type = type;
@@ -251,23 +330,105 @@ function testDecompression(imageSrc, type) {
 	} else {
 		image.keyFrame = lastKeyFrame[type-3];
 	}
-	image.frameLoad = frameCompositingNoInterlacing;
-	image.onload = function() {
+	image.frameLoad = frameFunction;
+	//image.onload = function() {
 		image.frameLoad(); 
 		endLog();
-	};
-	image.src = imageSrc;
+	//};
+	image.frameLoad();
+
+	//image.setAttribute('crossOrigin', '');
+	//image.src = "testimage.jpg";
+
 }
 
 var start;
 var count = 0;
-var endCount = 82*300;
+var maxIter = 30;
+var endCount = 82*maxIter;
 function endLog() {
 	count++;
 	if (count >= endCount) {
 		var end = new Date().getTime();
 
+		count = 0;
 		console.log("Time taken: " + (end - start));
+	}
+}
+
+function singleTest() {
+
+}
+
+function test() {
+
+	console.log("Start timing...");
+	start = new Date().getTime();
+	count = 1;
+	frameFunction = function() { };
+	console.log("no function");
+	for (var i = 0; i < maxIter; i++) {
+		testDecompression(3);
+		for (var k = 0; k < 20; k++) {
+		testDecompression(2);
+		testDecompression(1);
+		}
+		testDecompression(4);
+		for (var k = 0; k < 20; k++) {
+		testDecompression(1);
+		testDecompression(2);
+		}
+	}
+	while (count != 0);
+	count = 1;
+	start = new Date().getTime();
+	frameFunction = frameCompositing;
+	console.log("frameCompositing");
+	for (var i = 0; i < maxIter; i++) {
+		testDecompression(3);
+		for (var k = 0; k < 20; k++) {
+		testDecompression(2);
+		testDecompression(1);
+		}
+		testDecompression(4);
+		for (var k = 0; k < 20; k++) {
+		testDecompression(1);
+		testDecompression(2);
+		}
+	}
+	while (count != 0);
+	count = 1;
+	start = new Date().getTime();
+	frameFunction = frameCompositingNoInterlacing;
+	console.log("frameCompositingNoInterlacing");
+	for (var i = 0; i < maxIter; i++) {
+		testDecompression(3);
+		for (var k = 0; k < 20; k++) {
+		testDecompression(2);
+		testDecompression(1);
+		}
+		testDecompression(4);
+		for (var k = 0; k < 20; k++) {
+		testDecompression(1);
+		testDecompression(2);
+		}
+	}
+	while (count != 0);
+	count = 1;
+	start = new Date().getTime();
+	frameFunction = framePixelEditing;
+	console.log("framePixelEditing");
+	for (var i = 0; i < maxIter; i++) {
+		testDecompression(3);
+		for (var k = 0; k < 20; k++) {
+		testDecompression(2);
+		testDecompression(1);
+		}
+		testDecompression(4);
+		for (var k = 0; k < 20; k++) {
+		testDecompression(1);
+		testDecompression(2);
+		}
 	}
 }
 
@@ -276,24 +437,14 @@ $(document).ready(function(){
 	var ctx = canvas.getContext("2d");
 	ctx.font = "30px Arial";
 	ctx.fillStyle = 'rgb(255,255,255)';
-	ctx.fillText("OculusGoStreamer - Kaj Toet", 10, 50);
+	ctx.fillText("Timing tests", 10, 50);
 
 	frameCanvas = document.createElement('canvas');
 	frameCanvas2 = document.createElement('canvas');
 	frameCanvas3 = document.createElement('canvas');
 
-	console.log("Start timing...");
-	start = new Date().getTime();
-	for (var i = 0; i < 300; i++) {
-		testDecompression("testimage.jpg", 3);
-		for (var k = 0; k < 20; k++) {
-		testDecompression("testimage.jpg", 2);
-		testDecompression("testimage.jpg", 1);
-		}
-		testDecompression("testimage.jpg", 4);
-		for (var k = 0; k < 20; k++) {
-		testDecompression("testimage.jpg", 1);
-		testDecompression("testimage.jpg", 2);
-		}
-	}
+	testimage = new Image();
+	testimage.onload = test;
+	testimage.src= "testimage.jpg";
+
 });

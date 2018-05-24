@@ -117,16 +117,12 @@ function canvasResize(image, force) {
 		frameCanvas.height = height;
 		frameCanvas2.width = image.width;
 		frameCanvas2.height = image.height;
-		frameCanvas3.width = image.width;
-		frameCanvas3.height = image.height;
 		ctx = canvas.getContext("2d");
 		fctx = frameCanvas.getContext('2d');
 		fctx2 = frameCanvas2.getContext('2d');
-		fctx3 = frameCanvas3.getContext('2d');
 		ctx.imageSmoothingEnabled = false;
 		fctx.imageSmoothingEnabled = false;
 		fctx2.imageSmoothingEnabled = false;
-		fctx3.imageSmoothingEnabled = false;
 	}
 
 	if (createIpCanvas) {
@@ -252,84 +248,12 @@ function frameCompositing() {
 	}
 };
 
-function frameCompositingNoInterlacing() {
-	var yoffset = this.type % 2;
-																																																																																				
-	if (this.type == 1 || this.type == 2) {
-		canvasResize(this, false);
-
-		ctx.globalCompositeOperation = "source-over";
-		ctx.drawImage(this, 0, yoffset, canvas.width, canvas.height);
-	} else if ((this.type == 3 || this.type == 4) && this.keyFrame) {
-// Copy image
-		fctx2.globalCompositeOperation = "source-over";
-		fctx2.drawImage(this, 0, 0, canvas.width, frameCanvas2.height);
-
-// Take lower half
-		fctx2.globalCompositeOperation = "darken";
-		fctx2.fillStyle = 'rgb(128,128,128)';
-		fctx2.fillRect(0,0,canvas.width, frameCanvas2.height);
-
-// Multiply by 2
-		fctx2.globalCompositeOperation = "color-dodge";
-		fctx2.fillStyle = 'rgb(128,128,128)';
-		fctx2.fillRect(0,0,canvas.width, frameCanvas2.height);
-
-// Invert
-		fctx2.globalCompositeOperation = "difference";
-		fctx2.fillStyle = 'rgb(255,255,255)';
-		fctx2.fillRect(0,0,canvas.width, frameCanvas2.height);
-
-// Subtract with keyframe
-		fctx2.globalCompositeOperation = "difference"; 
-		fctx2.drawImage(this.keyFrame, 0, 0, canvas.width, frameCanvas2.height);
-
-		fctx3.globalCompositeOperation = "source-over";
-		fctx3.drawImage(frameCanvas2, 0, 0, canvas.width, frameCanvas3.height);
-
-		// ------
-// Copy
-		fctx2.globalCompositeOperation = "source-over";
-		fctx2.drawImage(this, 0, 0, canvas.width, frameCanvas2.height);
-
-// Take upper half
-		fctx2.globalCompositeOperation = "lighten";
-		fctx2.fillStyle = 'rgb(128,128,128)';
-		fctx2.fillRect(0,0,canvas.width, frameCanvas2.height);
-
-// Invert
-		fctx2.globalCompositeOperation = "difference";
-		fctx2.fillStyle = 'rgb(255,255,255)';
-		fctx2.fillRect(0,0,canvas.width, frameCanvas2.height);
-
-// Multiply
-		fctx2.globalCompositeOperation = "color-dodge";
-		fctx2.fillStyle = 'rgb(128,128,128)';
-		fctx2.fillRect(0,0,canvas.width, frameCanvas2.height);
-
-// Invert
-		fctx2.globalCompositeOperation = "difference";
-		fctx2.fillStyle = 'rgb(255,255,255)';
-		fctx2.fillRect(0,0,canvas.width, frameCanvas2.height);
-
-// Add to stored fb
-		fctx3.globalCompositeOperation = "lighter";
-		fctx3.drawImage(frameCanvas2, 0, 0, canvas.width, frameCanvas3.height);
-
-// Render result
-		ctx.globalCompositeOperation = "source-atop";
-		ctx.drawImage(frameCanvas3, 0, yoffset, canvas.width, canvas.height);
-	}
-};
-
 var canvas;
 var ctx;
 var frameCanvas;
 var fctx;
 var frameCanvas2;
 var fctx2;
-var frameCanvas3;
-var fctx3;
 var rCanvas;
 var rctx;
 var websocket;
@@ -403,7 +327,7 @@ function connectWebSocket() {
 			} else {
 				image.keyFrame = lastKeyFrame[type-3];
 			}
-			image.frameLoad = frameCompositingNoInterlacing;
+			image.frameLoad = frameCompositing;
 			image.onload = function() {
 				image.frameLoad(); 
 				websocket.send(">" + framestamp);
@@ -483,7 +407,6 @@ $(document).ready(function(){
 
 	frameCanvas = document.createElement('canvas');
 	frameCanvas2 = document.createElement('canvas');
-	frameCanvas3 = document.createElement('canvas');
 
 	inputSetup();
 	connectWebSocket();
