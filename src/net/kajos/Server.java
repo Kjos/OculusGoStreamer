@@ -1,6 +1,7 @@
 package net.kajos;
 
 import net.kajos.Handlers.FilterHandler;
+import net.kajos.Manager.AudioManager;
 import net.kajos.Manager.Manager;
 import org.webbitserver.*;
 import org.webbitserver.handler.StaticFileHandler;
@@ -114,6 +115,7 @@ public class Server {
         webServer = WebServers.createWebServer(Executors.newFixedThreadPool(Constants.THREADS), Config.get().WEB_PORT);
         webServer.add(new FilterHandler());
         webServer.add("/websocket", manager);
+        webServer.add("/audiosocket", new AudioManager());
         webServer.add(new StaticFileHandler("website/"));
         webServer.start();
 

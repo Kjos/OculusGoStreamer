@@ -410,6 +410,7 @@ $(document).ready(function(){
 
 	inputSetup();
 	connectWebSocket();
+	initAudio();
 
 	window.onresize = poll;
 
