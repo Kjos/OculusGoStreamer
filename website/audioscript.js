@@ -2,7 +2,16 @@
 var player;
 
 var audiosocket = null;
+var audiocontext;
 function initAudio() {
+	try {
+		// Fix up for prefixing
+		window.AudioContext = window.AudioContext||window.webkitAudioContext;
+		context = new AudioContext();
+	}
+	catch(e) {
+		console.log('Web Audio API is not supported in this browser');
+	}
 	$(".menu-audio").click(function() {
 		if (audiosocket) {
 			audiosocket.close();

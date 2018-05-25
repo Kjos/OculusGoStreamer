@@ -1,5 +1,6 @@
 package net.kajos.Manager;
 
+import net.kajos.AudioRecorder;
 import net.kajos.Config;
 import net.kajos.Server;
 import org.json.JSONArray;
@@ -8,7 +9,6 @@ import org.webbitserver.BaseWebSocketHandler;
 import org.webbitserver.WebSocketConnection;
 
 import java.awt.*;
-import java.util.*;
 
 public class Manager extends BaseWebSocketHandler {
     private Viewer viewer = null;
@@ -22,7 +22,7 @@ public class Manager extends BaseWebSocketHandler {
         this.server = server;
     }
 
-    public void sendImage(byte[] data) {
+    public void sendData(byte[] data) {
         if (connection == null) return;
 
         connection.send(data);
@@ -37,7 +37,7 @@ public class Manager extends BaseWebSocketHandler {
         data[3] = (byte) (framestamp & 0xff);
         framestamp >>= 8;
         data[4] = (byte) (framestamp & 0xff);
-        sendImage(data);
+        sendData(data);
     }
 
     private void closeConnection(WebSocketConnection conn) {

@@ -1,6 +1,7 @@
 package net.kajos;
 
 import net.kajos.Manager.AudioManager;
+import net.kajos.Manager.Manager;
 
 import javax.sound.sampled.*;
 import java.io.IOException;
@@ -20,13 +21,13 @@ public class AudioRecorder {
     private int sampleSize = 8;
     private boolean bigEndian = true;
     private int bytesPerSample = sampleSize / 8 * channels;
-    private int payloadSize = bytesPerSample;//rate * channels * sampleSize;
+    private int payloadSize = bytesPerSample * 800;//rate * channels * sampleSize;
 
     private AudioFormat format = new AudioFormat(encoding, rate, sampleSize, channels, bytesPerSample
             * channels, rate, bigEndian);
 
-    public AudioRecorder(AudioManager audioManager) {
-        this.manager = audioManager;
+    public AudioRecorder(AudioManager manager) {
+        this.manager = manager;
 
         try {
             DataLine.Info info = new DataLine.Info(TargetDataLine.class, format);
@@ -47,7 +48,7 @@ public class AudioRecorder {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    byte[] buffer = new byte[1024];
+                    byte[] buffer = new byte[payloadSize*2];
                     int count = 0;
                     while (true) {
                         try {

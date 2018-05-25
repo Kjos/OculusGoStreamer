@@ -89,7 +89,7 @@ public class RenderCallback extends RenderCallbackAdapter {
                 if (data == null) {
                     manager.sendEmptyImage(frameId);
                 } else {
-                    manager.sendImage(data);
+                    manager.sendData(data);
                 }
             }
 
