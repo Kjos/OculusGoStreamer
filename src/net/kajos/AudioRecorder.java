@@ -16,12 +16,12 @@ public class AudioRecorder {
      * Defines an audio format
      */
     private AudioFormat.Encoding encoding = AudioFormat.Encoding.PCM_SIGNED;
-    private int rate = 8000;
+    private int rate = 44100;
     private int channels = 1;
     private int sampleSize = 8;
     private boolean bigEndian = true;
     private int bytesPerSample = sampleSize / 8 * channels;
-    private int payloadSize = bytesPerSample * 800;//rate * channels * sampleSize;
+    private int payloadSize = bytesPerSample * rate / 10;//rate * channels * sampleSize;
 
     private AudioFormat format = new AudioFormat(encoding, rate, sampleSize, channels, bytesPerSample
             * channels, rate, bigEndian);

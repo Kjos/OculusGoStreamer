@@ -29,7 +29,7 @@ function connectAudioSocket() {
 	player = new PCMPlayer({
 	    encoding: '8bitInt',
 	    channels: 1,
-	    sampleRate: 8000,
+	    sampleRate: 44100,
 	    flushingTime: 100
 	});
 
