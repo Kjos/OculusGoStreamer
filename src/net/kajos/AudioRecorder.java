@@ -21,7 +21,7 @@ public class AudioRecorder {
     private int sampleSize = 8;
     private boolean bigEndian = true;
     private int bytesPerSample = sampleSize / 8 * channels;
-    private int payloadSize = bytesPerSample * rate / 10;//rate * channels * sampleSize;
+    private int payloadSize = bytesPerSample * rate / 33;//rate * channels * sampleSize;
 
     private AudioFormat format = new AudioFormat(encoding, rate, sampleSize, channels, bytesPerSample
             * channels, rate, bigEndian);

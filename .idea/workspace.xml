@@ -7,10 +7,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9181a8b5-c386-487b-b0df-6f1b68c80a62" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/website/audio.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/website/audioscript.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/website/pcm-player.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/OculusGoStreamer_jar/OculusGoStreamer.jar" afterPath="$PROJECT_DIR$/out/artifacts/OculusGoStreamer_jar/OculusGoStreamer.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/OculusGoStreamer/net/kajos/AudioRecorder.class" afterPath="$PROJECT_DIR$/out/production/OculusGoStreamer/net/kajos/AudioRecorder.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/website/index.html" afterPath="$PROJECT_DIR$/assets/website/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/website/script.js" afterPath="$PROJECT_DIR$/assets/website/script.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/kajos/AudioRecorder.java" afterPath="$PROJECT_DIR$/src/net/kajos/AudioRecorder.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/website/audioscript.js" afterPath="$PROJECT_DIR$/website/audioscript.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/website/index.html" afterPath="$PROJECT_DIR$/website/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/website/pcm-player.js" afterPath="$PROJECT_DIR$/website/pcm-player.js" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -64,11 +70,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AudioRecorder.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="AudioRecorder.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/net/kajos/AudioRecorder.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="118">
-              <caret line="18" column="28" lean-forward="false" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="28" />
+            <state relative-caret-position="334">
+              <caret line="29" column="31" lean-forward="true" selection-start-line="29" selection-start-column="31" selection-end-line="29" selection-end-column="31" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -86,11 +92,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="297">
-              <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+            <state relative-caret-position="459">
+              <caret line="20" column="14" lean-forward="true" selection-start-line="20" selection-start-column="14" selection-end-line="20" selection-end-column="14" />
               <folding />
             </state>
           </provider>
@@ -236,11 +242,11 @@
         <option value="$PROJECT_DIR$/src/net/kajos/ScreenRecorder.java" />
         <option value="$PROJECT_DIR$/src/AudioSender.java" />
         <option value="$PROJECT_DIR$/src/net/kajos/AudioSender.java" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/src/net/kajos/Manager/AudioManager.java" />
         <option value="$PROJECT_DIR$/src/net/kajos/Manager/Manager.java" />
         <option value="$PROJECT_DIR$/src/net/kajos/Server.java" />
         <option value="$PROJECT_DIR$/src/net/kajos/AudioRecorder.java" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -743,14 +749,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/net/kajos/RenderCallback.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2835">
@@ -801,11 +799,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/net/kajos/AudioRecorder.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="118">
-          <caret line="18" column="28" lean-forward="false" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="28" />
+        <state relative-caret-position="334">
+          <caret line="29" column="31" lean-forward="true" selection-start-line="29" selection-start-column="31" selection-end-line="29" selection-end-column="31" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="20" column="14" lean-forward="true" selection-start-line="20" selection-start-column="14" selection-end-line="20" selection-end-column="14" />
+          <folding />
         </state>
       </provider>
     </entry>

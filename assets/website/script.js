@@ -320,7 +320,7 @@ function connectWebSocket() {
 			framestamp |= bytes[3];
 			framestamp <<= 8;
 			framestamp |= bytes[2];
-			console.log(framestamp);
+			//console.log(framestamp);
 
 			if (type == 1 || type == 2) {
 				lastKeyFrame[type-1] = image;
@@ -410,6 +410,7 @@ $(document).ready(function(){
 
 	inputSetup();
 	connectWebSocket();
+	initAudio();
 
 	window.onresize = poll;
 
