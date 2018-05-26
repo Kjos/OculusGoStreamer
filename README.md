@@ -61,6 +61,10 @@ See:
 https://github.com/Kjos/OculusGoStreamer/blob/master/config.json
 
 ## Todo
+- Check SBS 3D support.
+- Blit cursor without VLC for cross platform and dynamically toggle on/off
+on movement pointer.
+- Test sound different browsers.
 - Improve latency. TCP makes it so packets can get stacked. Needs to send and receive frame timestamps to be able to read the actual latency and account for it. (Done)
 - Browser side pull up menu so more options can be accessible. (Done)
 - Such as fullscreen support. (Done)
@@ -68,7 +72,7 @@ https://github.com/Kjos/OculusGoStreamer/blob/master/config.json
 - Improve input latency for mouse cursor. Don't know why or if it can be improved much, but I think it can. (Mostly done by fixing the video latency. Don't think it can be improved anymore.)
 - Support bluetooth keyboard and other controllers.
 - Video compression needs overall improvement. Perhaps the interframe method can be removed, but I think the bandwidth usage might otherwise become too high at cost of quality. Overall interframe compression is GPU-costly for browserside. (Mostly done)
-- Sound is missing.
+- Sound is missing. (Done, needs some improvement though)
 - Bundle everything as single executable. (Website dir now extracts from Jar, for Windows VLC is downloaded)
 - Config file support or commandline parameters if sufficient. (Done, config.json)
 - Maintain aspect ratio. Will also lessen bandwidth usage a tiny bit. (Done)
