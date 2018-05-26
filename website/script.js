@@ -382,6 +382,8 @@ function toggleFullScreen() {
 var isActive = false;
 var pollTimeout = null;
 function poll() {
+	if (typeof webvrWindowResize !== 'undefined') webvrWindowResize();
+
 	if (pollTimeout) clearTimeout(pollTimeout);
 	pollTimeout = setTimeout(function() {
 		sendCommand("window", [window.innerWidth, window.innerHeight]);

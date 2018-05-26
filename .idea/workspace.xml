@@ -7,7 +7,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9181a8b5-c386-487b-b0df-6f1b68c80a62" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/website/script.js" afterPath="$PROJECT_DIR$/assets/website/script.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/website/webvr-script.js" afterPath="$PROJECT_DIR$/assets/website/webvr-script.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/website/webvr.html" afterPath="$PROJECT_DIR$/assets/website/webvr.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/website/script.js" afterPath="$PROJECT_DIR$/website/script.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/website/webvr-script.js" afterPath="$PROJECT_DIR$/website/webvr-script.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/website/webvr.html" afterPath="$PROJECT_DIR$/website/webvr.html" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -96,8 +101,8 @@
       <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="486">
-              <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+            <state relative-caret-position="54">
+              <caret line="2" column="36" lean-forward="false" selection-start-line="2" selection-start-column="36" selection-end-line="2" selection-end-column="36" />
               <folding />
             </state>
           </provider>
@@ -801,8 +806,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="486">
-          <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+        <state relative-caret-position="54">
+          <caret line="2" column="36" lean-forward="false" selection-start-line="2" selection-start-column="36" selection-end-line="2" selection-end-column="36" />
           <folding />
         </state>
       </provider>

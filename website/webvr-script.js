@@ -1,7 +1,7 @@
 var camera, scene, renderer, mesh, material;
 var drawStartPos = new THREE.Vector2();
 
-var screenSize = 700;
+var screenSize = 300;
 
 function webvrInit() {
 	if (!Detector.webgl) Detector.addGetWebGLMessage();
@@ -9,7 +9,6 @@ function webvrInit() {
 	console.log("WebVR init");
 
 	camera = new THREE.PerspectiveCamera( 90, window.innerWidth / window.innerHeight, 1, 2000 );
-	camera.position.z = 500;
 
 	scene = new THREE.Scene();
 
@@ -17,6 +16,7 @@ function webvrInit() {
 	material.map = new THREE.Texture( canvas );
 
 	mesh = new THREE.Mesh( new THREE.PlaneGeometry( screenSize, screenSize ), material );
+	mesh.position.set(0, 0, -500);
 	scene.add( mesh );
 
 	renderer = new THREE.WebGLRenderer( { antialias: true } );
@@ -25,12 +25,9 @@ function webvrInit() {
 	renderer.vr.enabled = true;
 
 	document.body.appendChild( renderer.domElement );
-
-	window.addEventListener( 'resize', onWindowResize, false );
-
 	document.body.appendChild( WEBVR.createButton( renderer ) );
 
-	webvrAnimate();
+	renderer.animate( webvrAnimate );
 }
 
 function webvrUpdate() {
@@ -45,10 +42,11 @@ function webvrUpdateAspect(aspect) {
 	}
 
 	mesh = new THREE.Mesh( new THREE.PlaneGeometry( screenSize * aspect, screenSize ), material );
+	mesh.position.set(0, 0, -500);
 	scene.add( mesh );
 }
 
-function onWindowResize() {
+function webvrWindowResize() {
 	camera.aspect = window.innerWidth / window.innerHeight;
 	camera.updateProjectionMatrix();
 
@@ -56,6 +54,5 @@ function onWindowResize() {
 }
 
 function webvrAnimate() {
-	requestAnimationFrame(webvrAnimate);
-	if (renderer) renderer.render( scene, camera );
+	renderer.render( scene, camera );
 }
