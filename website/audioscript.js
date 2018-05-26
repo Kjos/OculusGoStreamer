@@ -43,8 +43,8 @@ function connectAudioSocket() {
 		audiosocket = null;
 	};
 	audiosocket.onmessage = function (msg) {
-		var bytes = new Uint8Array(msg.data);
-		player.feed(bytes);
+		var bytes = new Int8Array(msg.data);
+		player.feedFormatted(bytes);
 		delete bytes;
 	};
 	audiosocket.onerror = function (msg) {

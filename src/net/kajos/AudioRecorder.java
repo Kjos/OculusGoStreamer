@@ -15,27 +15,36 @@ public class AudioRecorder {
     /**
      * Defines an audio format
      */
-    private AudioFormat.Encoding encoding = AudioFormat.Encoding.PCM_SIGNED;
-    private int rate = 44100;
-    private int channels = 1;
-    private int sampleSize = 8;
-    private boolean bigEndian = true;
-    private int bytesPerSample = sampleSize / 8 * channels;
-    private int payloadSize = bytesPerSample * rate / 33;//rate * channels * sampleSize;
+    //rate * channels * sampleSize / 1000 * fps * [rounding];
 
-    private AudioFormat format = new AudioFormat(encoding, rate, sampleSize, channels, bytesPerSample
-            * channels, rate, bigEndian);
+    private AudioFormat format;
+    private int payloadSize;
+
+    private void createAudioFormat() {
+        AudioFormat.Encoding encoding = AudioFormat.Encoding.PCM_SIGNED;
+        int rate = 44100;
+        int channels = 1;
+        int sampleSize = 8;
+        boolean bigEndian = true;
+        int bytesPerSample = sampleSize / 8 * channels;
+
+        payloadSize = bytesPerSample * rate / 30 / 2 * 2;
+
+        format = new AudioFormat(encoding, rate, sampleSize, channels, bytesPerSample
+                , rate, bigEndian);
+    }
 
     public AudioRecorder(AudioManager manager) {
         this.manager = manager;
 
         try {
+            createAudioFormat();
             DataLine.Info info = new DataLine.Info(TargetDataLine.class, format);
 
             // checks if system supports the data line
             if (!AudioSystem.isLineSupported(info)) {
-                System.out.println("Line not supported");
-                System.exit(0);
+                System.out.println("Audio line not supported");
+                return;
             }
             line = (TargetDataLine) AudioSystem.getLine(info);
             line.open(format);

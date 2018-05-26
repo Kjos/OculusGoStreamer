@@ -34,13 +34,13 @@ public class AudioManager extends BaseWebSocketHandler {
 
     public void onOpen(WebSocketConnection conn) {
         connection = conn;
-        System.out.println("Connection opened");
+        System.out.println("Audio connection opened");
     }
 
     public void onClose(WebSocketConnection conn) {
         closeConnection(conn);
 
-        System.out.println("Connection closed");
+        System.out.println("Audio connection closed");
     }
 
     @Override
