@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>DesktopStreamer WebVR</title>
+		<!-- Origin Trial Token, feature = WebVR (For Chrome M62+), origin = https://threejs.org, expires = 2018-05-12 -->
+		<meta http-equiv="origin-trial" data-feature="WebVR (For Chrome M62+)" data-expires="2018-05-12" content="AkM+gi6Fb7IUBwFLs18hn/x6dusbsVRYG9KBTWUUjvmT0m0wGkxRPy63Aj/i+Ti4d6qMEMnRcsR7MVV5Wuvp/AIAAABQeyJvcmlnaW4iOiJodHRwczovL3RocmVlanMub3JnOjQ0MyIsImZlYXR1cmUiOiJXZWJWUjEuMU02MiIsImV4cGlyeSI6MTUyNjExODIwMH0=">
+
+		<link rel="stylesheet" type="text/css" href="style.css?v16">
+
+		<script src="three.min.js"></script>
+		<script src="Detector.js"></script>
+		<script src="WebVR.js"></script>
+		<script src="webvr-script.js?v6"></script>
+
+		<script src="jquery-3.2.1.min.js"></script>
+		<script src="pcm-player.js?v39"></script>
+		<script src="audioscript.js?v58"></script>
+		<script src="script.js?v29"></script>
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	</head>
+	<body>
+		<canvas id="canvas" style="display: none"></canvas>
+		<div class="menu">
+			<div class="menu-contents">
+				<input id="keyboardHack" type="text" value=" "></input>
+				<img src="fullscreen.png" class="menu-fullscreen menu-icon"/>
+				<img src="nextscreen.png" class="menu-nextscreen menu-icon"/>
+				<img src="audio.png" class="menu-audio menu-icon"/>
+			</div>
+			<img src="menu.png" class="menu-open menu-icon"/>
+		</div>
+
+	</body>
+</html>

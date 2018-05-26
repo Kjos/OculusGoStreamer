@@ -106,7 +106,10 @@ function canvasResize(image, force) {
 
 	var createIpCanvas = !ipCanvas || ipCanvas[0].height != height;
 
-	if (force || createIpCanvas || canvas.width != image.width || canvas.height != height) {	
+	if (force || createIpCanvas || canvas.width != image.width || canvas.height != height) {
+
+		if (typeof webvrUpdateAspect !== 'undefined') webvrUpdateAspect(image.width / height);
+ 
 		canvas.width = image.width;
 		canvas.height = height;
         	canvas.style.position = "absolute";
@@ -331,6 +334,7 @@ function connectWebSocket() {
 			image.onload = function() {
 				image.frameLoad(); 
 				websocket.send(">" + framestamp);
+				if (typeof webvrUpdate !== 'undefined') webvrUpdate();
 			};
 			var imageFormat;
 			switch(compression) {
@@ -411,6 +415,7 @@ $(document).ready(function(){
 	inputSetup();
 	connectWebSocket();
 	initAudio();
+	if (typeof webvrInit !== 'undefined') webvrInit();
 
 	window.onresize = poll;
 

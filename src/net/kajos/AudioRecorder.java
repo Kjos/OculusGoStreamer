@@ -1,21 +1,11 @@
 package net.kajos;
 
 import net.kajos.Manager.AudioManager;
-import net.kajos.Manager.Manager;
 
 import javax.sound.sampled.*;
 import java.io.IOException;
 
 public class AudioRecorder {
-    private TargetDataLine line;
-    private AudioInputStream ais;
-
-    private AudioManager manager;
-
-    /**
-     * Defines an audio format
-     */
-    //rate * channels * sampleSize / 1000 * fps * [rounding];
 
     private AudioFormat format;
     private int payloadSize;
@@ -28,29 +18,42 @@ public class AudioRecorder {
         boolean bigEndian = true;
         int bytesPerSample = sampleSize / 8 * channels;
 
-        payloadSize = bytesPerSample * rate / 30 / 2 * 2;
+        payloadSize = rate * bytesPerSample / 30 / 2 * 2;
 
         format = new AudioFormat(encoding, rate, sampleSize, channels, bytesPerSample
                 , rate, bigEndian);
     }
 
     public AudioRecorder(AudioManager manager) {
-        this.manager = manager;
 
         try {
             createAudioFormat();
-            DataLine.Info info = new DataLine.Info(TargetDataLine.class, format);
 
-            // checks if system supports the data line
-            if (!AudioSystem.isLineSupported(info)) {
-                System.out.println("Audio line not supported");
+            Mixer.Info[] mixerInfo = AudioSystem.getMixerInfo();    //get available mixers
+            System.out.println("Available mixers:");
+            int sel = -1;
+            for (int i = 0; i < mixerInfo.length; i++) {
+                try {
+                    AudioSystem.getTargetDataLine(format, mixerInfo[i]);
+                    System.out.println("Mixer " + i + ": " + mixerInfo[i].getName());
+                    sel = i;
+                } catch (IllegalArgumentException ex) {
+
+                }
+            }
+
+            if (sel == -1) {
+                System.out.println("No suitable audio line found!");
                 return;
             }
-            line = (TargetDataLine) AudioSystem.getLine(info);
-            line.open(format);
-            line.start();	// start capturing
+            TargetDataLine line = AudioSystem.getTargetDataLine(format);
+            //line = AudioSystem.getTargetDataLine(format, mixerInfo[sel]);
+            //System.out.println("Selected mixer: " + sel);
 
-            ais = new AudioInputStream(line);
+            line.open(format);
+            line.start();
+
+            AudioInputStream ais = new AudioInputStream(line);
 
             System.out.println("Start capturing sound...");
 

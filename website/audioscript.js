@@ -39,7 +39,7 @@ function connectAudioSocket() {
 		console.log("connected audio");
 	};
 	audiosocket.onclose = function () {
-		console.log("disconnected");
+		console.log("disconnected audio");
 		audiosocket = null;
 	};
 	audiosocket.onmessage = function (msg) {

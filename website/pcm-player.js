@@ -145,7 +145,7 @@ PCMPlayer.prototype.flush = function() {
 	}
 
 	this.bufferSource.buffer = this.audioBuffer;
-	this.bufferSource.playbackRate = 0.99;
+	//this.bufferSource.playbackRate = 0.99;
 	this.bufferSource.connect(this.gainNode);
 	this.bufferSource.start(this.startTime);
 
