@@ -7,13 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9181a8b5-c386-487b-b0df-6f1b68c80a62" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/website/audioscript.js" afterPath="$PROJECT_DIR$/assets/website/audioscript.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/website/index.html" afterPath="$PROJECT_DIR$/assets/website/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/website/pcm-player.js" afterPath="$PROJECT_DIR$/assets/website/pcm-player.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/kajos/AudioRecorder.java" afterPath="$PROJECT_DIR$/src/net/kajos/AudioRecorder.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/website/audioscript.js" afterPath="$PROJECT_DIR$/website/audioscript.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/website/index.html" afterPath="$PROJECT_DIR$/website/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/website/pcm-player.js" afterPath="$PROJECT_DIR$/website/pcm-player.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -67,7 +61,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AudioRecorder.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="AudioRecorder.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/net/kajos/AudioRecorder.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="221">
@@ -75,6 +69,16 @@
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="OculusGoStreamer.iml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/OculusGoStreamer.iml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -89,21 +93,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="540">
-              <caret line="20" column="14" lean-forward="false" selection-start-line="20" selection-start-column="14" selection-end-line="20" selection-end-column="14" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/net/kajos/Main.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="189">
-              <caret line="8" column="20" lean-forward="false" selection-start-line="8" selection-start-column="20" selection-end-line="8" selection-end-column="20" />
+            <state relative-caret-position="324">
+              <caret line="18" column="108" lean-forward="false" selection-start-line="18" selection-start-column="108" selection-end-line="18" selection-end-column="108" />
               <folding />
             </state>
           </provider>
@@ -241,9 +235,9 @@
         <option value="$PROJECT_DIR$/src/net/kajos/AudioSender.java" />
         <option value="$PROJECT_DIR$/src/net/kajos/Manager/Manager.java" />
         <option value="$PROJECT_DIR$/src/net/kajos/Server.java" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/src/net/kajos/Manager/AudioManager.java" />
         <option value="$PROJECT_DIR$/src/net/kajos/AudioRecorder.java" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -611,13 +605,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/OculusGoStreamer.iml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/net/kajos/ImagePool.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-631">
@@ -786,14 +773,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="20" column="14" lean-forward="false" selection-start-line="20" selection-start-column="14" selection-end-line="20" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/net/kajos/Manager/AudioManager.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="837">
@@ -809,6 +788,22 @@
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OculusGoStreamer.iml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="18" column="108" lean-forward="false" selection-start-line="18" selection-start-column="108" selection-end-line="18" selection-end-column="108" />
+          <folding />
         </state>
       </provider>
     </entry>

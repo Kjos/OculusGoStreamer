@@ -16,9 +16,7 @@ Basically works in any browser. Tested on Android phone. Reported working with N
  Will be lower if the client browser has a lower resolution as the video is downscaled before compression.
  The OculusGo browser has a resolution of 800x480 when not in fullscreen.
 
- - Basic sound support now working! Currently mono, will become stereo soon.
- It's a first draft, should improve quickly. Tested on Go. Enable by pressing the sound icon in the
- pull up menu.
+ - Stereo sound support implemented! Still some more latency inconsistencies, but works pretty well overall.
 
 ## Instructions:
 - Download the Jar: https://github.com/Kjos/OculusGoStreamer/raw/master/out/artifacts/OculusGoStreamer_jar/OculusGoStreamer.jar
