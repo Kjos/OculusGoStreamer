@@ -23,7 +23,7 @@ public class AudioRecorder {
     private void createAudioFormat() {
         AudioFormat.Encoding encoding = AudioFormat.Encoding.PCM_SIGNED;
         int rate = 44100;
-        int channels = 1;
+        int channels = 2;
         int sampleSize = 8;
         boolean bigEndian = true;
         int bytesPerSample = sampleSize / 8 * channels;

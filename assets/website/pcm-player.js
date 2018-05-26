@@ -119,7 +119,7 @@ PCMPlayer.prototype.destroy = function() {
 };
 
 PCMPlayer.prototype.refresh = function() {
-	var length = this.maxBufferSize * this.option.channels;
+	var length = this.maxBufferSize;
 	this.bufferSource = this.audioCtx.createBufferSource();
 	this.audioBuffer = this.audioCtx.createBuffer(this.option.channels, length, this.option.sampleRate);
 	this.audioData = this.audioBuffer.getChannelData(0);
@@ -127,7 +127,7 @@ PCMPlayer.prototype.refresh = function() {
 };
 
 PCMPlayer.prototype.refreshDual = function() {
-	var length = this.maxBufferSize * this.option.channels;
+	var length = this.maxBufferSize;
 	this.bufferSource = this.audioCtx.createBufferSource();
 	this.audioBuffer = this.audioCtx.createBuffer(this.option.channels, length, this.option.sampleRate);
 	this.audioData = this.audioBuffer.getChannelData(0);

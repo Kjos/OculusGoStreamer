@@ -28,7 +28,7 @@ function connectAudioSocket() {
 	if (player) player.destroy();
 	player = new PCMPlayer({
 	    encoding: '8bitInt',
-	    channels: 1,
+	    channels: 2,
 	    sampleRate: 44100
 	});
 
