@@ -29,8 +29,7 @@ function connectAudioSocket() {
 	player = new PCMPlayer({
 	    encoding: '8bitInt',
 	    channels: 1,
-	    sampleRate: 44100,
-	    flushingTime: 100
+	    sampleRate: 44100
 	});
 
 	var source = "ws://" + window.location.host + "/audiosocket?t=" + new Date().getTime();

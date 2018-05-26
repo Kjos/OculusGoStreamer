@@ -6,13 +6,11 @@ PCMPlayer.prototype.init = function(option) {
 	var defaults = {
 		encoding: '16bitInt',
 		channels: 1,
-		sampleRate: 8000,
-		flushingTime: 1000
+		sampleRate: 8000
 	};
 	this.option = Object.assign({}, defaults, option);
 	this.samples = new Float32Array();
 	this.flush = this.flush.bind(this);
-	//this.interval = setInterval(this.flush, this.option.flushingTime);
 	this.maxValue = this.getMaxValue();
 	this.typedArray = this.getTypedArray();
 	this.audioBufferPool = new Array();
@@ -20,7 +18,6 @@ PCMPlayer.prototype.init = function(option) {
 
 	this.maxBufferSize = 1000;
 	this.refresh();
-	this.flush();
 };
 
 PCMPlayer.prototype.getMaxValue = function () {
@@ -75,9 +72,6 @@ PCMPlayer.prototype.feedFormatted = function(data) {
 	}
 };
 
-var buffer = new Array();
-var playing = null;
-
 PCMPlayer.prototype.getFormatedValue = function(data) {
 	var data = new this.typedArray(data.buffer),
 		float32 = new Float32Array(data.length),
@@ -113,7 +107,6 @@ PCMPlayer.prototype.refresh = function() {
 
 PCMPlayer.prototype.flush = function() {
 	if (this.audioCount != this.maxBufferSize) {
-		//setTimeout(this.flush, 100);
 		return;
 	}
 	if (this.startTime < this.audioCtx.currentTime) {
