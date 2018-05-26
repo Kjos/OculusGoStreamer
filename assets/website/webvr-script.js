@@ -28,6 +28,8 @@ function webvrInit() {
 	document.body.appendChild( WEBVR.createButton( renderer ) );
 
 	renderer.animate( webvrAnimate );
+
+	window.onresize = webvrWindowResize;
 }
 
 function webvrUpdate() {
@@ -47,6 +49,8 @@ function webvrUpdateAspect(aspect) {
 }
 
 function webvrWindowResize() {
+	sendCommand("window", ['1024', '512']);
+
 	camera.aspect = window.innerWidth / window.innerHeight;
 	camera.updateProjectionMatrix();
 

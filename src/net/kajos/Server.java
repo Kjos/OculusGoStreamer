@@ -46,20 +46,28 @@ public class Server {
             restart = true;
         }
 
-        Screen screen = Config.get().getScreen();
-        float displayAspect = (float)screen.width /
-                (float)screen.height;
-        float clientAspect = (float)clientWidth / (float)clientHeight;
-        float diffAspect = displayAspect / clientAspect;
-        if (diffAspect < 1f) {
-            clientWidth = (int)((float)clientWidth * diffAspect);
+        // Exception for WebGL: needs to be power of two numbers
+        if (clientWidth == 1024 && clientHeight == 512) {
+            if (restart) {
+                recorder.stop();
+                recorder.start(clientWidth, clientHeight);
+            }
         } else {
-            clientHeight = (int)((float)clientHeight / diffAspect);
-        }
+            Screen screen = Config.get().getScreen();
+            float displayAspect = (float) screen.width /
+                    (float) screen.height;
+            float clientAspect = (float) clientWidth / (float) clientHeight;
+            float diffAspect = displayAspect / clientAspect;
+            if (diffAspect < 1f) {
+                clientWidth = (int) ((float) clientWidth * diffAspect);
+            } else {
+                clientHeight = (int) ((float) clientHeight / diffAspect);
+            }
 
-        if (restart) {
-            recorder.stop();
-            recorder.start(clientWidth, clientHeight);
+            if (restart) {
+                recorder.stop();
+                recorder.start(clientWidth, clientHeight);
+            }
         }
     }
 

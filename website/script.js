@@ -276,7 +276,7 @@ function connectWebSocket() {
 		console.log("connected");
 		lastKeyFrame = new Array();
 		lastKeyData = new Array();
-		sendCommand("window", [window.innerWidth, window.innerHeight]);
+		window.onresize();
 	};
 	websocket.onclose = function () {
 		console.log("disconnected");
@@ -381,13 +381,15 @@ function toggleFullScreen() {
 
 var isActive = false;
 var pollTimeout = null;
-function poll() {
-	if (typeof webvrWindowResize !== 'undefined') webvrWindowResize();
-
+function pollResize(force) {
 	if (pollTimeout) clearTimeout(pollTimeout);
-	pollTimeout = setTimeout(function() {
+	if (force) {	
 		sendCommand("window", [window.innerWidth, window.innerHeight]);
-	}, 500);
+	} else {
+		pollTimeout = setTimeout(function() {
+			sendCommand("window", [window.innerWidth, window.innerHeight]);
+		}, 500);
+	}
 }
 
 function menuInit() {
@@ -417,9 +419,9 @@ $(document).ready(function(){
 	inputSetup();
 	connectWebSocket();
 	initAudio();
-	if (typeof webvrInit !== 'undefined') webvrInit();
-
-	window.onresize = poll;
-
 	menuInit();
+
+	window.onresize = pollResize;
+
+	if (typeof webvrInit !== 'undefined') webvrInit();
 });
